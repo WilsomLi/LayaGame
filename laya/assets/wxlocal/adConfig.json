@@ -1,0 +1,158 @@
+{
+    "timestamp": 0,
+    "version": "1.0.0",
+    "boxes": [
+        {
+            "title": "救救恐龙宝宝",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/2f0d4a2991e7465586af2cbd0e74f71c.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx68e6ecae93c0c5a3",
+            "path": "?channel=wx638732461656d042&ald_media_id=32304&ald_link_key=876cf1eb7b695be4&ald_position_id=0",
+            "sideboxId": 5004
+        },
+        {
+            "title": "火柴人荡秋千",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/c8d571a56e424f28b439b3285a184ab8.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx5651c19cc9878481",
+            "sideboxId": 5150
+        },
+        {
+            "title": "托尼老师",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/337e31c82a8842a585e3c49693c1d0e4.jpg",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdd8d2e22b81eb6e7",
+            "sideboxId": 5082
+        },
+        {
+            "title": "推开小坏蛋",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/079814add2884397a69f48369674e9fa.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx85d164409c846308",
+            "sideboxId": 5153
+        },
+        {
+            "title": "丿丿游戏",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/1731420861c14b21b0086c409f6256fe.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx3500720820004f5b",
+            "path": "?ald_media_id=33345&ald_link_key=d77ffea7dd81470c&ald_position_id=0",
+            "shieldIos": 1,
+            "sideboxId": 5148
+        },
+        {
+            "title": "青蛙割绳子",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/eb42230cad454904a4322cad29702131.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdfd16d128b23abd4",
+            "sideboxId": 5140
+        },
+        {
+            "title": "臭弟弟站住",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/43f0aba93d254769924ad1d06b900da0.jpg",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxe6a45a124aa21b4d",
+            "path": "?channel=wx638732461656d042&ald_media_id=32515&ald_link_key=2bb57a287054b8b2&ald_position_id=0",
+            "sideboxId": 5023
+        },
+        {
+            "title": "天天涂鸦",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/ad36510dcaa04ce8b8a1c6d9ba33b0f4.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxb2e8e6a45ee0f0dc",
+            "sideboxId": 5086
+        },
+        {
+            "title": "救救火柴人",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/234214994b034803b981f4aab347531a.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdc9df67ccf148dfd",
+            "path": "?scene=119&ald_media_id=27698&ald_link_key=a26cf629044c1060&ald_position_id=0",
+            "sideboxId": 5001
+        },
+        {
+            "title": "停车高手",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/d2fd75b4addd4e65bfd6c35e0f93274c.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx2028d5be1bf948ca",
+            "sideboxId": 5027
+        },
+        {
+            "title": "救救火柴人",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/f19273229f584e31834b4f504578500a.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdc9df67ccf148dfd",
+            "path": "?scene=119&ald_media_id=27698&ald_link_key=a26cf629044c1060&ald_position_id=0",
+            "sideboxId": 5000
+        },
+        {
+            "title": "救救恐龙宝宝",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/8fd105aa001a4d36bcd1b04662d7c6fa.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx68e6ecae93c0c5a3",
+            "path": "?channel=wx638732461656d042&ald_media_id=32304&ald_link_key=876cf1eb7b695be4&ald_position_id=0",
+            "sideboxId": 5005
+        },
+        {
+            "title": "臭弟弟站住",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/0a8e1ac568314db3964415c5d8815e65.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxe6a45a124aa21b4d",
+            "path": "?channel=wx638732461656d042&ald_media_id=32515&ald_link_key=2bb57a287054b8b2&ald_position_id=0",
+            "sideboxId": 5024
+        },
+        {
+            "title": "停车高手",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/6f32cab946d3474c886b542ac5991f7d.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx2028d5be1bf948ca",
+            "sideboxId": 5028
+        },
+        {
+            "title": "叫我托尼老师",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/4be1756d60d34ec49145aa58b83c0fb9.jpg",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdd8d2e22b81eb6e7",
+            "sideboxId": 5081
+        },
+        {
+            "title": "青蛙割绳子",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/df077ccb750c44678ada16dfd2850731.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxdfd16d128b23abd4",
+            "sideboxId": 5141
+        },
+        {
+            "title": "天天涂鸦",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/27ab2de17cd34fcd989e4f7b022e7252.png",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wxb2e8e6a45ee0f0dc",
+            "sideboxId": 5085
+        },
+        {
+            "title": "推开小坏蛋",
+            "icon": "https://ydhwimg.szvi-bo.com/wx638732461656d042/sidebox/51a77b51e8bc4733b7fa1990ec6eecf3.PNG",
+            "status": 1,
+            "showTime": 30,
+            "jumpAppid": "wx85d164409c846308",
+            "sideboxId": 5152
+        }
+    ]
+}

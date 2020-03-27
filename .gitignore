@@ -1,0 +1,15 @@
+# ignore folders
+
+node_modules/
+
+.laya/chrome
+.rpt2_cache
+
+/release
+
+bin.rar
+bin.zip
+/bin/js/bundle.js
+/bin/js/bundle.js.map
+
+package-lock.json

@@ -1,0 +1,3506 @@
+{
+  "101": {
+    "ID": 101,
+    "Parameter": "level1",
+    "coinReward": 20,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "201": {
+    "ID": 201,
+    "Parameter": "level2",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "202": {
+    "ID": 202,
+    "Parameter": "level2",
+    "coinReward": 40,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "301": {
+    "ID": 301,
+    "Parameter": "level3",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "302": {
+    "ID": 302,
+    "Parameter": "level3",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "303": {
+    "ID": 303,
+    "Parameter": "level3",
+    "coinReward": 60,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "401": {
+    "ID": 401,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "402": {
+    "ID": 402,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "403": {
+    "ID": 403,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "404": {
+    "ID": 404,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "501": {
+    "ID": 501,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "502": {
+    "ID": 502,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "503": {
+    "ID": 503,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "504": {
+    "ID": 504,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "601": {
+    "ID": 601,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "602": {
+    "ID": 602,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "603": {
+    "ID": 603,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "604": {
+    "ID": 604,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "701": {
+    "ID": 701,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "702": {
+    "ID": 702,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "703": {
+    "ID": 703,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "704": {
+    "ID": 704,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "801": {
+    "ID": 801,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "802": {
+    "ID": 802,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "803": {
+    "ID": 803,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "804": {
+    "ID": 804,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "901": {
+    "ID": 901,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "902": {
+    "ID": 902,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "903": {
+    "ID": 903,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "904": {
+    "ID": 904,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1001": {
+    "ID": 1001,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1002": {
+    "ID": 1002,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1003": {
+    "ID": 1003,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1004": {
+    "ID": 1004,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1101": {
+    "ID": 1101,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1102": {
+    "ID": 1102,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1103": {
+    "ID": 1103,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1104": {
+    "ID": 1104,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1201": {
+    "ID": 1201,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1202": {
+    "ID": 1202,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1203": {
+    "ID": 1203,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1204": {
+    "ID": 1204,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1301": {
+    "ID": 1301,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1302": {
+    "ID": 1302,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1303": {
+    "ID": 1303,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1304": {
+    "ID": 1304,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1401": {
+    "ID": 1401,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1402": {
+    "ID": 1402,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1403": {
+    "ID": 1403,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1404": {
+    "ID": 1404,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1501": {
+    "ID": 1501,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1502": {
+    "ID": 1502,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1503": {
+    "ID": 1503,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1504": {
+    "ID": 1504,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1601": {
+    "ID": 1601,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1602": {
+    "ID": 1602,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1603": {
+    "ID": 1603,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1604": {
+    "ID": 1604,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1701": {
+    "ID": 1701,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1702": {
+    "ID": 1702,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1703": {
+    "ID": 1703,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1704": {
+    "ID": 1704,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1801": {
+    "ID": 1801,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1802": {
+    "ID": 1802,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1803": {
+    "ID": 1803,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1804": {
+    "ID": 1804,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1901": {
+    "ID": 1901,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1902": {
+    "ID": 1902,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1903": {
+    "ID": 1903,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "1904": {
+    "ID": 1904,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2001": {
+    "ID": 2001,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2002": {
+    "ID": 2002,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2003": {
+    "ID": 2003,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2004": {
+    "ID": 2004,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2101": {
+    "ID": 2101,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2102": {
+    "ID": 2102,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2103": {
+    "ID": 2103,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2104": {
+    "ID": 2104,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2201": {
+    "ID": 2201,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2202": {
+    "ID": 2202,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2203": {
+    "ID": 2203,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2204": {
+    "ID": 2204,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2301": {
+    "ID": 2301,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2302": {
+    "ID": 2302,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2303": {
+    "ID": 2303,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2304": {
+    "ID": 2304,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2401": {
+    "ID": 2401,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2402": {
+    "ID": 2402,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2403": {
+    "ID": 2403,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2404": {
+    "ID": 2404,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2501": {
+    "ID": 2501,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2502": {
+    "ID": 2502,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2503": {
+    "ID": 2503,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2504": {
+    "ID": 2504,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2601": {
+    "ID": 2601,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2602": {
+    "ID": 2602,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2603": {
+    "ID": 2603,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2604": {
+    "ID": 2604,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2701": {
+    "ID": 2701,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2702": {
+    "ID": 2702,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2703": {
+    "ID": 2703,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2704": {
+    "ID": 2704,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2801": {
+    "ID": 2801,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2802": {
+    "ID": 2802,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2803": {
+    "ID": 2803,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2804": {
+    "ID": 2804,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2901": {
+    "ID": 2901,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2902": {
+    "ID": 2902,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2903": {
+    "ID": 2903,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "2904": {
+    "ID": 2904,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3001": {
+    "ID": 3001,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3002": {
+    "ID": 3002,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3003": {
+    "ID": 3003,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3004": {
+    "ID": 3004,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3101": {
+    "ID": 3101,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3102": {
+    "ID": 3102,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3103": {
+    "ID": 3103,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3104": {
+    "ID": 3104,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3201": {
+    "ID": 3201,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3202": {
+    "ID": 3202,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3203": {
+    "ID": 3203,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3204": {
+    "ID": 3204,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3301": {
+    "ID": 3301,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3302": {
+    "ID": 3302,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3303": {
+    "ID": 3303,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3304": {
+    "ID": 3304,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3401": {
+    "ID": 3401,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3402": {
+    "ID": 3402,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3403": {
+    "ID": 3403,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3404": {
+    "ID": 3404,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3501": {
+    "ID": 3501,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3502": {
+    "ID": 3502,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3503": {
+    "ID": 3503,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3504": {
+    "ID": 3504,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3601": {
+    "ID": 3601,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3602": {
+    "ID": 3602,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3603": {
+    "ID": 3603,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3604": {
+    "ID": 3604,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3701": {
+    "ID": 3701,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3702": {
+    "ID": 3702,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3703": {
+    "ID": 3703,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3704": {
+    "ID": 3704,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3801": {
+    "ID": 3801,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3802": {
+    "ID": 3802,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3803": {
+    "ID": 3803,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3804": {
+    "ID": 3804,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3901": {
+    "ID": 3901,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3902": {
+    "ID": 3902,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3903": {
+    "ID": 3903,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "3904": {
+    "ID": 3904,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4001": {
+    "ID": 4001,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4002": {
+    "ID": 4002,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4003": {
+    "ID": 4003,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4004": {
+    "ID": 4004,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4101": {
+    "ID": 4101,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4102": {
+    "ID": 4102,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4103": {
+    "ID": 4103,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4104": {
+    "ID": 4104,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4201": {
+    "ID": 4201,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4202": {
+    "ID": 4202,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4203": {
+    "ID": 4203,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4204": {
+    "ID": 4204,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4301": {
+    "ID": 4301,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4302": {
+    "ID": 4302,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4303": {
+    "ID": 4303,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4304": {
+    "ID": 4304,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4401": {
+    "ID": 4401,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4402": {
+    "ID": 4402,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4403": {
+    "ID": 4403,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4404": {
+    "ID": 4404,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4501": {
+    "ID": 4501,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4502": {
+    "ID": 4502,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4503": {
+    "ID": 4503,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4504": {
+    "ID": 4504,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4601": {
+    "ID": 4601,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4602": {
+    "ID": 4602,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4603": {
+    "ID": 4603,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4604": {
+    "ID": 4604,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4701": {
+    "ID": 4701,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4702": {
+    "ID": 4702,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4703": {
+    "ID": 4703,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4704": {
+    "ID": 4704,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4801": {
+    "ID": 4801,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4802": {
+    "ID": 4802,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4803": {
+    "ID": 4803,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4804": {
+    "ID": 4804,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4901": {
+    "ID": 4901,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4902": {
+    "ID": 4902,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4903": {
+    "ID": 4903,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "4904": {
+    "ID": 4904,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5001": {
+    "ID": 5001,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5002": {
+    "ID": 5002,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5003": {
+    "ID": 5003,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5004": {
+    "ID": 5004,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5101": {
+    "ID": 5101,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5102": {
+    "ID": 5102,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5103": {
+    "ID": 5103,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5104": {
+    "ID": 5104,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5201": {
+    "ID": 5201,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5202": {
+    "ID": 5202,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5203": {
+    "ID": 5203,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5204": {
+    "ID": 5204,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5301": {
+    "ID": 5301,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5302": {
+    "ID": 5302,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5303": {
+    "ID": 5303,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5304": {
+    "ID": 5304,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5401": {
+    "ID": 5401,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5402": {
+    "ID": 5402,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5403": {
+    "ID": 5403,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5404": {
+    "ID": 5404,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5501": {
+    "ID": 5501,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5502": {
+    "ID": 5502,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5503": {
+    "ID": 5503,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5504": {
+    "ID": 5504,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5601": {
+    "ID": 5601,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5602": {
+    "ID": 5602,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5603": {
+    "ID": 5603,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5604": {
+    "ID": 5604,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5701": {
+    "ID": 5701,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5702": {
+    "ID": 5702,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5703": {
+    "ID": 5703,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5704": {
+    "ID": 5704,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5801": {
+    "ID": 5801,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5802": {
+    "ID": 5802,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5803": {
+    "ID": 5803,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5804": {
+    "ID": 5804,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5901": {
+    "ID": 5901,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5902": {
+    "ID": 5902,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5903": {
+    "ID": 5903,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "5904": {
+    "ID": 5904,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6001": {
+    "ID": 6001,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6002": {
+    "ID": 6002,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6003": {
+    "ID": 6003,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6004": {
+    "ID": 6004,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6101": {
+    "ID": 6101,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6102": {
+    "ID": 6102,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6103": {
+    "ID": 6103,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6104": {
+    "ID": 6104,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6201": {
+    "ID": 6201,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6202": {
+    "ID": 6202,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6203": {
+    "ID": 6203,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6204": {
+    "ID": 6204,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6301": {
+    "ID": 6301,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6302": {
+    "ID": 6302,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6303": {
+    "ID": 6303,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6304": {
+    "ID": 6304,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6401": {
+    "ID": 6401,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6402": {
+    "ID": 6402,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6403": {
+    "ID": 6403,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6404": {
+    "ID": 6404,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6501": {
+    "ID": 6501,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6502": {
+    "ID": 6502,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6503": {
+    "ID": 6503,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6504": {
+    "ID": 6504,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6601": {
+    "ID": 6601,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6602": {
+    "ID": 6602,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6603": {
+    "ID": 6603,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6604": {
+    "ID": 6604,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6701": {
+    "ID": 6701,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6702": {
+    "ID": 6702,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6703": {
+    "ID": 6703,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6704": {
+    "ID": 6704,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6801": {
+    "ID": 6801,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6802": {
+    "ID": 6802,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6803": {
+    "ID": 6803,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6804": {
+    "ID": 6804,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6901": {
+    "ID": 6901,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6902": {
+    "ID": 6902,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6903": {
+    "ID": 6903,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "6904": {
+    "ID": 6904,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7001": {
+    "ID": 7001,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7002": {
+    "ID": 7002,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7003": {
+    "ID": 7003,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7004": {
+    "ID": 7004,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7101": {
+    "ID": 7101,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7102": {
+    "ID": 7102,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7103": {
+    "ID": 7103,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7104": {
+    "ID": 7104,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7201": {
+    "ID": 7201,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7202": {
+    "ID": 7202,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7203": {
+    "ID": 7203,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7204": {
+    "ID": 7204,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7301": {
+    "ID": 7301,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7302": {
+    "ID": 7302,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7303": {
+    "ID": 7303,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7304": {
+    "ID": 7304,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7401": {
+    "ID": 7401,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7402": {
+    "ID": 7402,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7403": {
+    "ID": 7403,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7404": {
+    "ID": 7404,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7501": {
+    "ID": 7501,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7502": {
+    "ID": 7502,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7503": {
+    "ID": 7503,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7504": {
+    "ID": 7504,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7601": {
+    "ID": 7601,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7602": {
+    "ID": 7602,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7603": {
+    "ID": 7603,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7604": {
+    "ID": 7604,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7701": {
+    "ID": 7701,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7702": {
+    "ID": 7702,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7703": {
+    "ID": 7703,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7704": {
+    "ID": 7704,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7801": {
+    "ID": 7801,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7802": {
+    "ID": 7802,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7803": {
+    "ID": 7803,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7804": {
+    "ID": 7804,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7901": {
+    "ID": 7901,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7902": {
+    "ID": 7902,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7903": {
+    "ID": 7903,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "7904": {
+    "ID": 7904,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8001": {
+    "ID": 8001,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8002": {
+    "ID": 8002,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8003": {
+    "ID": 8003,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8004": {
+    "ID": 8004,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8101": {
+    "ID": 8101,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8102": {
+    "ID": 8102,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8103": {
+    "ID": 8103,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8104": {
+    "ID": 8104,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8201": {
+    "ID": 8201,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8202": {
+    "ID": 8202,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8203": {
+    "ID": 8203,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8204": {
+    "ID": 8204,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8301": {
+    "ID": 8301,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8302": {
+    "ID": 8302,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8303": {
+    "ID": 8303,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8304": {
+    "ID": 8304,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8401": {
+    "ID": 8401,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8402": {
+    "ID": 8402,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8403": {
+    "ID": 8403,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8404": {
+    "ID": 8404,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8501": {
+    "ID": 8501,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8502": {
+    "ID": 8502,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8503": {
+    "ID": 8503,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8504": {
+    "ID": 8504,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8601": {
+    "ID": 8601,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8602": {
+    "ID": 8602,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8603": {
+    "ID": 8603,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8604": {
+    "ID": 8604,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8701": {
+    "ID": 8701,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8702": {
+    "ID": 8702,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8703": {
+    "ID": 8703,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8704": {
+    "ID": 8704,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8801": {
+    "ID": 8801,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8802": {
+    "ID": 8802,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8803": {
+    "ID": 8803,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8804": {
+    "ID": 8804,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8901": {
+    "ID": 8901,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8902": {
+    "ID": 8902,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8903": {
+    "ID": 8903,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "8904": {
+    "ID": 8904,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9001": {
+    "ID": 9001,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9002": {
+    "ID": 9002,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9003": {
+    "ID": 9003,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9004": {
+    "ID": 9004,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9101": {
+    "ID": 9101,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9102": {
+    "ID": 9102,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9103": {
+    "ID": 9103,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9104": {
+    "ID": 9104,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9201": {
+    "ID": 9201,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9202": {
+    "ID": 9202,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9203": {
+    "ID": 9203,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9204": {
+    "ID": 9204,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9301": {
+    "ID": 9301,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9302": {
+    "ID": 9302,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9303": {
+    "ID": 9303,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9304": {
+    "ID": 9304,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9401": {
+    "ID": 9401,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9402": {
+    "ID": 9402,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9403": {
+    "ID": 9403,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9404": {
+    "ID": 9404,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9501": {
+    "ID": 9501,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9502": {
+    "ID": 9502,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9503": {
+    "ID": 9503,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9504": {
+    "ID": 9504,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9601": {
+    "ID": 9601,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9602": {
+    "ID": 9602,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9603": {
+    "ID": 9603,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9604": {
+    "ID": 9604,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9701": {
+    "ID": 9701,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9702": {
+    "ID": 9702,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9703": {
+    "ID": 9703,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9704": {
+    "ID": 9704,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9801": {
+    "ID": 9801,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9802": {
+    "ID": 9802,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9803": {
+    "ID": 9803,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9804": {
+    "ID": 9804,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9901": {
+    "ID": 9901,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9902": {
+    "ID": 9902,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9903": {
+    "ID": 9903,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "9904": {
+    "ID": 9904,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10001": {
+    "ID": 10001,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10002": {
+    "ID": 10002,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10003": {
+    "ID": 10003,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10004": {
+    "ID": 10004,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10101": {
+    "ID": 10101,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10102": {
+    "ID": 10102,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10103": {
+    "ID": 10103,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10104": {
+    "ID": 10104,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10201": {
+    "ID": 10201,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10202": {
+    "ID": 10202,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10203": {
+    "ID": 10203,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10204": {
+    "ID": 10204,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10301": {
+    "ID": 10301,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10302": {
+    "ID": 10302,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10303": {
+    "ID": 10303,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10304": {
+    "ID": 10304,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10401": {
+    "ID": 10401,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10402": {
+    "ID": 10402,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10403": {
+    "ID": 10403,
+    "Parameter": "level4",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10404": {
+    "ID": 10404,
+    "Parameter": "level4",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10501": {
+    "ID": 10501,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10502": {
+    "ID": 10502,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10503": {
+    "ID": 10503,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10504": {
+    "ID": 10504,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10601": {
+    "ID": 10601,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10602": {
+    "ID": 10602,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10603": {
+    "ID": 10603,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10604": {
+    "ID": 10604,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10701": {
+    "ID": 10701,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10702": {
+    "ID": 10702,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10703": {
+    "ID": 10703,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10704": {
+    "ID": 10704,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10801": {
+    "ID": 10801,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10802": {
+    "ID": 10802,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10803": {
+    "ID": 10803,
+    "Parameter": "level8",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10804": {
+    "ID": 10804,
+    "Parameter": "level8",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10901": {
+    "ID": 10901,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10902": {
+    "ID": 10902,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10903": {
+    "ID": 10903,
+    "Parameter": "level6",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "10904": {
+    "ID": 10904,
+    "Parameter": "level6",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11001": {
+    "ID": 11001,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11002": {
+    "ID": 11002,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11003": {
+    "ID": 11003,
+    "Parameter": "level5",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11004": {
+    "ID": 11004,
+    "Parameter": "level5",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11101": {
+    "ID": 11101,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11102": {
+    "ID": 11102,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11103": {
+    "ID": 11103,
+    "Parameter": "level7",
+    "coinReward": 0,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  },
+  "11104": {
+    "ID": 11104,
+    "Parameter": "level7",
+    "coinReward": 80,
+    "ClearTime": null,
+    "Progress": null,
+    "powerReward": null
+  }
+}

@@ -1,0 +1,23 @@
+<res>
+   <item name="game/num.png" type="Clip" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="common/blank_2.png" type="Sprite" compress="0" pack="0" quality="80" props="sizeGrid=1,1,1,1" picType="0" scale="0"/>
+   <item name="common/blank.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=1,1,1,1" picType="0" scale="0"/>
+   <item name="shop/Onglet_Full.png" type="Sprite" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="images/Effect/AnimationPic/Etoile.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="images/Effect/AnimationPic/Particule_Rond.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="friend/rank4.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="common" type="" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="common/loading.png" type="Sprite" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="game/btn_blue.png" type="Button" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,20" picType="0" scale="0"/>
+   <item name="game/img_bg_white.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,20,20,20" picType="0" scale="0"/>
+   <item name="game/img_bg_blue.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,20,20,20" picType="0" scale="0"/>
+   <item name="loading" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="nativescene/loading" type="" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="nativescene" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="nativescene/loading/progress.png" type="ProgressBar" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="wxlocal" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="common/frame_bg.png" type="Sprite" compress="0" pack="0" quality="80" props="sizeGrid=92,40,32,40" picType="0" scale="0"/>
+   <item name="game/try_light.png" type="Sprite" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="game/result_light.png" type="Sprite" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="npc_skin" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+</res>

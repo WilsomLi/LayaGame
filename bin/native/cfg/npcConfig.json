@@ -1,0 +1,104 @@
+{
+  "1": {
+    "ID": 1,
+    "npcModel": "NPC_01",
+    "standbyAction": "standshoumen",
+    "speedRate": 0
+  },
+  "2": {
+    "ID": 2,
+    "npcModel": "NPC_02",
+    "standbyAction": "doorwalk",
+    "speedRate": 0.8
+  },
+  "3": {
+    "ID": 3,
+    "npcModel": "NPC_03",
+    "standbyAction": "run",
+    "speedRate": 0.8
+  },
+  "4": {
+    "ID": 4,
+    "npcModel": "NPC_04_2",
+    "standbyAction": "sambadance",
+    "speedRate": 0
+  },
+  "5": {
+    "ID": 5,
+    "npcModel": "NPC_04_3",
+    "standbyAction": "sambadance",
+    "speedRate": 0
+  },
+  "6": {
+    "ID": 6,
+    "npcModel": "NPC_04_4",
+    "standbyAction": "sambadance",
+    "speedRate": 0
+  },
+  "7": {
+    "ID": 7,
+    "npcModel": "NPC_04_6",
+    "standbyAction": "sambadance",
+    "speedRate": 0
+  },
+  "8": {
+    "ID": 8,
+    "npcModel": "NPC_05_s",
+    "standbyAction": "runfront",
+    "speedRate": 0.26
+  },
+  "9": {
+    "ID": 9,
+    "npcModel": "NPC_05_n",
+    "standbyAction": "runfront",
+    "speedRate": 0.26
+  },
+  "10": {
+    "ID": 10,
+    "npcModel": "NPC_06",
+    "standbyAction": "placedance",
+    "speedRate": 0
+  },
+  "11": {
+    "ID": 11,
+    "npcModel": "NPC_07",
+    "standbyAction": "runfront",
+    "speedRate": 0.35
+  },
+  "12": {
+    "ID": 12,
+    "npcModel": "NPC_08",
+    "standbyAction": "doorwalk",
+    "speedRate": 0.8
+  },
+  "13": {
+    "ID": 13,
+    "npcModel": "NPC_09",
+    "standbyAction": "runfront",
+    "speedRate": 0.4
+  },
+  "14": {
+    "ID": 14,
+    "npcModel": "NPC_10",
+    "standbyAction": "attack",
+    "speedRate": 0
+  },
+  "15": {
+    "ID": 15,
+    "npcModel": "NPC_11",
+    "standbyAction": "placedance",
+    "speedRate": 0
+  },
+  "16": {
+    "ID": 16,
+    "npcModel": "NPC_12",
+    "standbyAction": "runfront",
+    "speedRate": 0.2
+  },
+  "17": {
+    "ID": 17,
+    "npcModel": "NPC_13",
+    "standbyAction": "runfront",
+    "speedRate": 0.4
+  }
+}

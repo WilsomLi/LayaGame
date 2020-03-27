@@ -1,0 +1,26 @@
+<page>
+   <item name="test/TestScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/StartScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/MainScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/GameScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/OverScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/StartPage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/Start.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/OverPage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="game/Loading.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/StartPage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/OverPage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/Loading.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/GameScene.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/DebugView.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/TouchDownUI.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/Shop.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/ShopItem.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/InvitePage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/RankingView.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/ResultPage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/AchievePage.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/TryModelView.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/HowToPlay.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/loading/CZ_loading_ef.scene" props="" ifExport="分离模式" aName=""/>
+</page>

@@ -1,0 +1,28 @@
+{
+  "deviceOrientation": "portrait",
+  "showStatusBar": false,
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "subpackages": [
+    {
+      "name": "nativescene",
+      "root": "nativescene/"
+    }
+  ],
+  "navigateToMiniProgramAppIdList": [
+    "wx24396cb5643e2641",
+    "wx00e21f19d431d06a",
+    "wxcd8ae5ce2447a9b4",
+    "wx5651c19cc9878481",
+    "wxeafca7535547afca",
+    "wx4d1f0311ebabd52f",
+    "wxa5708f4c812949bc",
+    "wxcb49e3a933bb4269",
+    "wx535481e2c3ff79bc",
+    "wx85d1e9714a262ce7"
+  ]
+}
