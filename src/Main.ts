@@ -6,15 +6,15 @@ import EventMgr from "./mgr/EventMgr";
 import SoundMgr from "./mgr/SoundMgr";
 import DataStatistics from "./core/DataStatistics";
 import UserData from "./mgr/UserData";
-import AldPlatform from "./platform/AldPlatform";
+import AldSDK from "./platform/AldSDK";
 import Utils from "./util/Utils";
 import WebPlatform from "./platform/WebPlatform";
 import EventType from "./const/EventType";
 import EUI from "./const/EUI";
-import SideMgr from "./side/SideMgr";
+import SideMgr from "./side/mgr/SideMgr";
 import SideReceiver from "./mgr/SideReceiver";
 import NativeMgr from "./mgr/NativeMgr";
-import YLSdkMgr from "./mgr/YLSdkMgr";
+import YLSDK from "./platform/YLSDK";
 
 class Main {
 	constructor() {
@@ -67,16 +67,23 @@ class Main {
 
 	onConfigLoaded(): void {
 		// 打点开始
-		AldPlatform.timeId = Date.now();
-		AldPlatform.aldSendEvent("开始游戏", false);
+		AldSDK.timeId = Date.now();
+		AldSDK.aldSendEvent("开始游戏", false);
 		this.initCDNConfig();
 		this.setupPlatform();
+		YLSDK.ylInitSDK((success) => {
+			console.log("ylInitSDK", success);
+			// console.log("YLSDK-user", YLSDK.ylGetUserInfo());
+			// console.log("YLSDK-switch", YLSDK.ylGetSwitchInfo());
+		});
+
 		SideMgr.init(platform, platform.isWechat || platform.isNone);
 		SideReceiver.init();
+		SideMgr.reqYLSideboxAndBoard();
+
 		SoundMgr.init();
 		DataStatistics.init();
 		UserData.instance.init();
-		YLSdkMgr.init();
 		UIMgr.openUI(EUI.LoadingUI);
 	}
 

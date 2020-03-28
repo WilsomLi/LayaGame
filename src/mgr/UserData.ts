@@ -4,8 +4,8 @@ import EventType from "../const/EventType";
 import StrategyMgr from "../mgr/StrategyMgr";
 import TimeUtils from "../util/TimeUtils";
 import ShareTimeMgr from "./ShareTimeMgr";
-import SideMgr from "../side/SideMgr";
-import SideMsg, { ESMessage } from "../side/SideMsg";
+import SideMgr from "../side/mgr/SideMgr";
+import SideMsg, { ESMessage } from "../side/mgr/SideMsg";
 
 /**
  * 玩家数据

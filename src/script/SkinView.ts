@@ -7,7 +7,7 @@
 // import Utils from "../util/Utils";
 // import StrategyMgr, { SvModule } from "../mgr/StrategyMgr";
 // import ServerAgency from "../core/ServerAgency";
-// import AldPlatform from "../platform/AldPlatform";
+// import AldSDK from "../platform/AldSDK";
 // import SkinItem from "./item/SkinItem";
 // import { ESprite3D } from "../const/ERes";
 // import SceneMgr from "../mgr/SceneMgr";
@@ -203,7 +203,7 @@
 //             // 刷新自身
 //             self.refresh();
 //         }
-//         AldPlatform.aldSendEvent('皮肤-购买');
+//         AldSDK.aldSendEvent('皮肤-购买');
 //     }
 
 //     /**
@@ -244,7 +244,7 @@
 //             // 次数增加更新按钮
 //             StrategyMgr.setTimesByModule(SvModule.FreeGold);
 //             self.updateStrategy();
-//             AldPlatform.aldSendEvent('皮肤-' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-' + (self.$isVideo ? '视频' : '分享') + '得金币');
+//             AldSDK.aldSendEvent('皮肤-' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-' + (self.$isVideo ? '视频' : '分享') + '得金币');
 //         }
 //     }
 // }

@@ -3,7 +3,7 @@
     "type":"View",
     "selectedBox":2,
     "searchKey":"View",
-    "props":{"width":124,"sceneColor":"#000000","runtime":"model/item/SideGridItem.ts","height":154},
+    "props":{"width":124,"sceneColor":"#000000","runtime":"side/item/SideGridItem.ts","height":154},
     "nodeParent":-1,
     "maxID":8,
     "label":"View",

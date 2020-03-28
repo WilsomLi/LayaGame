@@ -1,19 +1,38 @@
 //// 卖量TS版参数说明文件，建议拷进工程时将该文件置于libs目录下 ////
 
 /**
- * 卖量格式：同socket版本格式，为防止后期socket删除该字段，所以此处拷贝一份
+ * SideView通用参数
  */
-interface ISideboxData {
+interface ISViewData {
     sideboxId?: number;         // 盒子id
-    type?: number;              // 0，小程序。1，图片
     title?: string;             // 标题
     icon?: string;              // 图标
+    jumpAppid?: string;         // 跳转appid
+    path?: string;              // 跳转路径
+    isBoard?: boolean;          // 是否是积分墙数据
+}
+
+/**
+ * 卖量格式：同socket版本格式，为防止后期socket删除该字段，所以此处拷贝一份
+ */
+interface ISideboxData extends ISViewData {
+    type?: number;              // 0，小程序。1，图片
     status?: number;            // 状态 0，关。1，开
     innerStatus?: number;       // 是否内部标识，0不是，1是
     showTime?: number;          // 显示时间
-    jumpAppid?: string;         // 跳转appid
-    path?: string;              // 跳转路径
     shieldIos?: number;         // 是否屏蔽ios，0不屏蔽，1屏蔽
+}
+
+/**
+ * 积分墙数据格式
+ */
+interface IScoreBoardData extends ISViewData {
+    id?: number;                // 积分墙ID
+    isOpen?: boolean;           // 是否开启
+    jumpPath?: string;          // 跳转路径
+    playTime?: number;          // 游戏时间
+    award?: string;             // 奖励配置
+    isAwarded?: boolean;        // 是否已领取
 }
 
 /**
@@ -60,7 +79,7 @@ declare module Laya {
      * 数据、皮肤、监听，包含三者的对象
      */
     interface ISideIcon extends EventDispatcher {
-        dataSource: ISideboxData;
+        dataSource: ISViewData;
         skin?: string;
     }
 
@@ -68,6 +87,11 @@ declare module Laya {
      * 卖量基类
      */
     class SideView extends Laya.View {
+
+        /**
+         * 是否积分墙界面，子类重写
+         */
+        protected isBoard: boolean;
 
         /**
          * 显示视图，由于卖量本身会受外部控制，因此自身的visible属性不能动，那么只能从子控件的visible入手
@@ -80,7 +104,7 @@ declare module Laya {
          * 初始化界面，虚方法，子类重写该方法绘制界面
          * @param datas 卖量数据
          */
-        protected initView(datas: ISideboxData[]): void;
+        protected initView(datas: ISViewData[]): void;
 
         /**
          * 有数据时离开父控件调用，不为空
@@ -98,22 +122,27 @@ declare module Laya {
         * @param data 数据
         * @param datas 数据列表，如存在则会将img的旧数据存入
          */
-        protected bind(img: ISideIcon, data: ISideboxData, datas?: ISideboxData[]): void;
+        protected bind(img: ISideIcon, data: ISViewData, datas?: ISViewData[]): void;
 
         /**
          * 图标点击事件
          */
-        protected onClick(data: ISideboxData, e?: Laya.Event): void;
+        protected onClick(data: ISViewData, e?: Laya.Event): void;
 
         /**
-         * 跳转取消
+         * 添砖成功，不为空函数
          */
-        protected onCancel(data: ISideboxData): void;
+        protected onSuccess(data: ISViewData): void;
+
+        /**
+         * 跳转取消，空函数
+         */
+        protected onCancel(data: ISViewData): void;
 
         /**
          * 数据移除时调用，必须重写，多个卖量存在时，卖量删除会同时触发该函数
          */
-        protected onRemoved(data: ISideboxData): void;
+        protected onRemoved(data: ISViewData): void;
 
         /**
          * 发送阿拉丁打点

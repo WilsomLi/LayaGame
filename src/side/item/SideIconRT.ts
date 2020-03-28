@@ -1,8 +1,8 @@
 import { ui } from "../../ui/layaMaxUI";
-import SideUtils from "../../side/SideUtils";
 import TweenModel from "../../util/TweenModel";
 import Tween from "../../util/Tween";
-import SideMgr from "../../side/SideMgr";
+import SideMgr from "../mgr/SideMgr";
+import SideUtils from "../mgr/SideUtils";
 
 /**
  * 右上角卖量

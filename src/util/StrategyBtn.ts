@@ -2,7 +2,7 @@ import Utils from "./Utils";
 import StrategyMgr from "../mgr/StrategyMgr";
 import UIMgr from "../mgr/UIMgr";
 import DataStatistics from "../core/DataStatistics";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 
 
 
@@ -415,7 +415,7 @@ export default class StrategyBtn extends Laya.Script {
         var self = this;
         self.$aldLevel = addLevel;
         // 因游戏而定，由于默认参数就带关卡，因此只用一个即可
-        self.$aldFunc = /* addLevel ? AldPlatform.aldLevelEvent :  */AldPlatform.aldSendEvent;
+        self.$aldFunc = /* addLevel ? AldSDK.aldLevelEvent :  */AldSDK.aldSendEvent;
     }
 
     /**

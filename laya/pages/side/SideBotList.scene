@@ -1,10 +1,9 @@
 {
     "x":0,
     "type":"SideView",
-    "selectedBox":4,
-    "selecteID":7,
+    "selectedBox":2,
     "searchKey":"SideView",
-    "props":{"width":732,"sceneColor":"#000000","runtime":"model/side/SideBotList.ts","height":160},
+    "props":{"width":732,"sceneColor":"#000000","runtime":"side/item/SideBotList.ts","height":160},
     "nodeParent":-1,
     "maxID":8,
     "label":"SideView",

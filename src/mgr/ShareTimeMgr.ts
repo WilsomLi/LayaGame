@@ -1,5 +1,4 @@
 import UserData from "./UserData";
-import Utils from "../util/Utils";
 
 /**
  * 缓存格式

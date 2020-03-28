@@ -1,6 +1,7 @@
+import Vector3 = Laya.Vector3;
+
 import GameMgr, { EGamePhase } from "../../mgr/GameMgr";
 import Utils from "../../util/Utils";
-import Vector3 = Laya.Vector3;
 import Vector3Ex from "../../util/Vector3Ex";
 
 export enum ShakeType {
@@ -37,20 +38,6 @@ export default class CameraCtrl extends Laya.Script {
 
     private _startFlyPos:Vector3 = new Vector3();
     private _startFlyRot:Laya.Quaternion = new Laya.Quaternion();
-
-    private _shakeOffPos:Vector3 = new Vector3();
-    private _shakeNextTime:number = 0;
-    private _shakeIndex:number = 0;
-    private _shakeFactor:number = 0;
-
-    private lastMouseX = NaN;
-	private lastMouseY = NaN;
-	private yawPitchRoll = new Vector3();
-	private tempRotationZ = new Laya.Quaternion();
-	private isMouseDown = false;
-    private rotaionSpeed = 0.00006;
-    private moveVec = new Vector3();
-    private _tempVector3 = new Vector3();
     private _rotElements = new Float32Array(3);
 
     public static INIT_CHASE_TIME:number = 0.3;

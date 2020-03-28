@@ -1,22 +1,15 @@
-import GameConfig from "../GameConfig";
+
 import EventMgr from "./EventMgr";
-import ResMgr from "./ResMgr";
-import CameraCtrl from "../logic/ctrl/CameraCtrl";
 import RolePlayer from "../logic/entity/RolePlayer";
 import EventType from "../const/EventType";
 import UIMgr from "./UIMgr";
 import EUI from "../const/EUI";
-import { ESprite3D, SceneRoot } from "../const/ERes";
-import Http from "../core/Http";
-import GameConst  from "../const/GameConst";
-import Utils from "../util/Utils";
 import UserData from "./UserData";
 import CfgDataMgr from "./CfgDataMgr";
-import SoundMgr from "./SoundMgr";
 import SceneMgr from "./SceneMgr";
 import Player from "../logic/entity/Player";
 import HomeView from "../script/HomeView";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import ShopMgr from "./ShopMgr";
 import BaseProp from "../logic/entity/BaseProp";
 
@@ -92,7 +85,7 @@ export default class GameMgr {
     }
 
     launchGame() {
-        AldPlatform.aldSendEvent('loading完成', false, { time: Date.now() });
+        AldSDK.aldSendEvent('loading完成', false, { time: Date.now() });
         this.addEvents();
         // SoundMgr.playBGM();
         // 首页显示
@@ -134,7 +127,7 @@ export default class GameMgr {
 
     private onStartGame() {
         var uInc = UserData.instance;
-        AldPlatform.aldSendEvent('%u-进入关卡');
+        AldSDK.aldSendEvent('%u-进入关卡');
         // SceneMgr.instance.loadSceneData(1, Laya.Handler.create(this, this.initEntity));
     }
 
@@ -181,7 +174,7 @@ export default class GameMgr {
             // 失败的话关闭后刷新
             UIMgr.openUI(0 < 0.5 ? EUI.FailView : EUI.ReviveView, stageLevel).setCloseCall(refresh);
         }
-        AldPlatform.aldSendEvent((uInc.isNewPlayer ? '新' : '老') + '用户-挑战' + (succeed ? '成功' : '失败'), true, { level: stageLevel });
+        AldSDK.aldSendEvent((uInc.isNewPlayer ? '新' : '老') + '用户-挑战' + (succeed ? '成功' : '失败'), true, { level: stageLevel });
     }
 
     /**

@@ -4,7 +4,7 @@ import UIMgr from "../mgr/UIMgr";
 import EUI from "../const/EUI";
 import UserData from "../mgr/UserData";
 import CfgDataMgr from "../mgr/CfgDataMgr";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import FlyGold from "../core/ui/FlyGold";
 import Utils from "../util/Utils";
 
@@ -42,7 +42,7 @@ export default class ResultView extends ui.view.ResultViewUI {
     protected onClose(): void {
         var self = this;
         var endCall = function () {
-            AldPlatform.aldSendEvent('结算页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-下一关');
+            AldSDK.aldSendEvent('结算页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-下一关');
             UIMgr.closeUI(EUI.ResultView);
             GameMgr.instance.backHome();
         };

@@ -1,7 +1,7 @@
 import GameConst from "../const/GameConst";
 import UserData from "../mgr/UserData";
 import Utils from "../util/Utils";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import StrategyMgr from "../mgr/StrategyMgr";
 import ShareTimeMgr from "../mgr/ShareTimeMgr";
 import YLSdkMgr from "../mgr/YLSdkMgr";
@@ -119,7 +119,7 @@ export default class ServerAgency {
                 // 弹窗逻辑
                 if (typeof (_res) == "string") {
                     if (isForce) {
-                        let aldFunc = AldPlatform.aldSendEvent;
+                        let aldFunc = AldSDK.aldSendEvent;
                         let eventId = 'fenxiangshibai';
                         aldEvent += '分享-失败提示框-';
                         aldFunc(aldEvent + '曝光-' + '%u');

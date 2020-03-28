@@ -3,7 +3,7 @@ import UIMgr from "../mgr/UIMgr";
 import EUI from "../const/EUI";
 import GameMgr from "../mgr/GameMgr";
 import UserData from "../mgr/UserData";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import Utils from "../util/Utils";
 
 /**
@@ -29,7 +29,7 @@ export default class FailView extends ui.view.FailViewUI {
      * 点击重新开始
      */
     protected onRestart(): void {
-        AldPlatform.aldSendEvent('重新开始页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-重新开始');
+        AldSDK.aldSendEvent('重新开始页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-重新开始');
         UIMgr.closeUI(EUI.FailView);
         GameMgr.instance.restart();
     }

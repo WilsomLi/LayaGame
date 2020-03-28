@@ -1,7 +1,7 @@
 import { ui } from "./../ui/layaMaxUI";
 import DataStatistics from "../core/DataStatistics";
 import GameMgr from "../mgr/GameMgr";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import UserData from "../mgr/UserData";
 import GameConst from "../const/GameConst";
 import UIMgr from "../mgr/UIMgr";
@@ -11,8 +11,8 @@ import CfgDataMgr from "../mgr/CfgDataMgr";
 import Utils from "../util/Utils";
 import TrySkinMgr from "../mgr/TrySkinMgr";
 import EUI from "../const/EUI";
-import SideMgr from "../side/SideMgr";
-import SideMsg, { ESMessage } from "../side/SideMsg";
+import SideMgr from "../side/mgr/SideMgr";
+import SideMsg, { ESMessage } from "../side/mgr/SideMsg";
 
 /**
  * 主页
@@ -37,11 +37,9 @@ export default class HomeView extends ui.view.HomeViewUI {
         Utils.multipleClick(self.imgGold, 6, 300, self.onDebug, self);
         // 界面初始
         self.resetGame(false);
-        // 开关
-        SideMgr.cehckShow(imgMore);
         // 打点
-        AldPlatform.homeTime = Date.now();
-        AldPlatform.aldSendEvent((UserData.instance.isNewPlayer ? '新' : '老') + '用户-loading完成');
+        AldSDK.homeTime = Date.now();
+        AldSDK.aldSendEvent((UserData.instance.isNewPlayer ? '新' : '老') + '用户-loading完成');
         // 事件
         self.regEvent(EventType.RefreshLevel, self.updateLevel);
         self.regEvent(EventType.RefreshGold, self.updateGold);
@@ -101,7 +99,7 @@ export default class HomeView extends ui.view.HomeViewUI {
      * 点击中继按钮
      */
     protected onRelay(): void {
-        // AldPlatform.aldSendEvent('主页-中继页');
+        // AldSDK.aldSendEvent('主页-中继页');
         // if (UserData.instance.hasSideData())
         //     UIMgr.openUI(EUI.JumpGameView, {
         //         eventName: '主页中继页卖量',
@@ -117,7 +115,7 @@ export default class HomeView extends ui.view.HomeViewUI {
      */
     protected onPause(): void {
         // var self = this;
-        // AldPlatform.aldSendEvent('关卡内-中继页');
+        // AldSDK.aldSendEvent('关卡内-中继页');
         // if (UserData.instance.hasSideData()) {
         //     GameMgr.instance.pauseGame();
         //     UIMgr.openUI(EUI.JumpGameView, {
@@ -148,7 +146,7 @@ export default class HomeView extends ui.view.HomeViewUI {
      * 点击更多游戏
      */
     protected onMore(): void {
-        AldPlatform.aldSendEvent('主页-更多好玩');
+        AldSDK.aldSendEvent('主页-更多好玩');
         UIMgr.openUI(EUI.MoreGameView);
     }
 
@@ -156,7 +154,7 @@ export default class HomeView extends ui.view.HomeViewUI {
      * 点击皮肤
      */
     protected onSkin(): void {
-        AldPlatform.aldSendEvent('主页-皮肤%u用户');
+        AldSDK.aldSendEvent('主页-皮肤%u用户');
         // UIMgr.openUI(EUI.SkinView);
     }
 
@@ -174,7 +172,7 @@ export default class HomeView extends ui.view.HomeViewUI {
         //     // 直接开始游戏
         //     GameMgr.instance.startGame();
         // };
-        // AldPlatform.aldSendEvent("主页-" + (UserData.instance.isNewPlayer ? "新" : "老") + "用户开始游戏",
+        // AldSDK.aldSendEvent("主页-" + (UserData.instance.isNewPlayer ? "新" : "老") + "用户开始游戏",
         //     true, { level: UserData.instance.level });
         // // 皮肤试用
         // if (TrySkinMgr.canTry()) {

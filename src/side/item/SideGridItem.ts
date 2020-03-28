@@ -1,19 +1,17 @@
 import { ui } from "../../ui/layaMaxUI";
-import SideUtils from "../../side/SideUtils";
 import TweenModel from "../../util/TweenModel";
 import Tween from "../../util/Tween";
+import SideUtils from "../mgr/SideUtils";
 
 /**
- * 好消息子项
+ * 方形卖量子项
  */
-export default class SideNewItem extends ui.item.SideNewItemUI {
-
-    /**
+export default class SideGridItem extends ui.item.SideGridItemUI {
+/**
      * 重写
      */
     public onEnable(): void {
-        var self = this;
-        var imgIcon = self.imgIcon;
+        var self = this, imgIcon = self.imgIcon;
         var mask = imgIcon.mask = new Laya.Sprite;
         SideUtils.drawRoundRect(mask.graphics, imgIcon.width, imgIcon.height, 25);
         TweenModel.swingTween(self.imgNew);

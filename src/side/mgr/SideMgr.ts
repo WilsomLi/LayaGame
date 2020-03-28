@@ -1,5 +1,6 @@
 import SideUtils from "./SideUtils";
 import SideMsg, { ESMessage } from "./SideMsg";
+import YLSDK from "../../platform/YLSDK";
 
 /**
  * 卖量格式
@@ -69,9 +70,13 @@ export default class SideMgr {
      */
     private static $complete: boolean;
     /**
-     * 屏蔽的ID列表
+     * 屏蔽的卖量列表
      */
     private static $rmSides: any[];
+    /**
+     * 屏蔽的积分墙列表
+     */
+    private static $rmBoards: any[];
     /**
      * 当前界面使用的卖量列表
      */
@@ -80,6 +85,10 @@ export default class SideMgr {
      * 当前配置可使用的卖量列表
      */
     private static $boxesZ: ISideboxData[];
+    /**
+     * 积分墙数据列表
+     */
+    private static $boards: IScoreBoardData[];
     /**
      * 服务器卖量配置
      */
@@ -107,6 +116,7 @@ export default class SideMgr {
         var register = SideMsg.register;
         register(ESMessage.C2S_SWITCH, self.onSwitch, self, true);
         register(ESMessage.C2S_RM_SIDES, self.onRmSides, self);
+        register(ESMessage.C2S_RM_BOARDS, self.onRmBoards, self);
         register(ESMessage.C2S_REMOVE, self.onRemove, self);
         register(ESMessage.C2S_RESET, self.onReset, self);
         // 加载缓存
@@ -153,6 +163,7 @@ export default class SideMgr {
      * @param data 卖量文件配置
      */
     protected static onCompleteL(data: IAdConfig): void {
+        console.log('data', data);
         var self = SideMgr;
         if (data) {
             self.$cache = self.checkObj(data) && data;
@@ -229,6 +240,7 @@ export default class SideMgr {
     protected static onComplete(data: IAdConfig): void {
         var self = SideMgr;
         if (!self.$complete && data) {
+            console.log('最终卖量数据', data);
             self.$cache = data;
             self.initSides();
             self.$complete = true;
@@ -272,6 +284,31 @@ export default class SideMgr {
         }
     }
 
+    /**
+     * 初始化卖量列表
+     * @param datas 
+     */
+    protected static initBoards(): void {
+        var self = SideMgr;
+        var datas = self.$boards;
+        if (datas) {
+            let rmBoards = self.$rmBoards;
+            let rmFirst = rmBoards && rmBoards[0];
+            // 是否能正常使用，即不受屏蔽
+            let rmFunc = rmFirst ? (typeof rmFirst === 'string' ? function (d: IScoreBoardData) {
+                return rmBoards.indexOf(d.jumpAppid) == -1;
+            } : function (d: IScoreBoardData) {
+                return rmBoards.indexOf(d.sideboxId) == -1;
+            }) : function (d: IScoreBoardData) { return true };
+            // 判断是否领取
+            let noIPhone = !Laya.Browser.onIOS;
+            for (let i = 0, len = datas.length; i < len; i++) {
+                let data = datas[i];
+                data.isAwarded = !rmFunc(data);
+            }
+        }
+    }
+
     //// 接受业务层相关 ////
 
     /**
@@ -293,6 +330,18 @@ export default class SideMgr {
             if (self.$complete) {
                 self.initSides();
             }
+        }
+    }
+
+    /**
+     * 积分墙屏蔽列表监听
+     * @param ids 
+     */
+    protected static onRmBoards(ids: number[] | string[]): void {
+        var self = SideMgr;
+        if (ids) {
+            self.$rmBoards = ids;
+            self.initBoards();
         }
     }
 
@@ -359,11 +408,16 @@ export default class SideMgr {
      * 检测是否能显示卖量相关的控件
      * @param view 
      */
-    public static cehckShow(view: Laya.Sprite): void {
-        view.visible = false;
-        SideMgr.loadSides(function (datas) {
-            view.visible = datas && datas.length > 0;
-        });
+    public static checkShow(view: Laya.Sprite): void {
+        if(platform.isOppo){
+            // oppo先隐藏退出按钮 更多好玩
+            view.visible = false;
+        }else{
+            view.visible = false;
+            SideMgr.loadSides(function (datas) {
+                view.visible = datas && datas.length > 0;
+            });
+        }
     }
 
     /**
@@ -376,7 +430,6 @@ export default class SideMgr {
         if (index > -1) {
             boxes.splice(index, 1);
             SideMsg.notice(ESMessage.S2S_REMOVE, data);
-            boxes.length == 0 && SideMsg.notice(ESMessage.S2C_CLEAR);
         }
     }
 
@@ -389,6 +442,8 @@ export default class SideMgr {
         boxesZ && (self.$boxes = boxesZ.concat());
     }
 
+    //// 积分墙功能 ////
+
     /**
      * 使用服务器（socket）卖量，前提是SideMgr.init第二个参数传false
      */
@@ -399,8 +454,198 @@ export default class SideMgr {
             version: '1.0.0',
             boxes: datas
         };
-        if (SideMgr.$useSvr) {
-            SideMgr.onComplete(config);
+        // if (SideMgr.$useSvr) {
+        //     SideMgr.onComplete(config);
+        // }
+        SideMgr.onComplete(config);
+    }
+
+    /**
+     * 设置服务器积分墙数据，现阶段仅支持服务器设置
+     */
+    public static setSvrSBoard(datas: IScoreBoardData[]): void {
+        if (!SideMgr.$boards && datas) {
+            let array = SideMgr.$boards = [];
+            for (let i = 0, len = datas.length; i < len; i++) {
+                let data = datas[i];
+                if (data.isOpen) {
+                    // 兼容卖量数据格式
+                    data.sideboxId = data.id;
+                    data.path = data.jumpPath;
+                    // data.isBoard = true;  卖量统计问题 少了
+                    array.push(data);
+                }
+            }
+            SideMsg.notice(ESMessage.S2S_COMPLETE1, array);
+        }
+    }
+
+    /**
+     * 影流后台获取侧边盒与积分墙数据
+     */
+    public static reqYLSideboxAndBoard():void {
+        //侧边盒
+        if (!SideMgr.$complete) {
+            let sideboxArr:Array<ISideboxData> = [];
+            if (Laya.Browser.onPC) {
+                sideboxArr.push({
+                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/528b9fe9085146e7908123bc0dd077f9.jpg",
+                    innerStatus:0,
+                    jumpAppid:"wxb2e8e6a45ee0f0dc",
+                    path:"",
+                    shieldIos:0,
+                    showTime:30,
+                    sideboxId:5381,
+                    status:1,
+                    title:"天天涂鸦",
+                    type:0
+                }, {
+                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f679c18745004196b3f9fd63106925ae.png",
+                    innerStatus:0,
+                    jumpAppid:"wxdfd16d128b23abd4",
+                    path:"",
+                    shieldIos:0,
+                    showTime:30,
+                    sideboxId:5382,
+                    status:1,
+                    title:"我吃糖贼6",
+                    type:0
+                }, {
+                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f45857909999465cbc965f74e0d0c949.png",
+                    innerStatus:0,
+                    jumpAppid:"wx994fa8e21a539e13",
+                    path:"",
+                    shieldIos:0,
+                    showTime:30,
+                    sideboxId:5383,
+                    status:1,
+                    title:"水上乐园",
+                    type:0
+                });
+                SideMgr.setSvrSide(sideboxArr);
+            } else {
+                YLSDK.ylSideBox((_data) => {
+                    console.log("获取侧边栏成功", _data);
+                    // YdData.sideBoxList = data;
+                    if (_data) {
+                        for (let index = 0; index < _data.length; index++) {
+                            const itemData = _data[index];
+                            sideboxArr.push({
+                                icon:itemData["icon"],
+                                innerStatus:itemData["innerStatus"],
+                                jumpAppid:itemData["toAppid"],
+                                path:itemData["path"],
+                                shieldIos:itemData["shieldIos"],
+                                showTime:itemData["showTimes"],
+                                sideboxId:itemData["_id"],
+                                status:1,
+                                title:itemData["title"],
+                                type:itemData["type"]
+                            });
+                        }
+                        console.log("SideMgr.setSvrSide", sideboxArr);
+                        SideMgr.setSvrSide(sideboxArr);
+                    }
+                });
+            }
+        }
+        //积分墙
+        if (!SideMgr.$boards) {
+            let boardArr:Array<IScoreBoardData> = [];
+            if (Laya.Browser.onPC) {
+                boardArr.push({
+                    award:"[{'type':'gold','value':'0'}]",
+                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/scoreboard/00fd6134a02548c490f80368f82d75cc.jpg",
+                    id:393,
+                    isOpen:true,
+                    jumpAppid:"wxb2e8e6a45ee0f0dc",
+                    path:"",
+                    sideboxId:393,
+                    title:"天天涂鸦"
+                },{
+                    award:"[{'type':'gold','value':'0'}]",
+                    icon:"https://ydhwimg.szvi-bo.com/wx38483cec31344b79/scoreboard/598c1db65dbc45738de7ebac2c404792.png",
+                    id:409,
+                    isOpen:true,
+                    jumpAppid:"wx994fa8e21a539e13",
+                    path:"",
+                    sideboxId:393,
+                    title:"水上乐园"
+                });
+                SideMgr.setSvrSBoard(boardArr);
+            } else {
+                YLSDK.ylIntegralWall((_data) => {
+                    console.log("获取积分墙成功", _data);
+                    if (_data) {
+                        let sideData = <IScoreBoardData>{};
+                        for (let index = 0; index < _data.length; index++) {
+                            const itemData = _data[index];
+                            boardArr.push({
+                                award:"[{'type':'gold','value':'0'}]",
+                                icon:itemData["icon"],
+                                id:itemData["_id"],
+                                isOpen:true,
+                                jumpAppid:itemData["toAppid"],
+                                path:itemData["path"],
+                                sideboxId:itemData["_id"],
+                                // type:itemData["type"],
+                                title:itemData["title"]
+                            });
+                        }
+                        console.log("SideMgr.setSvrSBoard", sideData);
+                        SideMgr.setSvrSBoard(boardArr);
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * 加载积分墙列表
+     */
+    public static loadBoards(call: (datas: ISideboxData[]) => void, thisObj?: any): void {
+        var self = SideMgr;
+        // 结束回调
+        var endc = function () {
+            call.call(thisObj, self.getBoards());
+        };
+        if (self.$boards) {
+            endc();
+        }
+        else {
+            SideMsg.register(ESMessage.S2S_COMPLETE, endc, self, true);
+        }
+    }
+
+    /**
+     * 获取积分墙数据，适用于非首屏界面
+     */
+    public static getBoards(): IScoreBoardData[] {
+        return config.switch ? SideMgr.$boards : null;
+    }
+
+    /**
+     * 是否还有积分墙
+     */
+    public static hasBoards(): boolean {
+        var boxes = SideMgr.getBoards();
+        return boxes && boxes.length > 0;
+    }
+
+    /**
+     * 移除积分墙
+     */
+    public static removeBoard(boardId: number): void {
+        var boards = SideMgr.$boards;
+        if (boards) {
+            for (let i = 0, len = boards.length; i < len; i++) {
+                let data = boards[i];
+                if (data.id === boardId) {
+                    data.isAwarded = true;
+                    SideMsg.notice(ESMessage.S2S_REMOVE1, data);
+                    break;
+                }
+            }
         }
     }
 }

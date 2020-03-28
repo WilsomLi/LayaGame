@@ -1,7 +1,7 @@
-import SideMsg, { ESMessage } from "../side/SideMsg";
+import SideMsg, { ESMessage } from "../side/mgr/SideMsg";
 import UserData from "./UserData";
 import SoundMgr from "./SoundMgr";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import DataStatistics from "../core/DataStatistics";
 
 /**
@@ -60,7 +60,7 @@ export default class SideReceiver {
      * @param data 打点参数
      */
     protected static onDotAld(event: string, data: any): void {
-        AldPlatform.aldSendEvent(event, true, data);
+        AldSDK.aldSendEvent(event, true, data);
     }
 
     /**

@@ -3,7 +3,7 @@
     "type":"SideView",
     "selectedBox":2,
     "searchKey":"SideView",
-    "props":{"width":118,"sceneColor":"#000000","runtime":"model/side/SideIconRT.ts","height":144},
+    "props":{"width":118,"sceneColor":"#000000","runtime":"side/item/SideIconRT.ts","height":144},
     "nodeParent":-1,
     "maxID":5,
     "label":"SideView",

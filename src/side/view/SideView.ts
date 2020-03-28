@@ -1,5 +1,7 @@
-import SideMgr from "../side/SideMgr";
-import SideMsg, { ESMessage } from "../side/SideMsg";
+
+import YLSDK from "../../platform/YLSDK";
+import SideMgr from "../mgr/SideMgr";
+import SideMsg, { ESMessage } from "../mgr/SideMsg";
 
 
 
@@ -129,18 +131,34 @@ export default class SideView extends Laya.View {
                 let reqC2SClick = function (enable: boolean) {
                     event && SideMsg.notice(ESMessage.S2C_DOT_SERVER, event, side, enable);
                 };
-                SideMgr.platform.navigateToMiniProgram({
-                    appId: appId,
-                    path: side.path,
-                    success: function () {
-                        self.onSuccess(side);
-                        reqC2SClick(true);
+                // SideMgr.platform.navigateToMiniProgram({
+                //     appId: appId,
+                //     path: side.path,
+                //     success: function () {
+                //         self.onSuccess(side);
+                //         reqC2SClick(true);
+                //     },
+                //     fail: function () {
+                //         self.onCancel(side);
+                //         reqC2SClick(false);
+                //     }
+                // });
+                YLSDK.ylNavigateToMiniProgram(
+                    {
+                        _id: side.sideboxId,
+                        toAppid: side.jumpAppid,
+                        toUrl: side.path,
+                        type: 0
                     },
-                    fail: function () {
-                        self.onCancel(side);
-                        reqC2SClick(false);
-                    }
-                });
+                    function(success) {
+                        if(success) {
+                            self.onSuccess(side);
+                            reqC2SClick(true);
+                        } else {
+                            self.onCancel(side);
+                            reqC2SClick(false);
+                        }
+                }.bind(this));
                 if (event) {
                     // 阿拉点
                     let param = <any>{ iconId: side.sideboxId };

@@ -2,7 +2,7 @@ import { ui } from "../ui/layaMaxUI";
 import EventType from "../const/EventType";
 import ResMgr from "../mgr/ResMgr";
 import EventMgr from "../mgr/EventMgr";
-import AldPlatform from "../platform/AldPlatform";
+import AldSDK from "../platform/AldSDK";
 import LoadUtils from "../util/LoadUtils";
 import Timer from "../util/Timer";
 
@@ -20,10 +20,10 @@ export default class LoadingUI extends ui.view.LoadingUI {
      */
     public onAwake() {
         var self = this;
-        var loadingTime = AldPlatform.loadingTime = Date.now();
+        var loadingTime = AldSDK.loadingTime = Date.now();
         self.regEvent(EventType.ResProgress, self.onProgress);
         Laya.loader.on(Laya.Event.ERROR, self, self.onLoadError);
-        AldPlatform.aldSendEvent('进入加载页', false, { time: loadingTime });
+        AldSDK.aldSendEvent('进入加载页', false, { time: loadingTime });
         EventMgr.event(EventType.EnterLoading);
         // 加载分包，将分包的进度写入进度条
         var local = Laya.LocalStorage, cache = 'hasCache';

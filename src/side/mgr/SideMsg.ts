@@ -9,7 +9,8 @@
  */
 export enum ESMessage {
     C2S_SWITCH,                     // 卖量开关，参数：布尔值（是否开启卖量）
-    C2S_RM_SIDES,                   // 卖量屏蔽列表，参数：整型数组或字符串数组（卖量的ID数组）
+	C2S_RM_SIDES,                   // 卖量屏蔽列表，参数：整型数组或字符串数组（卖量的ID数组）
+	C2S_RM_BOARDS,					// 积分墙已领取列表，参数：整型数组或字符串数组（卖量的ID数组）
     C2S_REMOVE,                     // 移除卖量数据，参数：ISideboxData（需要移除的卖量）
 	C2S_RESET,                      // 重置卖量数据，参数：无
 	// 以下为继承基类才需要的消息，若有自己的一套卖量界面处理逻辑，无需添加
@@ -18,11 +19,12 @@ export enum ESMessage {
 	S2C_CANCEL,						// 卖量取消跳转，参数：无
     S2C_DOT_SERVER,                 // 服务器卖量打点，参数：字符串（卖量界面的标识）、ISideboxDat、布尔值（是否跳转成功）
     S2C_DOT_ALD,                    // 阿拉丁卖量打点，参数：字符串（卖量界面的标识）、额外参数（卖量ID）
-	S2C_DOT_EVENT,                  // 后台事件打点，参数：字符串（卖量界面的标识）、字符串（事件打点的paramId）
-	S2C_CLEAR,						// 卖量被移除清空，参数：无
+    S2C_DOT_EVENT,                  // 后台事件打点，参数：字符串（卖量界面的标识）、字符串（事件打点的paramId）
     // 卖量层自身使用的消息，业务层勿用
-    S2S_REMOVE,                     // 移除卖量数据，参数：ISideboxData（需要移除的卖量）
+	S2S_REMOVE,                     // 移除卖量数据，参数：ISideboxData（需要移除的卖量）
+	S2S_REMOVE1,					// 移除积分墙数据，参数：IScoreBoard（需要移除的积分墙）
     S2S_COMPLETE,                   // 配置文件加载完成，参数：IAdConfig（文件内容）
+    S2S_COMPLETE1,                  // 积分墙加载完成，参数：积分墙列表
 }
 
 /**

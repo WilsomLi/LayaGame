@@ -2,16 +2,17 @@ import UserData from "../mgr/UserData";
 
 // 解释型声明
 declare var wx: any;
+declare var qq: any;
 
 /**
  * 是否微信环境
  */
-const isWx = typeof wx !== 'undefined';
+const support = typeof wx !== 'undefined' || typeof qq !== 'undefined';
 
 /**
  * 阿拉丁
  */
-export default class AldPlatform {
+export default class AldSDK {
 
 
     public static timeId: number;               // 玩家的时间ID
@@ -27,7 +28,7 @@ export default class AldPlatform {
      * @param params 额外参数
      */
     public static aldSendEvent(eventName: string, defaultData?: boolean, params?: any): void {
-        if (isWx) {
+        if (support) {
             let aldSendEvent = (<any>wx).aldSendEvent;
             if (aldSendEvent) {
                 params || (params = {});
@@ -37,12 +38,12 @@ export default class AldPlatform {
                     params["玩家ID"] = uInc.accountId;
                     params["关卡ID"] = uInc.level;
                 }
-                params.timeId = AldPlatform.timeId;
-                aldSendEvent(eventName.replace(/%u/i, AldPlatform.getNewName()), params);
+                params.timeId = AldSDK.timeId;
+                aldSendEvent(eventName.replace(/%u/i, AldSDK.getNewName()), params);
             }
         }
         // 调试用 todo
-        console.log('打点：' + eventName.replace(/%u/i, AldPlatform.getNewName()));
+        console.log('打点：' + eventName.replace(/%u/i, AldSDK.getNewName()));
     }
 
     /**
@@ -51,7 +52,7 @@ export default class AldPlatform {
      */
     public static aldStageStart(level: number): void {
         // console.log('关卡开始', level + '-' + wave);
-        if (typeof (wx) !== 'undefined') {
+        if (support) {
             let aldStage = (<any>wx).aldStage;
             if (aldStage) {
                 let id = level + '';
@@ -71,7 +72,7 @@ export default class AldPlatform {
      */
     public static aldStageEnd(level: number, clear: boolean): void {
         // console.log('关卡结束', level + '-' + wave, clear ? '成功' : '失败');
-        if (typeof (wx) !== 'undefined') {
+        if (support) {
             let aldStage = (<any>wx).aldStage;
             if (aldStage) {
                 let id = level + '';
@@ -92,20 +93,20 @@ export default class AldPlatform {
      * 获取新老用户标识
      */
     public static getNewName(): string {
-        return AldPlatform.$newName || (AldPlatform.$newName = (UserData.instance.isNewPlayer ? '新' : '老') + '用户');
+        return AldSDK.$newName || (AldSDK.$newName = (UserData.instance.isNewPlayer ? '新' : '老') + '用户');
     }
 
     /**
      * 获取资源加载到显示首页的时长
      */
     public static getLoadTime(): number {
-        return AldPlatform.homeTime - AldPlatform.loadingTime;
+        return AldSDK.homeTime - AldSDK.loadingTime;
     }
 
     /**
      * 重置用户
      */
     public static resetUser(): void {
-        AldPlatform.$newName = null;
+        AldSDK.$newName = null;
     }
 }
