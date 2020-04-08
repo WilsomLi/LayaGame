@@ -50,11 +50,13 @@ P 7A73CFF6 try_choice1.png
 P CDF7EE2C try_choice_1.png
 D loading
 D side
+P 1E1BF1C3 img_back.png
 P 8755BAAB img_bot_bg.png
 P 39EB9775 img_continue.png
 P 125D2D51 img_left0.png
 P D9CBB6E8 img_left1.png
 P 8D144774 img_left2.png
+P 7610E0B3 img_line.png
 P 06A1D365 img_list_title.png
 P 66F7B56F img_more_back.png
 P 903FB072 img_more_bg0.png
@@ -71,4 +73,6 @@ P 49308341 img_right_bg1.png
 P 532DBFEF img_side_bg.png
 P ECE55733 img_side_bg0.png
 P 55400912 img_side_mask.png
+P 1C77E83C img_star.png
+P 288B06F8 img_use_text.png
 D wxlocal

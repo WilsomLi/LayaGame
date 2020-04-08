@@ -453,8 +453,8 @@ export default class Utils {
      * 数组随机排序
      * @param array
      */
-    public static randomSort(array: any[]): void {
-        array.sort(function (a, b) {
+    public static randomSort<T>(array: T[]): T[] {
+        return array.sort(function (a, b) {
             return Math.random() - 0.5;
         });
     }

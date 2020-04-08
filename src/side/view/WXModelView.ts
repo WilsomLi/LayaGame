@@ -1,9 +1,9 @@
 import { ui } from "../../ui/layaMaxUI";
 import Utils from "../../util/Utils";
 import UIMgr from "../../mgr/UIMgr";
-import { EUI } from "../../const/EUI";
 import YLSDK from "../../platform/YLSDK";
 import SideMgr from "../mgr/SideMgr";
+import EUI from "../../const/EUI";
 
 /**
  * 仿微信界面

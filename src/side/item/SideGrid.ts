@@ -1,6 +1,6 @@
 import { ui } from "../../ui/layaMaxUI";
-import SideMgr from "../../side/SideMgr";
-import SideUtils from "../../side/SideUtils";
+import SideMgr from "../mgr/SideMgr";
+import SideUtils from "../mgr/SideUtils";
 
 /**
  * 方格卖量8个

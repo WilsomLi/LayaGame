@@ -1,22 +1,21 @@
 import { ui } from "../../ui/layaMaxUI";
 
-
 /**
- * 更多卖量子项
+ * 仿微信卖量子项
  */
-export default class MoreGameItem1 extends ui.item.MoreGameItem1UI {
+export default class WXModelItem extends ui.item.WXModelItemUI {
     
     /**
      * 获取数据源
      */
-    public get dataSource(): ISideboxData {
+    public get dataSource(): IWXModelItemData {
         return this._dataSource;
     }
 
     /**
      * 设置数据源
      */
-    public set dataSource(data: ISideboxData) {
+    public set dataSource(data: IWXModelItemData) {
         var self = this;
         self._dataSource = data;
         self.refresh();
@@ -31,6 +30,7 @@ export default class MoreGameItem1 extends ui.item.MoreGameItem1UI {
         if (data) {
             self.imgIcon.skin = data.icon;
             self.lblName.text = data.title;
+            self.imgStar.visible = data.star;
         }
     }
 }

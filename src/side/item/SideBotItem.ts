@@ -1,6 +1,7 @@
-import { ui } from "../../ui/layaMaxUI";
+
 import Tween from "../../util/Tween";
 import TweenModel from "../../util/TweenModel";
+import { ui } from "../../ui/layaMaxUI";
 
 /**
  * 主页底部卖量子项

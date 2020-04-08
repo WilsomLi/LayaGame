@@ -1,7 +1,7 @@
 import { ui } from "../../ui/layaMaxUI";
 import AutoScroll from "../../util/AutoScroll";
-import SideMgr from "../../side/SideMgr";
-import SideUtils from "../../side/SideUtils";
+import SideMgr from "../mgr/SideMgr";
+import SideUtils from "../mgr/SideUtils";
 
 /**
  * 主页底部卖量

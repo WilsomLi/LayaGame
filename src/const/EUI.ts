@@ -3,6 +3,10 @@
  * 参数详情看IUIConfig
  */
 let EUI = {
+    WXModelView: {
+        class: "model/side/WXModelView.ts"
+    },
+
     DebugView: {
         class: "script/DebugView.ts"
     },

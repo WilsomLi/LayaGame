@@ -3,7 +3,7 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 import UIBaseView from './../UIBaseView';
-import SideView from "../model/SideView";
+import SideView from "../side/view/SideView";
 UIBaseView.init();
 SideView.init();
 var REG: Function = Laya.ClassUtils.regClass;
@@ -64,6 +64,17 @@ export module ui.item {
         }
     }
     REG("ui.item.SideNewItemUI",SideNewItemUI);
+    export class WXModelItemUI extends Laya.View {
+		public imgIcon:Laya.Image;
+		public lblName:Laya.Label;
+		public imgStar:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("item/WXModelItem");
+        }
+    }
+    REG("ui.item.WXModelItemUI",WXModelItemUI);
 }
 export module ui.side {
     export class SideBotListUI extends Laya.SideView {
@@ -94,6 +105,18 @@ export module ui.side {
         }
     }
     REG("ui.side.SideIconRTUI",SideIconRTUI);
+    export class WXModelViewUI extends Laya.SideView {
+		public spGray:Laya.Sprite;
+		public boxTop:Laya.Box;
+		public boxBack:Laya.Box;
+		public ltCont:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("side/WXModelView");
+        }
+    }
+    REG("ui.side.WXModelViewUI",WXModelViewUI);
 }
 export module ui.view {
     export class DebugViewUI extends Laya.UIBaseView {

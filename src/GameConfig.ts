@@ -4,9 +4,11 @@ import SideBotItem from "./side/item/SideBotItem"
 import SideGridItem from "./side/item/SideGridItem"
 import SideListItem from "./side/item/SideListItem"
 import SideNewItem from "./side/item/SideNewItem"
+import WXModelItem from "./side/item/WXModelItem"
 import SideBotList from "./side/item/SideBotList"
 import SideGrid from "./side/item/SideGrid"
 import SideIconRT from "./side/item/SideIconRT"
+import WXModelView from "./side/view/WXModelView"
 import DebugView from "./script/DebugView"
 import FailView from "./script/FailView"
 import HomeView from "./script/HomeView"
@@ -24,7 +26,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="side/SideIconRT.scene";
+    static startScene:any="item/MoreGameItem1.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=true;
@@ -38,9 +40,11 @@ export default class GameConfig{
         reg("side/item/SideGridItem.ts",SideGridItem);
         reg("side/item/SideListItem.ts",SideListItem);
         reg("side/item/SideNewItem.ts",SideNewItem);
+        reg("side/item/WXModelItem.ts",WXModelItem);
         reg("side/item/SideBotList.ts",SideBotList);
         reg("side/item/SideGrid.ts",SideGrid);
         reg("side/item/SideIconRT.ts",SideIconRT);
+        reg("side/view/WXModelView.ts",WXModelView);
         reg("script/DebugView.ts",DebugView);
         reg("script/FailView.ts",FailView);
         reg("script/HomeView.ts",HomeView);

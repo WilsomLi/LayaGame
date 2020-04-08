@@ -36,6 +36,13 @@ interface IScoreBoardData extends ISViewData {
 }
 
 /**
+ * 仿微信子项数据
+ */
+interface IWXModelItemData extends ISViewData {
+    star: boolean;              // 是否显示星星
+}
+
+/**
  * 游戏平台信息
  */
 interface IPlatform {

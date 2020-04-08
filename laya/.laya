@@ -1,6 +1,6 @@
 <project version="2.0">
-   <asynRes>img,temp,sound                                                                                       </asynRes>
-   <unDealRes>embed                                                                                       </unDealRes>
+   <asynRes>img,temp,sound                                                                                          </asynRes>
+   <unDealRes>embed                                                                                          </unDealRes>
    <resTypes>png,jpg   </resTypes>
    <resExportPath>bin/nativescene/res   </resExportPath>
    <asynResExportPath>bin   </asynResExportPath>
@@ -15,14 +15,14 @@ var Dialog=laya.ui.Dialog;]]>   </codeImportsJS>
    <shareResPath/>
    <codeType>1   </codeType>
    <resCanCompress/>
-   <resPublishQuality>80                                                                                       </resPublishQuality>
+   <resPublishQuality>80                                                                                          </resPublishQuality>
    <langPath/>
    <defaultFont/>
    <codeImportsTS><![CDATA[import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 import UIBaseView from './../UIBaseView';
-import SideView from "../model/SideView";
+import SideView from "../side/view/SideView";
 UIBaseView.init();
 SideView.init();]]>   </codeImportsTS>
    <textureWidth>2048   </textureWidth>
