@@ -6,7 +6,8 @@
         {
             "label": "compile",
             "type": "shell",
-            "command": "layaair2-cmd compile"
+            "command": "layaair2-cmd compile",
+            "problemMatcher": []
         }
     ]
 }
