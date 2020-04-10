@@ -26,8 +26,8 @@ export default class UIBaseView extends Laya.View {
     /**
      * 重写
      */
-    public onClosed(): void {
-        super.onClosed();
+    public onDestroy(): void {
+        super.onDestroy();
         var self = this, eventMgr = EventMgr, events = self.$events;
         // 注册事件清理
         for (let name in events) {
