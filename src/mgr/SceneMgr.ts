@@ -11,6 +11,7 @@ import CfgDataMgr from "./CfgDataMgr";
 import { EntityType } from "../logic/entity/BaseEntity";
 import Obstacle from "../logic/entity/Obstacle";
 import BaseProp from "../logic/entity/BaseProp";
+import { SceneConst } from "../const/EConst";
 
 /**
  * 场景管理
@@ -31,13 +32,6 @@ export default class SceneMgr {
     private _levelId: number;//关卡ID
     private _levelCfg: any;//关卡配置
 
-    private _npcList: Array<any> = []; //npc列表根节点
-    private _npcSkinId: number = 0; //npc皮肤
-
-    static readonly Realtime_Shadow: boolean = false;//实时阴影
-    static readonly Enable_Fog: boolean = false;//雾化
-    static readonly Enable_Skybox:boolean = false;//天空盒
-
     constructor() {
 
     }
@@ -52,24 +46,25 @@ export default class SceneMgr {
         this.scene.addChild(camera);
         this.cameraCtrl = camera.addComponent(CameraCtrl);
 
-        let light = this.light = this.createLight();
-        this.scene.addChild(light);
+        this.light = Laya.loader.getRes(ESprite3D.DirectionalLight) as DirectionLight;
+        this.scene.addChild(this.light);
 
+        this.initLight();
         this.initFog();
         this.initSkybox();
         this.initPrefab();
     }
 
     /**
-     * 创建灯光
+     * 必须先添加到场景在设置阴影属性
      */
-    createLight(): DirectionLight {
-        var light = Laya.loader.getRes(ESprite3D.DirectionalLight) as DirectionLight;
-        if (SceneMgr.Realtime_Shadow) {
+    initLight(): DirectionLight {
+        var light = this.light;
+        if (SceneConst.Realtime_Shadow) {
             //灯光开启阴影
             light.shadow = true;
             //可见阴影距离
-            light.shadowDistance = 300;
+            light.shadowDistance = 3;
             //生成阴影贴图尺寸
             light.shadowResolution = 1024;
             //生成阴影贴图数量
@@ -81,7 +76,7 @@ export default class SceneMgr {
     }
 
     private initFog() {
-        if (!SceneMgr.Enable_Fog) return;
+        if (!SceneConst.Enable_Fog) return;
         this.scene.enableFog = true;
         //设置雾化的颜色
         this.scene.fogColor = new Vector3(0, 0, 0.6);
@@ -92,7 +87,7 @@ export default class SceneMgr {
     }
 
     private initSkybox() {
-        if(!SceneMgr.Enable_Skybox) return;
+        if(!SceneConst.Enable_Skybox) return;
         Laya.BaseMaterial.load("nativescene/Conventional/Assets/Resources/Mat/Sky.lmat",Laya.Handler.create(this,this.loadSkyMaterial));
     }
     
@@ -128,7 +123,6 @@ export default class SceneMgr {
 
     public loadSceneData(_stageLevel: number, handler: Laya.Handler = null): void {
         this._levelId = _stageLevel;
-        this._npcList.length = 0;
 
         let mapPath: string = CfgRoot + "level1.json";
         let stageLevelCfg = CfgDataMgr.instance.getStageLevelCfg(_stageLevel);
