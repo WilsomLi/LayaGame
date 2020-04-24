@@ -64,7 +64,7 @@ export default class CameraDebug extends Laya.Script {
 
     updateRotation() {
         var yprElem = this.yawPitchRoll;
-        if (Math.abs(yprElem[1]) < 1.50) {
+        if (Math.abs(yprElem.y) < 1.50) {
             Quaternion.createFromYawPitchRoll(yprElem.x, yprElem.y, yprElem.z, this.tempRotationZ);
             this.camera.transform.localRotation = this.tempRotationZ;
         }

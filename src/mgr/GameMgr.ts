@@ -12,6 +12,7 @@ import HomeView from "../script/HomeView";
 import AldSDK from "../platform/AldSDK";
 import ShopMgr from "./ShopMgr";
 import BaseProp from "../logic/entity/BaseProp";
+import DebugCtrl from "../util/DebugCtrl";
 
 export enum EGamePhase {
     None,
@@ -42,51 +43,15 @@ export default class GameMgr {
 
     static deltaTime: number = 0;
     static nowTime: number = 0;
-    static FixedDeltaTime: number = 0.016;
     static FPS: number = 60;
+    static FixedDeltaTime: number = 1 / GameMgr.FPS;
 
     constructor() {
     }
 
-    private addEvents() {
-        Laya.stage.on(Laya.Event.KEY_UP, this, this.showDebugView);
-        Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.onMouseDown);
-    }
-
-    private showDebugView(event: Laya.Event): void {
-        if (event.keyCode != Laya.Keyboard.F4) return;
-        if (UIMgr.findUI(EUI.DebugView)) {
-            UIMgr.closeUI(EUI.DebugView);
-        } else {
-            UIMgr.openUI(EUI.DebugView);
-        }
-    }
-
-    private onMouseDown(e: Laya.EventData): void {
-        let x = Laya.stage.mouseX;
-        let y = Laya.stage.mouseY;
-        if (x > Laya.stage.width / 4 || y > Laya.stage.height / 4) {
-            return;
-        }
-        if (this._lastClickTime == 0)
-            this._lastClickTime = GameMgr.nowTime;
-        let deltaTime = GameMgr.nowTime - this._lastClickTime;
-        if (deltaTime > 2000) {
-            this._clickCnt = 0;
-            this._lastClickTime = 0;
-            return;
-        }
-
-        this._clickCnt++;
-        this._lastClickTime = GameMgr.nowTime;
-        if (this._clickCnt > 5) {
-            UIMgr.updateUI(EUI.DebugView);
-        }
-    }
-
     launchGame() {
         AldSDK.aldSendEvent('loading完成', false, { time: Date.now() });
-        this.addEvents();
+        DebugCtrl.setEnable(true);
         // SoundMgr.playBGM();
         // 首页显示
         UIMgr.openUI(EUI.HomeView);

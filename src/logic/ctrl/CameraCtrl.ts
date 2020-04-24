@@ -38,7 +38,7 @@ export default class CameraCtrl extends Laya.Script {
 
     private _startFlyPos:Vector3 = new Vector3();
     private _startFlyRot:Laya.Quaternion = new Laya.Quaternion();
-    private _rotElements = new Float32Array(3);
+    private _rotElements = new Float32Array(4);
 
     public static INIT_CHASE_TIME:number = 0.3;
     
