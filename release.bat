@@ -37,6 +37,9 @@ cmd /c gulp checkNullChar
 echo 拷贝common文件夹
 xcopy %sdkDir%\common\* %dir%\* /e /y
 
+echo 删除bundle.js.map
+del /f /s /q /a %dir%\js\bundle.js.map
+
 if %1==vv goto vv_step2
 
 echo 版本发布完成
@@ -124,11 +127,24 @@ REM adb push .\dist\com.szydhw.ssly.vivominigame.signed.rpk sdcard/games &
 
 REM 头条--------------------------------------------------------------------------------
 :tt
-set dir=%cd%\release\tt_mini
-echo 游戏代码混淆
-cmd /c gulp obfuse_js --pf tt
 
-xcopy %sdkDir%\tt\*.* %dir%\ /e /y /exclude:%sdkDir%\wx\uncopy.txt
+echo 先发布微信小游戏，确保release下有wxgame目录
+
+
+set dir=%cd%\release\ttgame
+if exist %dir% (
+rd /s /q %dir%
+)
+mkdir %dir%
+
+xcopy %releaseDir%\wxgame %releaseDir%\ttgame /e /y
+
+del /f /s /q /a %dir%\libs\laya.wxmini.js
+
+echo 游戏代码混淆
+cmd /c gulp obfuse_js --pf ttgame
+
+xcopy %sdkDir%\tt\*.* %dir%\ /e /y /exclude:%sdkDir%\tt\uncopy.txt
 
 goto common
 echo 头条版本完成

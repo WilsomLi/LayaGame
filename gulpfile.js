@@ -5,7 +5,7 @@ var gulpif = require('gulp-if');
 var through = require('through2');
 var minimist = require('minimist');
 var imagemin = require("gulp-imagemin");
-var uglify = require("gulp-uglify");
+// var uglify = require("gulp-uglify");
 
 var dir = "./release/wxgame/**/*";
 
@@ -47,26 +47,26 @@ gulp.task("checkNullChar", function (cb) {
         })
 })
 
-//压缩libs库
-gulp.task("pack_libs", [], function (cb) {
-    gulp.src(["./release/wxgame/libs/*.js"])
-        .pipe(uglify())
-        .on('error', function (err) {
-            console.warn(err.toString());
-        })
-        .pipe(gulp.dest("./release/wxgame/libspack/")
-            .on("end", cb));
-})
+// //压缩libs库
+// gulp.task("pack_libs", [], function (cb) {
+//     gulp.src(["./release/wxgame/libs/*.js"])
+//         .pipe(uglify())
+//         .on('error', function (err) {
+//             console.warn(err.toString());
+//         })
+//         .pipe(gulp.dest("./release/wxgame/libspack/")
+//             .on("end", cb));
+// })
 
-//压缩js
-gulp.task("pack_js", [], function (cb) {
-    gulp.src(["./bin/js/bundle.js"])
-        .pipe(uglify())
-        .on('error', function (err) {
-            console.warn(err.toString());
-        })
-        .pipe(gulp.dest("./release/wxgame/js/"));
-});
+// //压缩js
+// gulp.task("pack_js", [], function (cb) {
+//     gulp.src(["./bin/js/bundle.js"])
+//         .pipe(uglify())
+//         .on('error', function (err) {
+//             console.warn(err.toString());
+//         })
+//         .pipe(gulp.dest("./release/wxgame/js/"));
+// });
 
 //混淆js
 //gulp obfuse_js --pf wxgame
@@ -75,7 +75,7 @@ gulp.task("obfuse_js", [], function (cb) {
     gulp.src(["./bin/js/bundle.js"])
         .pipe(javascriptObfuscator({
             compact: true,
-            debugProtection: true,
+            // debugProtection: true,
             disableConsoleOutput: false,//是否关闭log
             // "compact": true,
             // "rotateStringArray": true,

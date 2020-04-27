@@ -25,13 +25,13 @@ export default class FlyGold extends Laya.Sprite {
     public constructor(skin?: string) {
         super();
         this.mouseEnabled = this.visible = false;
-        this.$skin = skin || 'game/game_gold.png';
+        this.$skin = skin || 'game/img_gold.png';
     }
 
     /**
      * 重写
      */
-    public onDisable(): void {
+    public onDestroy(): void {
         let clear = Tween.clear, recover = Laya.Pool.recover;
         for (let i = 0, len = this.numChildren; i < len; i++) {
             let gold = this.getChildAt(i);
@@ -58,7 +58,7 @@ export default class FlyGold extends Laya.Sprite {
             for (let i = v; i < curL; i++)
                 self.removeChildAt(v);
             for (let i = curL; i < v; i++) {
-                let gold = create(sign, self.create);
+                let gold = create(sign, self.create.bind(self));
                 self.addChild(gold);
             }
         }
