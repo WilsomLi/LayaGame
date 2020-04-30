@@ -121,7 +121,7 @@ export default class ShopMgr {
         if (!ShopMgr.$timeout) {
             ShopMgr.$timeout = TimeUtils.setTimeout(function () {
                 ShopMgr.$timeout = null;
-                // UserData.instance.setShopCache(JSON.stringify(ShopMgr.$cache));
+                UserData.instance.setShopCache(JSON.stringify(ShopMgr.$cache));
             }, null, 40);
         }
     }

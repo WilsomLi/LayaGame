@@ -6,6 +6,7 @@ import TimeUtils from "../util/TimeUtils";
 import ShareTimeMgr from "./ShareTimeMgr";
 import SideMgr from "../side/mgr/SideMgr";
 import SideMsg, { ESMessage } from "../side/mgr/SideMsg";
+import ShopMgr from "./ShopMgr";
 
 /**
  * 玩家数据
@@ -30,6 +31,8 @@ export default class UserData {
     private _strategyCountCache: string = '';   // 策略次数缓存  
     private _shareTimeCache: string = '';       // 分享策略记录
     private _rmSides: number[] = [];            // 今日移除的卖量
+
+    private _shopCache:string = ''; //商店数据缓存
 
     //// 总缓存操作相关 ////
 
@@ -203,6 +206,8 @@ export default class UserData {
         ShareTimeMgr.init(self._shareTimeCache);
         // 通知移除卖量列表
         SideMsg.notice(ESMessage.C2S_RM_SIDES, self._rmSides);
+        // 商店缓存数据
+        ShopMgr.init(self._shopCache);
     }
 
     /**
@@ -377,5 +382,13 @@ export default class UserData {
     public setShareTimeCache(str: string): void {
         this._shareTimeCache = str;
         this.cacheData('_shareTimeCache');
+    }
+
+    /**
+     * 商店数据缓存
+     */
+    public setShopCache(_strData:string):void {
+        this._shopCache = _strData;
+        this.cacheData("_shopCache");
     }
 }
