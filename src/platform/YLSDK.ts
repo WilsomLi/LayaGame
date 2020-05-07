@@ -3,12 +3,13 @@
 declare var wx: any;
 declare var qq: any;
 declare var qg: any;
-declare var pf: any;
+declare var tt: any;
 
 /**
  * 是否微信环境
  */
 var support = false;
+var pf:any;
 if(typeof wx !== 'undefined') {
     pf = wx;
     support = true;
@@ -19,6 +20,10 @@ else if(typeof qq !== 'undefined') {
 } 
 else if(typeof qg !== 'undefined') {
     pf = qg;
+    support = true;
+}
+else if(typeof tt !== 'undefined') {
+    pf = tt;
     support = true;
 }
 
