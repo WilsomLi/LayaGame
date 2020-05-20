@@ -159,7 +159,7 @@
                 console.log("YLSDK exception-tt:", e)
             }
         },
-        w = require("./yl_sdk_conf");
+        w = window;
     switch ("" == w.ylsdk_app_id && console.error("YLSDK 请在配置文件中填写您的游戏APPID"), "" == w.ylsdk_version && console.error("YLSDK 请在配置文件中填写您的游戏版本号"), y.ylsdk_pkg_name = w.ylsdk_pkg_name || "", y.ylsdk_platform_num = "0", y.ylsdk_platform_num = String(w.ylsdk_platform), y.switchLog = w.ylsdk_debug_model, w.ylsdk_platform) {
         case a:
             qq ? (y.platform = qq, y.platform_name = "QQ", r()) : console.error("YLSDK qq is null");

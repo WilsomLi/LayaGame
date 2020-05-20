@@ -690,13 +690,13 @@ export default class Utils {
             clickTime = now;
         });
         // 带锚点的控件
-        if (node instanceof Laya.UIComponent || node instanceof Laya.View) {
-            if (isNaN(node.anchorX)) {
-                node.anchorX = 0.5;
+        if (node instanceof Laya.Sprite) {
+            if (node.pivotX==0) {
+                node.pivotX = node.width * 0.5;
                 node.x += node.width * 0.5;
             }
-            if (isNaN(node.anchorY)) {
-                node.anchorY = 0.5;
+            if (node.pivotY==0) {
+                node.pivotY = node.height * 0.5;
                 node.y += node.height * 0.5;
             }
         }
