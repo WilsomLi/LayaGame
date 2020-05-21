@@ -23,6 +23,19 @@ export default class ExUtils {
 
     constructor() { }
 
+    /**
+     * 设置路面贴图，解决模糊问题，关闭贴图的mipmap
+     * @param model 路面
+     * @param skinUrl 贴图
+     */
+    static setPathSkin(model:Laya.Sprite3D,skinUrl:string):void {
+        if (!skinUrl) return;
+        Laya.loader.create(skinUrl, Laya.Handler.create(this,  (texture:Laya.Texture2D)=> {
+            ExUtils.setModelSkin(model, texture, null, "materials");
+            model.active = true;
+        }),null,Laya.Loader.TEXTURE2D,[256,256,0,false])
+    }
+
     static setModelSkinByUrl(model: Sprite3D, skinUrl: string): void {
         // console.log("skinurl:",skinUrl);
         if (!skinUrl) return;
