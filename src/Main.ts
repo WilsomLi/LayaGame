@@ -80,7 +80,6 @@ class Main {
 		SideMgr.init(platform, platform.isWechat || platform.isNone);
 		SideReceiver.init();
 		SideMgr.reqYLSideboxAndBoard();
-
 		SoundMgr.init();
 		DataStatistics.init();
 		UserData.instance.init();

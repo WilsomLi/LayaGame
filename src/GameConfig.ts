@@ -26,7 +26,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="item/MoreGameItem1.scene";
+    static startScene:any="view/HomeView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=true;
