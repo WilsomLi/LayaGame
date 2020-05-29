@@ -385,7 +385,6 @@ export default class Utils {
                 hasChange = true;
             }
         }
-        hasChange = true;
         if (hasChange) {
             let url = Laya.URL;
             let fuc = url.customFormat;
