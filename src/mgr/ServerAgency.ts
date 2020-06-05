@@ -4,7 +4,7 @@ import Utils from "../util/Utils";
 import AldSDK from "../platform/AldSDK";
 import StrategyMgr from "../mgr/StrategyMgr";
 import ShareTimeMgr from "../mgr/ShareTimeMgr";
-import YLSdkMgr from "../mgr/YLSdkMgr";
+// import YLSdkMgr from "../mgr/YLSdkMgr";
 
 // 自定义开关
 interface IDefSwitch {
@@ -171,13 +171,13 @@ export default class ServerAgency {
         });
     }
 
-    /**
-     * 获取自定义开关数据
-     * @param name 
-     */
-    public static getDefValue(name: string): string {
-        return YLSdkMgr.getDefValue(name) ;
-    }
+    // /**
+    //  * 获取自定义开关数据
+    //  * @param name 
+    //  */
+    // public static getDefValue(name: string): string {
+    //     return YLSdkMgr.getDefValue(name) ;
+    // }
 
     /**
      * 是否socket登陆
