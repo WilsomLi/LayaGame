@@ -41,6 +41,7 @@ export default class UIBaseView extends Laya.View {
             data[0].call(data[1], param);
         }
         // 各种清理
+        self.timer.clearAll(this);//不能删除，嵌套子界面销毁计时器
         self.offAll();
         self.$calls = self.closeParam = null;
     }
