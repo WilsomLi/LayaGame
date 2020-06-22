@@ -328,7 +328,7 @@ gulp.task("copyDir_sdk_op",["version_OPPO"],function() {
 	if (platform !== "oppogame") {
 		return;
 	}
-	let stream = gulp.src(`${workSpaceDir}/sdk/op/*.*`);
+	let stream = gulp.src(`${workSpaceDir}/sdk/op/**/*.*`);
 	return stream.pipe(gulp.dest(path.join(projDir)));
 	// 不执行替换则直接打开这注释
 	// return Promise.resolve();
