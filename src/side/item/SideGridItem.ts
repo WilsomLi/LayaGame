@@ -6,7 +6,7 @@ import SideUtils from "../mgr/SideUtils";
 /**
  * 方形卖量子项
  */
-export default class SideGridItem extends ui.item.SideGridItemUI {
+export default class SideGridItem extends ui.view.item.SideGridItemUI {
 /**
      * 重写
      */

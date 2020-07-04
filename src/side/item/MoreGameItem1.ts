@@ -4,7 +4,7 @@ import { ui } from "../../ui/layaMaxUI";
 /**
  * 更多卖量子项
  */
-export default class MoreGameItem1 extends ui.item.MoreGameItem1UI {
+export default class MoreGameItem1 extends ui.view.item.MoreGameItem1UI {
     
     /**
      * 获取数据源

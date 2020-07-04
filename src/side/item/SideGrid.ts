@@ -5,7 +5,7 @@ import SideUtils from "../mgr/SideUtils";
 /**
  * 方格卖量8个
  */
-export default class SideGrid extends ui.side.SideGridUI {
+export default class SideGrid extends ui.view.side.SideGridUI {
 
     private $datas: ISideboxData[];
 

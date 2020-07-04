@@ -10,7 +10,7 @@ import Timer from "../util/Timer";
  * 新版loading界面
  * 携带功能：分包加载、资源加载、卡登陆（确保进入首屏时已登录，若未登陆，界面显示以UserData数据为主，无需考虑数据刷新问题）
  */
-export default class LoadingUI extends ui.view.LoadingUI {
+export default class LoadingView extends ui.view.LoadingViewUI {
 
     private util: LoadUtils;    // 多类型加载工作
     private netTimer: Timer;    // 登录定时器
@@ -33,7 +33,7 @@ export default class LoadingUI extends ui.view.LoadingUI {
         self.util = LoadUtils.create([0, 1, 2], [subWg, 0.95 - subWg, 0.05]);
         // 分包名称，游戏自定
         platform.loadSubpackage('nativescene', function (prog) {
-            self.setValue(0, prog / 100);   // 微信返回的是百分比
+            self.setValue(0, prog);   // 微信返回的是百分比
         }).then(function () {
             local.setItem(cache, '1');
             self.setValue(0, 1);

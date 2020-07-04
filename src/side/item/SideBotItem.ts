@@ -6,7 +6,7 @@ import { ui } from "../../ui/layaMaxUI";
 /**
  * 主页底部卖量子项
  */
-export default class SideBotItem extends ui.item.SideBotItemUI {
+export default class SideBotItem extends ui.view.item.SideBotItemUI {
 
     /**
      * 重写

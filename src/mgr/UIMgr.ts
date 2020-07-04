@@ -1,12 +1,19 @@
+
 import Utils from "../util/Utils";
 import Tween from "../util/Tween";
+import YLSDK from "../platform/YLSDK";
+import EventMgr from "./EventMgr";
+import GameConst from "../const/GameConst";
+import UIUtils from "../util/UIUtils";
+import EventType from "../const/EventType";
+// import SideList from "../script/side/SideList";
 
 /**
  * 类接口，新增参数是便于UI管理类的使用，UI类勿随意更改这些变量
  */
 interface IBaseView extends Laya.UIBaseView {
-    $uiConfig?: IUIConfig;      // ui配置
-    $showBanner?: boolean;      // 是否显示banner
+    $uiConfig?: IUIConfig;              // ui配置
+    $showBanner?: boolean;              // 是否显示banner
     // Laya未暴露属性
     _aniList?: Laya.AnimationBase[];    // ui动画列表
 }
@@ -81,6 +88,7 @@ export const randomBanner = function (): string {
 export default class UIMgr {
 
     private static _zOrder: number = 1000;
+    private static _keepZOrder: number = 80000;
     private static _tZOrder: number = 100000;
     private static _maskBg: Laya.Image;
     // private static _sideList: SideList;
@@ -89,25 +97,30 @@ export default class UIMgr {
     private static _tipViews: TipView[];
 
     /**
+     * 误触弹起时间
+     */
+    public static misDelay: number = 0;
+
+    /**
      * 检测界面
      * @param ui 
      */
     protected static checkView(ui: IBaseView): void {
         // 界面出现的时候禁止点击
-        var mgr = Laya.MouseManager;
-        if (mgr.enabled) {
-            mgr.enabled = false;
-            Utils.uiEnableCall(ui, function () {
-                mgr.enabled = true;
-            });
-        }
+        // var mgr = Laya.MouseManager; 太坑,微信里会导致有些界面丢失点击
+        // if (mgr.enabled) {
+        //     mgr.enabled = false;
+        //     Utils.uiEnableCall(ui, function () {
+        //         mgr.enabled = true;
+        //     });
+        // }
         if (ui.setCloseCall === void 0) {
             ui.setCloseCall = function (call, obj) {
                 let ond = ui.onDisable;
                 ui.onDisable = function () {
                     ond.call(ui);
                     ui.onDisable = ond;
-                    call.call(obj);
+                    call && call.call(obj);
                 };
             };
         }
@@ -126,39 +139,48 @@ export default class UIMgr {
      */
     protected static checkBanner(ui: IBaseView, bool?: boolean): void {
         let uiConfig = ui.$uiConfig;
-        if (bool && uiConfig.banner) {
-            let id = randomBanner();
-            if (id) {
-                let delay = uiConfig.delay;
-                // 显示banner
-                let show = function () {
-                    platform.setBannerVisible(true);
-                };
-                // 先创建
-                platform.createBannerAd(id, function (isShow: boolean) {
-                    isShow || UIMgr.showSideList(ui);
-                });
-                if (delay > 0) {
-                    // 先隐藏，时间到再显示
-                    platform.setBannerVisible(false);
-                    Laya.timer.once(delay, null, function () {
-                        if (ui.$showBanner && ui == UIMgr.topUI()) {
-                            show();
-                        }
-                    });
-                }
-                else {
-                    show();
-                }
-                ui.$showBanner = true;
-                return;
+        if (bool && uiConfig.banner && GameConst.gamebanner) {
+            // let id = randomBanner();
+            // if (id) {
+            // 显示banner
+            let show = function () {
+                // platform.setBannerVisible(true);
+                YLSDK.ylBannerAdShow();
+            };
+            let delay = uiConfig.delay && UIMgr.misDelay;
+            // 先创建
+            // platform.createBannerAd(id, function (isShow: boolean) {
+            //     isShow || UIMgr.showSideList(ui);
+            // }, uiConfig.keepBan, uiConfig.smallBan);
+            if (Utils.checkPhoneIsBangs()) {
+                YLSDK.ylBannerAdCreate(true);
             }
             else {
-                UIMgr.showSideList(ui);
+                YLSDK.ylBannerAdCreateSmall(true);
             }
+            if (delay > 0) {
+                // 先隐藏，时间到再显示
+                // platform.setBannerVisible(false);
+                YLSDK.ylBannerAdHide();
+                ui.timer.once(delay, null, function () {
+                    if (ui.$showBanner && ui == UIMgr.topUI()) {
+                        show();
+                    }
+                });
+            }
+            else {
+                show();
+            }
+            ui.$showBanner = true;
+            return;
+            // }
+            // else {
+            //     UIMgr.showSideList(ui);
+            // }
         }
         ui.$showBanner = false;
-        platform.setBannerVisible(false);
+        // platform.setBannerVisible(false);
+        YLSDK.ylBannerAdHide();
         UIMgr.hideSideList();
     }
 
@@ -169,6 +191,27 @@ export default class UIMgr {
     protected static checkMask(ui: IBaseView): void {
         var config = ui.$uiConfig;
         config && config.mask ? UIMgr.showMaskBg(ui) : UIMgr.hideMaskBg();
+    }
+
+    /**
+     * 
+     * @param ui 误触
+     */
+    protected static checkMistouch(ui: IBaseView): void {
+        let name = ui.$uiConfig.mistouch;
+        if (!name) return;
+
+        let originOnAwake = ui.onAwake;
+        ui.onAwake = ()=>{
+            originOnAwake.apply(ui);
+            let component: Laya.UIComponent = ui[name];
+            if (component) {
+                UIUtils.showMisTouch(component);
+            }
+            else {
+                console.warn('checkMistouch null:', name);
+            }
+        }
     }
 
     /**
@@ -229,7 +272,6 @@ export default class UIMgr {
      */
     protected static destroyUI(ui: IBaseView): void {
         var list = ui._aniList;
-        UIMgr.checkBanner(ui, false);
         if (list) {
             for (let i = 0, len = list.length; i < len; i++) {
                 let ani = list[i];
@@ -337,11 +379,18 @@ export default class UIMgr {
     /**
      * 页面打开
      */
-    public static openUI(uiConfig: IUIConfig, data?: any, visible?: boolean): IBaseView {
+    public static openUI(uiConfig: IUIConfig, data?: any, visible?: boolean, isKeep: boolean = false): IBaseView {
+        if (GameConst.Log) {
+            console.log('openUI', uiConfig.class)
+        }
         if (uiConfig) {
+            if (GameConst.openMisTouch() && uiConfig.mistouch) {
+                uiConfig.delay = GameConst.BannerShowTime;
+            }
+
             let old = UIMgr.findUI(uiConfig);
             if (old) {
-                console.error('so quick');
+                console.warn('so quick');
                 return;
             }
             let clzz = Laya.ClassUtils.getRegClass(uiConfig.class);
@@ -349,24 +398,55 @@ export default class UIMgr {
             if (clzz && clzz.prototype instanceof Laya.Sprite) {
                 let ui = <IBaseView>new clzz;
                 let top = UIMgr.topUI();
-                ui.dataSource = data;
-                ui.zOrder = UIMgr._zOrder++;
+                if (data != null) {
+                    ui.dataSource = data;
+                }
+
+                if (isKeep) {
+                    ui.zOrder = UIMgr._keepZOrder;
+                }
+                else {
+                    ui.zOrder = UIMgr._zOrder++;
+                }
                 ui.visible = visible !== false;
                 ui.$uiConfig = uiConfig;     // 额外添加参数
-                Laya.stage.addChild(ui);
+                
                 UIMgr._uiArray.push(ui);
                 UIMgr.checkBanner(ui, true);
-                UIMgr.checkMask(ui);
                 UIMgr.checkView(ui);
+                UIMgr.checkMistouch(ui);
+                Laya.stage.addChild(ui);
+                UIMgr.checkMask(ui);
                 // 通知顶层被覆盖
                 top && top.onHide();
                 // 动画
                 uiConfig.tween && UIMgr.showTween(ui);
+                ui.eventCount && ui.eventCount();
+
+                EventMgr.event(EventType.UpdateView);
+
                 return ui;
             }
             else
                 console.error("openUI error", uiConfig);
         }
+    }
+
+    /**
+     * 打开页面列表
+     * @param views 页面列表，子项：[界面配置，界面参数]
+     * @param call 所有页面全部关闭后触发的回调
+     */
+    public static openUIs(views: [IUIConfig, any][], call?: Function): void {
+        // 执行弹窗顺序
+        for (let i = views.length - 1; i >= 0; i--) {
+            let view = views[i];
+            let old = <any>call;
+            call = function () {
+                UIMgr.openUI(view[0], view[1]).setCloseCall(old);
+            };
+        }
+        call && call();
     }
 
     /**
@@ -391,6 +471,8 @@ export default class UIMgr {
         if (isTop) {
             Laya.timer.frameOnce(2, UIMgr, UIMgr.checkTop, [UIMgr.topUI()]);
         }
+
+        EventMgr.event(EventType.UpdateView);
     }
 
     /**
@@ -418,8 +500,10 @@ export default class UIMgr {
         for (let i = array.length - 1; i >= 0; i--) {
             let ui = array[i];
             if (ui.$uiConfig != uiConfig) {
-                UIMgr.onUIClose(ui);
-                array.splice(i, 1);
+                if (ui.zOrder != UIMgr._keepZOrder) {
+                    UIMgr.onUIClose(ui);
+                    array.splice(i, 1);
+                }
             }
             else {
                 oldUI = ui;
@@ -520,7 +604,7 @@ export default class UIMgr {
     /**
      * 获取最上层的UI
      */
-    public static topUI(): IBaseView {
+    private static topUI(): IBaseView {
         var array = UIMgr._uiArray;
         var length = array.length;
         if (length > 0)
@@ -530,9 +614,16 @@ export default class UIMgr {
     /**
      * 设置UI界面visible属性
      */
-    public static setVisible(uiConfig: IUIConfig, bool?: boolean): IBaseView {
+    public static setVisible(uiConfig: IUIConfig, bool?: boolean, isKeep?: boolean): IBaseView {
         var ui = UIMgr.findUI(uiConfig);
+        if (bool && !ui) {
+            ui = UIMgr.openUI(uiConfig, null, bool, isKeep);
+        }
         ui && (ui.visible = bool);
         return ui;
+    }
+
+    public static get topZOrder(): number {
+        return UIMgr._tZOrder - 1;
     }
 }

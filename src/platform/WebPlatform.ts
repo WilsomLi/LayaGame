@@ -348,4 +348,10 @@ export default class WebPlatform implements Platform {
      * @param call 回调，参数是原生广告信息，为undefined表示无数据
      */
     createNativeAd(call?: (nativeAd: any, infos: INativeInfo[]) => void) { }
+
+    setFeedbackButtonVisible(visible:boolean) {}
+
+    destroyFeedBackBtn(){}
+
+    reportMonitor(name:string,value:number){}
 }

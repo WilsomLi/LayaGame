@@ -3,7 +3,7 @@ import { ui } from "../../ui/layaMaxUI";
 /**
  * 卖量列表子项
  */
-export default class SideListItem extends ui.item.SideListItemUI {
+export default class SideListItem extends ui.view.item.SideListItemUI {
     
     /**
      * 获取数据源

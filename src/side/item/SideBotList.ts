@@ -6,7 +6,7 @@ import SideUtils from "../mgr/SideUtils";
 /**
  * 主页底部卖量
  */
-export default class SideBotList extends ui.side.SideBotListUI {
+export default class SideBotList extends ui.view.side.SideBotListUI {
 
     /**
      * 重写

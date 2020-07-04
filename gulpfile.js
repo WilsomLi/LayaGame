@@ -68,23 +68,30 @@ gulp.task("checkNullChar", function (cb) {
 //         .pipe(gulp.dest("./release/wxgame/js/"));
 // });
 
-//混淆js
+//混淆js 高性能配置
 //gulp obfuse_js --pf wxgame
+//https://gitee.com/ifaswind/ccc-obfuscated-code
 gulp.task("obfuse_js", [], function (cb) {
     console.log('----------------', options.pf)
     gulp.src(["./bin/js/bundle.js"])
         .pipe(javascriptObfuscator({
             compact: true,
-            // debugProtection: true,
-            disableConsoleOutput: false,//是否关闭log
-            // "compact": true,
-            // "rotateStringArray": true,
-            // "stringArray": true,
-            // "identifierNamesGenerator": "hexadecimal",
-            // "stringArrayEncoding": false,
-            // "deadCodeInjection": true,
-            // "deadCodeInjectionThreshold": 0.3,
-            // "target": "node"
+            controlFlowFlattening: false,
+            deadCodeInjection: false,
+            debugProtection: false,
+            debugProtectionInterval: false,
+            disableConsoleOutput: false, //屏蔽日志
+            identifierNamesGenerator: 'hexadecimal',
+            log: true,
+            renameGlobals: false,
+            rotateStringArray: true,
+            selfDefending: true,
+            shuffleStringArray: true,
+            splitStrings: false,
+            stringArray: true,
+            stringArrayEncoding: false,
+            stringArrayThreshold: 0.75,
+            unicodeEscapeSequence: false
         }))
         .pipe(gulp.dest("./release/" + options.pf + "/js/")
             .on("end", cb));

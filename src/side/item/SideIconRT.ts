@@ -7,7 +7,7 @@ import SideUtils from "../mgr/SideUtils";
 /**
  * 右上角卖量
  */
-export default class SideIconRT extends ui.side.SideIconRTUI {
+export default class SideIconRT extends ui.view.side.SideIconRTUI {
 
     /**
      * 是否只存在右上角

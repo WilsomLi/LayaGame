@@ -4,11 +4,12 @@ import UIMgr from "../../mgr/UIMgr";
 import YLSDK from "../../platform/YLSDK";
 import SideMgr from "../mgr/SideMgr";
 import EUI from "../../const/EUI";
+import UIUtils from "../../util/UIUtils";
 
 /**
  * 仿微信界面
  */
-export default class WXModelView extends ui.side.WXModelViewUI {
+export default class WXModelView extends ui.view.side.WXModelViewUI {
 
     /**
      * 重写
@@ -18,7 +19,7 @@ export default class WXModelView extends ui.side.WXModelViewUI {
         self.refresh();
         ltCont.selectEnable = true;
         ltCont.selectHandler = Laya.Handler.create(self, self.onSelect, void 0, false);
-        Utils.addClick(self.boxBack, self.onClose, self);
+        UIUtils.addClick(self.boxBack, self.onClose, self);
         self.setAldEvent('仿微信界面卖量');
         // 适配
         var point = platform.getMenuButtonBoundingClientRect();

@@ -12,11 +12,12 @@ import WebPlatform from "./platform/WebPlatform";
 import EventType from "./const/EventType";
 import EUI from "./const/EUI";
 import SideMgr from "./side/mgr/SideMgr";
-import SideReceiver from "./mgr/SideReceiver";
-import NativeMgr from "./mgr/NativeMgr";
 import YLSDK from "./platform/YLSDK";
 
 class Main {
+
+	private _hideTime:number;//切后台时间
+
 	constructor() {
 		//根据IDE设置初始化引擎		
 		if (window["Laya3D"]) Laya3D.init(GameConfig.width, GameConfig.height);
@@ -40,15 +41,21 @@ class Main {
 		Laya.MouseManager.multiTouchEnabled = false;
 
 		// 默认loading，减少黑屏几率，延迟等高度出来
-		Laya.timer.callLater(null, function () {
+		let userButton = window['userButton'];
+		if(!userButton) {
 			var stage = Laya.stage, dir = 'loading/';
-			var logingBg = new Laya.Image(dir + 'loading_bg.jpg');
 			var height = stage.height;
+			var logingBg = new Laya.Image(dir + 'loading_bg.jpg');
 			logingBg.y = (height - 1650) / 2;
 			stage.addChild(logingBg);
-			EventMgr.once(EventType.EnterLoading, null, function () {
-				logingBg.removeSelf();
-			});
+		}
+		EventMgr.once(EventType.EnterLoading, null, function () {
+			if(userButton) {
+				userButton.hide();
+			}
+			else {
+				logingBg && logingBg.removeSelf();
+			}
 		});
 
 		if (Laya.Browser.onPC) {
@@ -69,21 +76,78 @@ class Main {
 		// 打点开始
 		AldSDK.timeId = Date.now();
 		AldSDK.aldSendEvent("开始游戏", false);
-		this.initCDNConfig();
+		// this.initCDNConfig();
+
 		this.setupPlatform();
 		YLSDK.ylInitSDK((success) => {
-			console.log("ylInitSDK", success);
-			// console.log("YLSDK-user", YLSDK.ylGetUserInfo());
-			// console.log("YLSDK-switch", YLSDK.ylGetSwitchInfo());
+			if(typeof(success) == 'boolean') {
+				this.initSDK(success);
+			}
 		});
 
-		SideMgr.init(platform, platform.isWechat || platform.isNone);
-		SideReceiver.init();
-		SideMgr.reqYLSideboxAndBoard();
+		if(platform.isNone) {
+			SideMgr.init(platform, platform.isNone);
+		}
+
 		SoundMgr.init();
 		DataStatistics.init();
 		UserData.instance.init();
-		UIMgr.openUI(EUI.LoadingUI);
+		UIMgr.openUI(EUI.LoadingView);
+	}
+
+	initSDK(success: boolean): void {
+		console.log("ylInitSDK", success);
+		// 开关
+		let userInfo: any = YLSDK.ylGetUserInfo();
+		let switchInfo: any = YLSDK.ylGetSwitchInfo();
+		console.log("YLSDK-user", userInfo);
+		console.log("YLSDK-switch", switchInfo);
+		
+		//账号id
+		if (userInfo) {
+			console.log("userInfo", userInfo);
+			UserData.instance.isNewPlayer = (userInfo.newPlayer === 1) ? true : false;
+			console.log("sdk 新老用户", UserData.instance.isNewPlayer);
+		}
+		if (switchInfo) {
+			GameConst.ShareSwitch = switchInfo.switchShare == 1;
+			GameConst.SideSwitch = switchInfo.switchPush == 1;
+			GameConst.MisTouchSwitch = switchInfo.switchTouch == 1;
+		}
+		//自定义开关
+		YLSDK.initCustomSwitch(() => {
+			// 延迟初始化
+			GameConst.SceneSwitch = YLSDK.getDefValue("guanggaoSwitch") === "true";
+			GameConst.GDMisTouchSwitch = YLSDK.getDefValue("gdMisTouchSwitch") === "true";
+			GameConst.SwitchYS = YLSDK.getDefValue('yuanshengguangg') === 'true';
+			GameConst.InsertBannerDelayTime = YLSDK.getDefValue("insertbannerdelay") * 1000;
+			GameConst.SwitchSkinTry = YLSDK.getDefValue('pifushiyong') === "true";
+			GameConst.SwitchInsertBanner = YLSDK.getDefValue("chapkaiguan") === "true";
+			GameConst.InsertbannerInterval = YLSDK.getDefValue("chapjiange");
+			GameConst.FirstShowInsertBannerShowTime = YLSDK.getDefValue("chapxianshishijian");
+			
+			GameConst.WCBox = YLSDK.getDefValue("WCBox") === "true";
+			GameConst.BannerShowTime = parseInt(YLSDK.getDefValue("BannerShowTime")) || GameConst.BannerShowTime;
+			GameConst.BtnReSize = parseInt(YLSDK.getDefValue("BtnReSize")) || GameConst.BtnReSize;
+			GameConst.BigBox = YLSDK.getDefValue("out")  === "true";
+			GameConst.gamebanner = YLSDK.getDefValue("game_banner")  === "false" ? false : true;
+			
+			GameConst.logAllSwitch();
+		});
+		YLSDK.InsertBannerShowTime = Date.now();
+		SideMgr.init(platform, false);
+		SideMgr.reqYLSideboxAndBoard();
+
+		//拉取微信分享数据
+		if(platform.isWechat) {
+			YLSDK.ylShareCard(function (shareInfo) {
+				if(shareInfo){
+					console.log("----获取分享图:",JSON.stringify(shareInfo));
+				}else{
+					//获取失败
+				}            
+			}.bind(this),'jiesuan');
+		}
 	}
 
 	/**
@@ -99,31 +163,40 @@ class Main {
 	 * 建立平台
 	 */
 	setupPlatform(): void {
-		var timer = Laya.timer, isWechat = platform.isWechat, isOppo = platform.isOppo;
-		// 切换前台
-		platform.onShow(function (options) {
-			if (isWechat) {
-				timer.scale = 1;
-			}
+		//切换前台
+		let self = this;
+		platform.onShow((options) => {
+			console.info("options:", options);
+			Laya.timer.scale = 1;
 			SoundMgr.playBGM();
-		});
-		// 切换后台
-		platform.onHide(function (res) {
-			if (isWechat) {
-				timer.scale = 0;
-				if (res) {
-					let mode = res.mode;
-					// home键、正常退出游戏
-					if (mode === 'close' || (mode === 'hide' && res.targetAction === 7)) {
-						// ServerAgency.reqExit(1);
-					}
+			if (platform.isWechat) {
+				GameConst.Scene = options.scene;
+				if (options.scene == 1089 || options.scene == 1104) {
+					//已收藏 从我的小程序  已经得不到1104的场景值					
 				}
+			} else if (platform.isOppo) {
+				//判断回到前台得时间
+				self.judgeTime();
+			}
+
+		});
+		//切换后台
+		platform.onHide(() => {
+			if (platform.isWechat) {
+				Laya.timer.scale = 0;
+			} else if (platform.isOppo) {
+				YLSDK.Shortcut();
+				self._hideTime = Date.now();
 			}
 		});
-		// oppo专属
-		if (isOppo) {
-			// 原生初始化
-			platform.createNativeAd(NativeMgr.init);
+	}
+
+	//判断回到前台的时间是否显示插屏广告
+	judgeTime() {
+		if (this._hideTime == 0) return;
+		if ((Date.now() - this._hideTime) / 1000 > 30) {
+			platform.createInsertAd();
+			this._hideTime = 0;
 		}
 	}
 }

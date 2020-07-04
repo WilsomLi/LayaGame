@@ -126,7 +126,7 @@
                         {
                             "x":45,
                             "type":"UIView",
-                            "source":"item/WXModelItem.scene",
+                            "source":"view/item/WXModelItem.scene",
                             "searchKey":"UIView,render",
                             "props":{"name":"render"},
                             "nodeParent":10,

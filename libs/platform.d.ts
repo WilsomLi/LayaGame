@@ -487,6 +487,11 @@ interface Platform {
      * @param call 回调，参数是原生广告对象及原生广告信息，为undefined表示无数据
      */
     createNativeAd(call?: (nativeAd: any, infos: INativeInfo[]) => void);
+
+    destroyFeedBackBtn():void;
+    setFeedbackButtonVisible(visible:boolean):void;
+    
+    reportMonitor(name:string,value:number):void;
 }
 
 declare const platform: Platform;

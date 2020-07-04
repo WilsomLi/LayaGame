@@ -1,5 +1,6 @@
 import EventMgr from "./mgr/EventMgr";
-import Utils from "./util/Utils";
+import YLSDK from "./platform/YLSDK";
+import UIUtils from "./util/UIUtils";
 
 /**
  * 面板基类
@@ -17,6 +18,7 @@ export default class UIBaseView extends Laya.View {
 
     private $events: any = {};
     private $calls: any[] = [];
+    private $uiConfig:IUIConfig;
 
     /**
      * 当调用了setCloseCall的回调时，该值为其返回参数；子类重写
@@ -66,7 +68,7 @@ export default class UIBaseView extends Laya.View {
      * @param time 多次点击阻断，默认300
      */
     protected regClick(node: Laya.Sprite, func: Function, once?: boolean, data?: any, time?: number): void {
-        Utils.addClick(node, func, this, once, data, time);
+        UIUtils.addClick(node, func, this, once, data, time);
     }
 
     /**
@@ -90,5 +92,23 @@ export default class UIBaseView extends Laya.View {
      */
     public setCloseCall(call: (param?: any) => void, thisObj?: any): void {
         this.$calls.push([call, thisObj]);
+    }
+
+    /**
+     * 清理关闭回调，阻断界面连续关闭
+     */
+    public clearCloseCall():void {
+        if(this.$calls) {
+            this.$calls.length = 0;
+        }
+    }
+
+    /**
+     * 界面事件打点，默认上报ui类名，需要自定义事件名的重载此方法
+     */
+    public eventCount(){
+        if(this.$uiConfig) {
+            YLSDK.ylEventCount(this.$uiConfig.name,'ui');
+        }
     }
 }

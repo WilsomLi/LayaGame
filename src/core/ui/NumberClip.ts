@@ -34,7 +34,7 @@ export default class NumberClip {
         if(val > 30*2){
             delta = Math.floor(val / (30*2));
         }
-        Laya.timer.frameLoop(2,this,function(){
+        Laya.timer.frameLoop(2,this,()=>{
             let tmp = this._val + delta;
             tmp = Math.min(tmp,val);
             this._val = tmp;

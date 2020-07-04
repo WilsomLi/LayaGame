@@ -17,7 +17,6 @@ class SideData implements ISideboxData {
     jumpAppid: string = '';     // 跳转appid
     path: string = '';          // 跳转路径
     shieldIos: number = 0;      // 是否屏蔽ios，0不屏蔽，1屏蔽
-
     constructor(data?: ISideboxData) {
         for (let i in data) {
             this[i] = data[i];
@@ -44,7 +43,7 @@ const config: ILocalConfig = {
     cache: '$adConfig$',
     timeout: 5000,
     switch: true,
-    checkUrl: 'https://ydhwslb.szvi-bo.com/jslb/getUrl'
+    // checkUrl: 'https://ydhwslb.szvi-bo.com/jslb/getUrl'
 };
 
 /**
@@ -93,6 +92,8 @@ export default class SideMgr {
      * 服务器卖量配置
      */
     private static $svrConfig: IAdConfig;
+
+
 
     //// 卖量校验相关 ////
 
@@ -206,7 +207,8 @@ export default class SideMgr {
             timestamp: timestamp
         };
         // 发起请求
-        Http.get(config.checkUrl, data, config.timeout).then(self.onCompleteC).catch(self.onError);
+        //  Http.get(config.checkUrl, data, config.timeout).then(self.onCompleteC).catch(self.onError);
+        self.onComplete(data);
     }
 
     /**
@@ -232,20 +234,28 @@ export default class SideMgr {
         var self = SideMgr;
         self.onComplete(self.$cache);
     }
-
     /**
-     * 最终完成回调
-     * @param data 最终卖量配置信息
-     */
-    protected static onComplete(data: IAdConfig): void {
+       * 最终完成回调
+       * @param data 最终卖量配置信息
+       */
+
+    protected static onComplete(data): void {
         var self = SideMgr;
         if (!self.$complete && data) {
-            console.log('最终卖量数据', data);
-            self.$cache = data;
-            self.initSides();
-            self.$complete = true;
-            self.$useSvr || Laya.LocalStorage.setJSON(config.cache, data);
-            SideMsg.noticeLater(ESMessage.S2S_COMPLETE, data);
+
+            YLSDK.ylSideBox((stage) => {
+
+                /**修改  第一条 数据  */
+                data.boxes = stage;
+                self.$cache = data;
+                console.log('最终卖量数据', data);
+                self.initSides();
+                self.$complete = true;
+                self.$useSvr || Laya.LocalStorage.setJSON(config.cache, data);
+                SideMsg.noticeLater(ESMessage.S2S_COMPLETE, data);
+            });
+            Laya.Browser.onPC && self.initSides();
+
         }
     }
 
@@ -271,7 +281,7 @@ export default class SideMgr {
             for (let i = 0, len = datas.length; i < len; i++) {
                 let data = datas[i];
                 // 状态开且非IOS或IOS不屏蔽
-                if (data.status == 1 && (noIPhone || data.shieldIos != 1)) {
+                if (/*data.status == 1 && */(noIPhone || data.shieldIos != 1)) {
                     arrayZ.push(data);
                     // 屏蔽卖量
                     if (rmFunc(data)) {
@@ -393,6 +403,7 @@ export default class SideMgr {
      * 获取卖量数据，适用于非首屏界面
      */
     public static getSides(): ISideboxData[] {
+        // console.log("get side", SideMgr.$boxes);
         return config.switch ? SideMgr.$boxes : null;
     }
 
@@ -409,10 +420,10 @@ export default class SideMgr {
      * @param view 
      */
     public static checkShow(view: Laya.Sprite): void {
-        if(platform.isOppo){
+        if (platform.isOppo) {
             // oppo先隐藏退出按钮 更多好玩
             view.visible = false;
-        }else{
+        } else {
             view.visible = false;
             SideMgr.loadSides(function (datas) {
                 view.visible = datas && datas.length > 0;
@@ -483,44 +494,44 @@ export default class SideMgr {
     /**
      * 影流后台获取侧边盒与积分墙数据
      */
-    public static reqYLSideboxAndBoard():void {
+    public static reqYLSideboxAndBoard(): void {
         //侧边盒
         if (!SideMgr.$complete) {
-            let sideboxArr:Array<ISideboxData> = [];
+            let sideboxArr: Array<ISideboxData> = [];
             if (Laya.Browser.onPC) {
                 sideboxArr.push({
-                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/528b9fe9085146e7908123bc0dd077f9.jpg",
-                    innerStatus:0,
-                    jumpAppid:"wxb2e8e6a45ee0f0dc",
-                    path:"",
-                    shieldIos:0,
-                    showTime:30,
-                    sideboxId:5381,
-                    status:1,
-                    title:"天天涂鸦",
-                    type:0
+                    icon: "https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/528b9fe9085146e7908123bc0dd077f9.jpg",
+                    innerStatus: 0,
+                    jumpAppid: "wxb2e8e6a45ee0f0dc",
+                    path: "",
+                    shieldIos: 0,
+                    showTime: 30,
+                    sideboxId: 5381,
+                    status: 1,
+                    title: "天天涂鸦",
+                    type: 0
                 }, {
-                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f679c18745004196b3f9fd63106925ae.png",
-                    innerStatus:0,
-                    jumpAppid:"wxdfd16d128b23abd4",
-                    path:"",
-                    shieldIos:0,
-                    showTime:30,
-                    sideboxId:5382,
-                    status:1,
-                    title:"我吃糖贼6",
-                    type:0
+                    icon: "https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f679c18745004196b3f9fd63106925ae.png",
+                    innerStatus: 0,
+                    jumpAppid: "wxdfd16d128b23abd4",
+                    path: "",
+                    shieldIos: 0,
+                    showTime: 30,
+                    sideboxId: 5382,
+                    status: 1,
+                    title: "我吃糖贼6",
+                    type: 0
                 }, {
-                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f45857909999465cbc965f74e0d0c949.png",
-                    innerStatus:0,
-                    jumpAppid:"wx994fa8e21a539e13",
-                    path:"",
-                    shieldIos:0,
-                    showTime:30,
-                    sideboxId:5383,
-                    status:1,
-                    title:"水上乐园",
-                    type:0
+                    icon: "https://ydhwimg.szvi-bo.com/wx94a280837610e390/sidebox/f45857909999465cbc965f74e0d0c949.png",
+                    innerStatus: 0,
+                    jumpAppid: "wx994fa8e21a539e13",
+                    path: "",
+                    shieldIos: 0,
+                    showTime: 30,
+                    sideboxId: 5383,
+                    status: 1,
+                    title: "水上乐园",
+                    type: 0
                 });
                 SideMgr.setSvrSide(sideboxArr);
             } else {
@@ -531,16 +542,16 @@ export default class SideMgr {
                         for (let index = 0; index < _data.length; index++) {
                             const itemData = _data[index];
                             sideboxArr.push({
-                                icon:itemData["icon"],
-                                innerStatus:itemData["innerStatus"],
-                                jumpAppid:itemData["toAppid"],
-                                path:itemData["path"],
-                                shieldIos:itemData["shieldIos"],
-                                showTime:itemData["showTimes"],
-                                sideboxId:itemData["_id"],
-                                status:1,
-                                title:itemData["title"],
-                                type:itemData["type"]
+                                icon: itemData["icon"],
+                                innerStatus: itemData["innerStatus"],
+                                jumpAppid: itemData["toAppid"],
+                                path: itemData["path"],
+                                shieldIos: itemData["shieldIos"],
+                                showTime: itemData["showTimes"],
+                                sideboxId: itemData["_id"],
+                                status: 1,
+                                title: itemData["title"],
+                                type: itemData["type"]
                             });
                         }
                         console.log("SideMgr.setSvrSide", sideboxArr);
@@ -551,26 +562,26 @@ export default class SideMgr {
         }
         //积分墙
         if (!SideMgr.$boards) {
-            let boardArr:Array<IScoreBoardData> = [];
+            let boardArr: Array<IScoreBoardData> = [];
             if (Laya.Browser.onPC) {
                 boardArr.push({
-                    award:"[{'type':'gold','value':'0'}]",
-                    icon:"https://ydhwimg.szvi-bo.com/wx94a280837610e390/scoreboard/00fd6134a02548c490f80368f82d75cc.jpg",
-                    id:393,
-                    isOpen:true,
-                    jumpAppid:"wxb2e8e6a45ee0f0dc",
-                    path:"",
-                    sideboxId:393,
-                    title:"天天涂鸦"
-                },{
-                    award:"[{'type':'gold','value':'0'}]",
-                    icon:"https://ydhwimg.szvi-bo.com/wx38483cec31344b79/scoreboard/598c1db65dbc45738de7ebac2c404792.png",
-                    id:409,
-                    isOpen:true,
-                    jumpAppid:"wx994fa8e21a539e13",
-                    path:"",
-                    sideboxId:393,
-                    title:"水上乐园"
+                    award: "[{'type':'gold','value':'0'}]",
+                    icon: "https://ydhwimg.szvi-bo.com/wx94a280837610e390/scoreboard/00fd6134a02548c490f80368f82d75cc.jpg",
+                    id: 393,
+                    isOpen: true,
+                    jumpAppid: "wxb2e8e6a45ee0f0dc",
+                    path: "",
+                    sideboxId: 393,
+                    title: "天天涂鸦"
+                }, {
+                    award: "[{'type':'gold','value':'0'}]",
+                    icon: "https://ydhwimg.szvi-bo.com/wx38483cec31344b79/scoreboard/598c1db65dbc45738de7ebac2c404792.png",
+                    id: 409,
+                    isOpen: true,
+                    jumpAppid: "wx994fa8e21a539e13",
+                    path: "",
+                    sideboxId: 393,
+                    title: "水上乐园"
                 });
                 SideMgr.setSvrSBoard(boardArr);
             } else {
@@ -581,15 +592,15 @@ export default class SideMgr {
                         for (let index = 0; index < _data.length; index++) {
                             const itemData = _data[index];
                             boardArr.push({
-                                award:"[{'type':'gold','value':'0'}]",
-                                icon:itemData["icon"],
-                                id:itemData["_id"],
-                                isOpen:true,
-                                jumpAppid:itemData["toAppid"],
-                                path:itemData["path"],
-                                sideboxId:itemData["_id"],
+                                award: "[{'type':'gold','value':'0'}]",
+                                icon: itemData["icon"],
+                                id: itemData["_id"],
+                                isOpen: true,
+                                jumpAppid: itemData["toAppid"],
+                                path: itemData["path"],
+                                sideboxId: itemData["_id"],
                                 // type:itemData["type"],
-                                title:itemData["title"]
+                                title: itemData["title"]
                             });
                         }
                         console.log("SideMgr.setSvrSBoard", sideData);

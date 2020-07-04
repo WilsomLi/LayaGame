@@ -37,6 +37,14 @@ declare module Laya {
          * @param thisObj 
          */
         public setCloseCall(call: (param?: any) => void, thisObj?: any): void;
+        /**
+         * 清理关闭回调，阻断界面连续关闭
+         */
+        public clearCloseCall():void;
+        /**
+         * 事件打点
+         */
+        public eventCount():void;
     }
 }
 
@@ -149,9 +157,11 @@ interface IUIConfig {
     class: string;              // UI类路径
     mask?: boolean;             // 是否显示遮罩
     banner?: boolean;           // 是否显示banner
-    delay?: number;             // 延迟显示banner，banner为true时有效
     tween?: boolean;            // 显示和隐藏伴随动画
-    res?: any;                  // 预加载资源，格式同Laya.loader.load，暂无效
+
+    name?: string;              //自动设置,用于事件打点
+    mistouch?: string;          //误触组件名字
+    delay?: number;             //延迟显示banner，banner为true时有效    
 }
 
 /**

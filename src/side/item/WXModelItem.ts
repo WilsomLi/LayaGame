@@ -3,7 +3,7 @@ import { ui } from "../../ui/layaMaxUI";
 /**
  * 仿微信卖量子项
  */
-export default class WXModelItem extends ui.item.WXModelItemUI {
+export default class WXModelItem extends ui.view.item.WXModelItemUI {
     
     /**
      * 获取数据源

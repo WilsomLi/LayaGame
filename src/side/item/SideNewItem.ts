@@ -6,7 +6,7 @@ import SideUtils from "../mgr/SideUtils";
 /**
  * 好消息子项
  */
-export default class SideNewItem extends ui.item.SideNewItemUI {
+export default class SideNewItem extends ui.view.item.SideNewItemUI {
 
     /**
      * 重写

@@ -13,8 +13,8 @@ let AtlasRoot = "nativescene/res/";
 let SceneRoot = "nativescene/scene/Conventional/";
 let SkinRoot = SceneRoot + "Assets/Resources/Texture2D/";
 let SoundRoot = "nativescene/sound/";
-let CfgRoot = "nativescene/map/";
-let JsonRoot = "native/cfg/";
+let MapRoot = "nativescene/map/";
+let JsonRoot = "nativescene/";
 
 // 合图文件
 let EAtlas = {
@@ -32,11 +32,14 @@ addRoot(ESprite3D, SceneRoot);
 
 // 配置文件
 let EJson = {
-    GlobalCfg : "globalcfg.json",
-    LevelCfg : "level.json",
-    Player : "player.json",
-    ShopCfg : "shop.json",
-    NpcCfg : "npcConfig.json",
+    Configs:"configs.json"
+}
+
+let ECfg = {
+    GlobalCfg : "globalcfg",
+    LevelCfg : "level",
+    Player : "player",
+    ShopCfg : "shop",
 }
 addRoot(EJson, JsonRoot);
 
@@ -47,5 +50,5 @@ let ESound = {
 };
 addRoot(ESound, SoundRoot);
 
-export { SceneRoot, SkinRoot, ESprite3D, ESound, EJson, EAtlas, CfgRoot};
+export { SceneRoot, SkinRoot, ESprite3D, ESound, EJson, ECfg, EAtlas, MapRoot};
 

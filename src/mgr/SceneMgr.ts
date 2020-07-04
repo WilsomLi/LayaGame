@@ -5,7 +5,7 @@ import Camera = Laya.Camera;
 import Vector3 = Laya.Vector3;
 import Quaternion = Laya.Quaternion;
 
-import { ESprite3D, CfgRoot } from "../const/ERes";
+import { ESprite3D, MapRoot } from "../const/ERes";
 import CameraCtrl from "../logic/ctrl/CameraCtrl";
 import CfgDataMgr from "./CfgDataMgr";
 import { EntityType } from "../logic/entity/BaseEntity";
@@ -121,27 +121,23 @@ export default class SceneMgr {
         }
     }
 
-    public loadSceneData(_stageLevel: number, handler: Laya.Handler = null): void {
-        this._levelId = _stageLevel;
+    public loadSceneData(lv: number, handler: Laya.Handler = null): void {
+        this._levelId = lv;
 
-        let mapPath: string = CfgRoot + "level1.json";
-        let stageLevelCfg = CfgDataMgr.instance.getStageLevelCfg(_stageLevel);
-        if (stageLevelCfg) {
-            mapPath = CfgRoot + stageLevelCfg.Parameter + ".json";
-        }
+        let mapPath: string = MapRoot + `level${lv}.json`;
         console.log("mapPath---", mapPath);
-        Laya.loader.load(mapPath, Laya.Handler.create(this, function () {
+        Laya.loader.load(mapPath, Laya.Handler.create(this, ()=> {
             let json: object = Laya.loader.getRes(mapPath);
             if (json == null) {
-                console.error("兼容错误，找不到地图配置,Level", _stageLevel);
-                this.loadSceneData(_stageLevel - 1, handler);
+                console.error("兼容错误，找不到地图配置,Level", lv);
+                this.loadSceneData(lv - 1, handler);
             } else {
                 this._levelCfg = json;
                 this.revertMapFromCfg();
 
                 if (Laya.Browser.onPC) {
                     //模拟微信上加载json耗时
-                    Laya.timer.once(100, this, function () {
+                    Laya.timer.once(100, this, ()=> {
                         handler && handler.run();
                     });
                 } else {
@@ -207,10 +203,6 @@ export default class SceneMgr {
 
     }
 
-    updateLogic() {
-
-    }
-
     //创建特效对象
     public createEffect(effectName:string,parent:Sprite3D):Sprite3D {
         let effect:Sprite3D = Sprite3D.instantiate((this.effects.getChildByName(effectName) as Sprite3D),parent,false);
@@ -232,7 +224,7 @@ export default class SceneMgr {
         }
         effect.active = true;
         if(autoRecover) {
-            Laya.timer.once(1000,this,function(){
+            Laya.timer.once(1000,this,()=>{
                 this.recoverEffect(effect);
             })
         }

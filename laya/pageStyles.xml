@@ -10,7 +10,7 @@
    <item name="game/Loading.scene" props="" ifExport="分离模式" aName=""/>
    <item name="view/StartPage.scene" props="" ifExport="分离模式" aName=""/>
    <item name="view/OverPage.scene" props="" ifExport="分离模式" aName=""/>
-   <item name="view/Loading.scene" props="" ifExport="分离模式" aName=""/>
+   <item name="view/LoadingView.scene" props="" ifExport="分离模式" aName=""/>
    <item name="view/GameScene.scene" props="" ifExport="分离模式" aName=""/>
    <item name="view/DebugView.scene" props="" ifExport="分离模式" aName=""/>
    <item name="view/TouchDownUI.scene" props="" ifExport="分离模式" aName=""/>

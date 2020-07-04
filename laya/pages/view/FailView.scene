@@ -31,7 +31,7 @@
         {
             "x":15,
             "type":"UIView",
-            "source":"side/SideGrid.scene",
+            "source":"view/side/SideGrid.scene",
             "searchKey":"UIView,sideGrid",
             "props":{"y":470,"var":"sideGrid","centerX":0},
             "nodeParent":2,

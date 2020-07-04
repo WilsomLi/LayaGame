@@ -128,7 +128,7 @@ export default class FlyGold extends Laya.Sprite {
      */
     public play(point: Laya.Point, speed0: number = 1.5, speed1: number = 1): Promise<void> {
         let self = this;
-        return new Promise<void>(function (resolve) {
+        return new Promise<void>((resolve)=> {
             let cs = self['_children'], len = 0;
             if (cs) {
                 len = cs.length;

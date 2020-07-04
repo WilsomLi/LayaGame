@@ -23,6 +23,6 @@ REM 添加换行
 echo.>>%file%
 echo }>>%file%
 echo 合并结束
-move %file% ../bin/native/
+move %file% ../bin/nativescene/
 pause
 exit

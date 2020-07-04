@@ -19,8 +19,6 @@ export default class FailView extends ui.view.FailViewUI {
         var prob = 0;
         self.lblProb.text = '完成' + prob + '%';
         self.regClick(imgRestart, self.onRestart);
-        // 误触
-        Utils.showMisTouch(imgRestart);
         // 卖量
         self.sideGrid.setAldEvent('重新开始页-卖量');
     }

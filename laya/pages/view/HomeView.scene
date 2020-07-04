@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"UIBaseView",
-    "selectedBox":2,
-    "selecteID":8,
+    "selectedBox":12,
+    "selecteID":5,
     "searchKey":"UIBaseView",
     "props":{"width":750,"sceneColor":"#000000","runtime":"script/HomeView.ts","height":1334,"centerY":0,"centerX":0},
     "nodeParent":-1,
@@ -30,171 +30,14 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image,imgRelay",
-                    "props":{"y":68,"x":20,"var":"imgRelay","skin":"game/game_close.png"},
+                    "searchKey":"Image,btnStart",
+                    "props":{"y":746,"var":"btnStart","skin":"game/game_start.png","centerX":0},
                     "nodeParent":12,
-                    "label":"imgRelay",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":7,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgGoldBg",
-                    "props":{"y":160,"x":287,"var":"imgGoldBg","skin":"game/game_gold_bg.png","height":46,"centerX":0},
-                    "nodeParent":12,
-                    "label":"imgGoldBg",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":9,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,lblGold",
-                            "props":{"var":"lblGold","text":"100","fontSize":30,"color":"#ffffff","centerY":0,"centerX":-11,"bold":true},
-                            "nodeParent":9,
-                            "label":"lblGold",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":10,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,imgGold",
-                            "props":{"var":"imgGold","skin":"game/game_gold.png","centerY":0,"centerX":0},
-                            "nodeParent":9,
-                            "label":"imgGold",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":11,
-                            "child":[
-                                ]
-                        }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgMore",
-                    "props":{"y":442,"x":628,"var":"imgMore","skin":"game/game_more.png"},
-                    "nodeParent":12,
-                    "label":"imgMore",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":4,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgSkin",
-                    "props":{"y":926,"var":"imgSkin","skin":"game/game_skin.png","scaleX":-1,"right":119},
-                    "nodeParent":12,
-                    "label":"imgSkin",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":18,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgStart",
-                    "props":{"y":746,"var":"imgStart","skin":"game/game_start.png","centerX":0},
-                    "nodeParent":12,
-                    "label":"imgStart",
+                    "label":"btnStart",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":5,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"UIView",
-                    "source":"side/SideBotList.scene",
-                    "searchKey":"UIView,sideList",
-                    "props":{"y":1096,"var":"sideList","centerX":0},
-                    "nodeParent":12,
-                    "label":"sideList",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":6,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"UIView",
-                    "source":"side/SideIconRT.scene",
-                    "searchKey":"UIView,sideIcon0",
-                    "props":{"var":"sideIcon0"},
-                    "nodeParent":12,
-                    "label":"sideIcon0",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":17,
-                    "child":[
-                        ]
-                }]
-        },
-        {
-            "x":15,
-            "type":"View",
-            "searchKey":"View,vwGame",
-            "props":{"width":750,"visible":false,"var":"vwGame","height":1334,"centerY":0},
-            "nodeParent":2,
-            "label":"vwGame",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":13,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgPause",
-                    "props":{"y":68,"x":20,"var":"imgPause","skin":"game/game_pause.png"},
-                    "nodeParent":13,
-                    "label":"imgPause",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":14,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"UIView",
-                    "source":"side/SideIconRT.scene",
-                    "searchKey":"UIView,sideIcon1",
-                    "props":{"y":0,"x":0,"var":"sideIcon1"},
-                    "nodeParent":13,
-                    "label":"sideIcon1",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":16,
                     "child":[
                         ]
                 }]

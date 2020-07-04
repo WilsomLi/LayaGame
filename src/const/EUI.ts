@@ -1,17 +1,40 @@
 /**
- * UI 枚举 view:{id:number,class:string,tween:boolean,adunit:[],res:[]}
- * 参数详情看IUIConfig
+ * UI 枚举 { [key: string]: IUIConfig }
+ * interface IUIConfig {
+    class: string;              // UI类路径
+    mask?: boolean;             // 是否显示遮罩
+    banner?: boolean;           // 是否显示banner
+    tween?: boolean;            // 显示和隐藏伴随动画
+
+    name?: string;              //自动设置,用于事件打点
+    mistouch?: string;          //误触组件名字
+    delay?: number;             //延迟显示banner，banner为true时有效    
+}
  */
 let EUI = {
+    /////////////////////////////////////////////////////////////////////
+    // 商业化
     WXModelView: {
-        class: "model/side/WXModelView.ts"
+        class: "side/view/WXModelView.ts",
+    },
+    SideBoxView:
+    {
+        class: "side/view/SideBoxView.ts",
+        mask: true,
+    },
+    GoldenEggView:
+    {
+        class: "side/view/GoldenEggView.ts",
+        mask: true,
     },
 
+    /////////////////////////////////////////////////////////////////////
+    // 通用UI
     DebugView: {
         class: "script/DebugView.ts"
     },
-    LoadingUI: {
-        class: "script/LoadingUI.ts"
+    LoadingView: {
+        class: "script/LoadingView.ts"
     },
     HomeView: {
         class: "script/HomeView.ts"
@@ -20,10 +43,12 @@ let EUI = {
         class: "script/RankingView.ts",
         mask: true
     },
-    MoreGameView: {
-        class: "script/side/MoreGameView.ts",
-        banner: true
+    TrySkinView: {
+        class: "script/TrySkinView.ts",
+        mask: true
     },
+    /////////////////////////////////////////////////////////////////////
+
     FailView: {
         class: "script/FailView.ts",
         mask: true,

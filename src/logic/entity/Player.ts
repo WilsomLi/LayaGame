@@ -12,18 +12,12 @@ import ExUtils from "../../util/ExUtils";
 import SceneMgr from "../../mgr/SceneMgr";
 import ShopMgr from "../../mgr/ShopMgr";
 
-export enum EGender {
-    Male,
-    Female,
-}
-
 /**
  * 玩家
  */
 export default class Player extends BaseEntity {
 
     protected playerId: number;
-    protected gender: EGender;//性别
     protected isRole: boolean = false;
     
     protected skinId: number = 0;     // 默认皮肤
@@ -56,24 +50,16 @@ export default class Player extends BaseEntity {
         //     this.collider.setRadius(this.cfgData.modelR);
     }
 
+    isRolePlayer(): boolean {
+        return this.isRole;
+    }
+
     setPlayerId(id: number): void {
         this.playerId = id;
     }
 
     getPlayerId(): number {
         return this.playerId;
-    }
-
-    setGender(gender: EGender): void {
-        this.gender = gender;
-    }
-
-    getGender(): EGender {
-        return this.gender;
-    }
-
-    isRolePlayer(): boolean {
-        return this.isRole;
     }
 
     public set playerName(val:string) {
@@ -135,7 +121,7 @@ export default class Player extends BaseEntity {
         this._modelName = name;
         
         let path:string = SceneRoot+name+".lh";
-        ExUtils.instanceSprite3D(path,null,Laya.Handler.create(this,function(newModel:Laya.Sprite3D){
+        ExUtils.instanceSprite3D(path,null,Laya.Handler.create(this,(newModel:Laya.Sprite3D)=>{
             let oldModel:Laya.Sprite3D = this.gameObject.getChildAt(0) as Laya.Sprite3D;
             if(oldModel)
                 oldModel.destroy();

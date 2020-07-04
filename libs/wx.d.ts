@@ -5636,4 +5636,10 @@ declare namespace wx {
   export function writeBLECharacteristicValue(
     object: _writeBLECharacteristicValueObject
   ): void;
+
+
+
+
+
+  export function getFileSystemManager():any;
 }
