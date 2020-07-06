@@ -14,8 +14,8 @@
 let EUI = {
     /////////////////////////////////////////////////////////////////////
     // 商业化
-    WXModelView: {
-        class: "side/view/WXModelView.ts",
+    BigBoxView: {
+        class: "side/view/BigBoxView.ts",
     },
     SideBoxView:
     {
@@ -39,6 +39,9 @@ let EUI = {
     HomeView: {
         class: "script/HomeView.ts"
     },
+    GameView: {
+        class: "script/GameView.ts",
+    },
     RankingView: {
         class: "script/RankingView.ts",
         mask: true
@@ -46,6 +49,11 @@ let EUI = {
     TrySkinView: {
         class: "script/TrySkinView.ts",
         mask: true
+    },
+    SettingView: {
+        class:"script/SettingView.ts",
+        mask:true,
+        banner:true,
     },
     /////////////////////////////////////////////////////////////////////
 

@@ -2,20 +2,26 @@
 import DebugView from "./script/DebugView"
 import FailView from "./script/FailView"
 import SideGrid from "./side/item/SideGrid"
+import HomeSellView from "./script/HomeSellView"
+import SideIconRT from "./side/item/SideIconRT"
 import HomeView from "./script/HomeView"
+import BigBoxItem0 from "./side/item/BigBoxItem0"
+import BigBoxItem1 from "./side/item/BigBoxItem1"
 import MoreGameItem1 from "./side/item/MoreGameItem1"
+import OverGameItem from "./side/item/OverGameItem"
 import SideBotItem from "./side/item/SideBotItem"
+import MoreGameItem from "./side/item/SideBoxItem"
 import SideGridItem from "./side/item/SideGridItem"
 import SideListItem from "./side/item/SideListItem"
 import SideNewItem from "./side/item/SideNewItem"
-import WXModelItem from "./side/item/WXModelItem"
 import LoadingView from "./script/LoadingView"
 import RankingView from "./script/RankingView"
 import ResultView from "./script/ResultView"
 import FlyGold from "./core/ui/FlyGold"
+import SideBoxView from "./side/view/SideBoxView"
+import GoldenEggView from "./side/view/GoldenEggView"
 import SideBotList from "./side/item/SideBotList"
-import SideIconRT from "./side/item/SideIconRT"
-import WXModelView from "./side/view/WXModelView"
+import SideOverList from "./side/view/SideOverList"
 /*
 * 游戏初始化配置;
 */
@@ -26,7 +32,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="view/side/SideBotList.scene";
+    static startScene:any="view/HomeSellView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=true;
@@ -38,20 +44,26 @@ export default class GameConfig{
         reg("script/DebugView.ts",DebugView);
         reg("script/FailView.ts",FailView);
         reg("side/item/SideGrid.ts",SideGrid);
+        reg("script/HomeSellView.ts",HomeSellView);
+        reg("side/item/SideIconRT.ts",SideIconRT);
         reg("script/HomeView.ts",HomeView);
+        reg("side/item/BigBoxItem0.ts",BigBoxItem0);
+        reg("side/item/BigBoxItem1.ts",BigBoxItem1);
         reg("side/item/MoreGameItem1.ts",MoreGameItem1);
+        reg("side/item/OverGameItem.ts",OverGameItem);
         reg("side/item/SideBotItem.ts",SideBotItem);
+        reg("side/item/MoreGameItem.ts",MoreGameItem);
         reg("side/item/SideGridItem.ts",SideGridItem);
         reg("side/item/SideListItem.ts",SideListItem);
         reg("side/item/SideNewItem.ts",SideNewItem);
-        reg("side/item/WXModelItem.ts",WXModelItem);
         reg("script/LoadingView.ts",LoadingView);
         reg("script/RankingView.ts",RankingView);
         reg("script/ResultView.ts",ResultView);
         reg("core/ui/FlyGold.ts",FlyGold);
+        reg("side/view/SideBoxView.ts",SideBoxView);
+        reg("side/view/GoldenEggView.ts",GoldenEggView);
         reg("side/item/SideBotList.ts",SideBotList);
-        reg("side/item/SideIconRT.ts",SideIconRT);
-        reg("side/view/WXModelView.ts",WXModelView);
+        reg("side/view/SideOverList.ts",SideOverList);
     }
 }
 GameConfig.init();

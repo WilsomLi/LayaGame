@@ -423,7 +423,7 @@ export default class UIMgr {
                 uiConfig.tween && UIMgr.showTween(ui);
                 ui.eventCount && ui.eventCount();
 
-                EventMgr.event(EventType.UpdateView);
+                EventMgr.event(EventType.CloseUI,uiConfig);
 
                 return ui;
             }
@@ -472,7 +472,7 @@ export default class UIMgr {
             Laya.timer.frameOnce(2, UIMgr, UIMgr.checkTop, [UIMgr.topUI()]);
         }
 
-        EventMgr.event(EventType.UpdateView);
+        EventMgr.event(EventType.OpenUI,uiConfig);
     }
 
     /**

@@ -35,6 +35,22 @@ export module ui.view {
         }
     }
     REG("ui.view.FailViewUI",FailViewUI);
+    export class HomeSellViewUI extends Laya.UIBaseView {
+		public addIconAni:Laya.FrameAnimation;
+		public btnMoreGame:Laya.Image;
+		public nativeBg:Laya.Image;
+		public nativeIcon:Laya.Image;
+		public sell:any;
+		public addDesktop:Laya.Box;
+		public addDesktopIcon:Laya.Image;
+		public handImg:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/HomeSellView");
+        }
+    }
+    REG("ui.view.HomeSellViewUI",HomeSellViewUI);
     export class HomeViewUI extends Laya.UIBaseView {
 		public vwMain:Laya.View;
 		public btnStart:Laya.Image;
@@ -83,6 +99,26 @@ export module ui.view {
     REG("ui.view.ResultViewUI",ResultViewUI);
 }
 export module ui.view.item {
+    export class BigBoxItem0UI extends Laya.View {
+		public imgIcon:Laya.Image;
+		public labelname:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/item/BigBoxItem0");
+        }
+    }
+    REG("ui.view.item.BigBoxItem0UI",BigBoxItem0UI);
+    export class BigBoxItem1UI extends Laya.View {
+		public imgIcon:Laya.Image;
+		public lblName:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/item/BigBoxItem1");
+        }
+    }
+    REG("ui.view.item.BigBoxItem1UI",BigBoxItem1UI);
     export class MoreGameItem1UI extends Laya.View {
 		public imgIcon:Laya.Image;
 		public lblName:Laya.Label;
@@ -93,6 +129,15 @@ export module ui.view.item {
         }
     }
     REG("ui.view.item.MoreGameItem1UI",MoreGameItem1UI);
+    export class OverGameItemUI extends Laya.View {
+		public imgIcon:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/item/OverGameItem");
+        }
+    }
+    REG("ui.view.item.OverGameItemUI",OverGameItemUI);
     export class SideBotItemUI extends Laya.View {
 		public ani1:Laya.FrameAnimation;
 		public imgIcon:Laya.Image;
@@ -104,6 +149,15 @@ export module ui.view.item {
         }
     }
     REG("ui.view.item.SideBotItemUI",SideBotItemUI);
+    export class SideBoxItemUI extends Laya.View {
+		public icon:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/item/SideBoxItem");
+        }
+    }
+    REG("ui.view.item.SideBoxItemUI",SideBoxItemUI);
     export class SideGridItemUI extends Laya.View {
 		public ani1:Laya.FrameAnimation;
 		public imgIcon:Laya.Image;
@@ -139,19 +193,35 @@ export module ui.view.item {
         }
     }
     REG("ui.view.item.SideNewItemUI",SideNewItemUI);
-    export class WXModelItemUI extends Laya.View {
-		public imgIcon:Laya.Image;
-		public lblName:Laya.Label;
-		public imgStar:Laya.Image;
+}
+export module ui.view.side {
+    export class BigBoxViewUI extends Laya.SideView {
+		public boxTop:Laya.Box;
+		public imgBack:Laya.Image;
+		public list0:Laya.List;
+		public list1:Laya.List;
+		public imgKeep:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("view/item/WXModelItem");
+            this.loadScene("view/side/BigBoxView");
         }
     }
-    REG("ui.view.item.WXModelItemUI",WXModelItemUI);
-}
-export module ui.view.side {
+    REG("ui.view.side.BigBoxViewUI",BigBoxViewUI);
+    export class GoldenEggViewUI extends Laya.UIBaseView {
+		public ani1:Laya.FrameAnimation;
+		public imgEgg:Laya.Image;
+		public spMask:Laya.Sprite;
+		public imgBtn:Laya.Image;
+		public imgHand:Laya.Image;
+		public lblRem:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/side/GoldenEggView");
+        }
+    }
+    REG("ui.view.side.GoldenEggViewUI",GoldenEggViewUI);
     export class SideBotListUI extends Laya.SideView {
 		public ltCont:Laya.List;
         constructor(){ super()}
@@ -161,6 +231,18 @@ export module ui.view.side {
         }
     }
     REG("ui.view.side.SideBotListUI",SideBotListUI);
+    export class SideBoxViewUI extends Laya.SideView {
+		public boxMain:Laya.Image;
+		public lblTitle:Laya.Label;
+		public list:Laya.List;
+		public imgSlide:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("view/side/SideBoxView");
+        }
+    }
+    REG("ui.view.side.SideBoxViewUI",SideBoxViewUI);
     export class SideGridUI extends Laya.SideView {
 		public ltCont:Laya.List;
         constructor(){ super()}
@@ -180,16 +262,13 @@ export module ui.view.side {
         }
     }
     REG("ui.view.side.SideIconRTUI",SideIconRTUI);
-    export class WXModelViewUI extends Laya.SideView {
-		public spGray:Laya.Sprite;
-		public boxTop:Laya.Box;
-		public boxBack:Laya.Box;
-		public ltCont:Laya.List;
+    export class SideOverListUI extends Laya.SideView {
+		public list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("view/side/WXModelView");
+            this.loadScene("view/side/SideOverList");
         }
     }
-    REG("ui.view.side.WXModelViewUI",WXModelViewUI);
+    REG("ui.view.side.SideOverListUI",SideOverListUI);
 }
