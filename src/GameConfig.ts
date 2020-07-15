@@ -5,23 +5,33 @@ import SideGrid from "./side/item/SideGrid"
 import HomeSellView from "./script/HomeSellView"
 import SideIconRT from "./side/item/SideIconRT"
 import HomeView from "./script/HomeView"
+import SideLeftList from "./side/view/SideLeftList"
 import BigBoxItem0 from "./side/item/BigBoxItem0"
 import BigBoxItem1 from "./side/item/BigBoxItem1"
 import MoreGameItem1 from "./side/item/MoreGameItem1"
 import OverGameItem from "./side/item/OverGameItem"
 import SideBotItem from "./side/item/SideBotItem"
-import MoreGameItem from "./side/item/SideBoxItem"
+import SideBoxItem from "./side/item/SideBoxItem"
+import SideBoxItem0 from "./side/item/SideBoxItem0"
+import SideBoxItem1 from "./side/item/SideBoxItem1"
 import SideGridItem from "./side/item/SideGridItem"
 import SideListItem from "./side/item/SideListItem"
+import SideListItem4 from "./side/item/SideListItem4"
+import ScaleAni from "./util/ScaleAni"
 import SideNewItem from "./side/item/SideNewItem"
+import WXModelItem from "./side/item/WXModelItem"
 import LoadingView from "./script/LoadingView"
 import RankingView from "./script/RankingView"
 import ResultView from "./script/ResultView"
 import FlyGold from "./core/ui/FlyGold"
 import SideBoxView from "./side/view/SideBoxView"
 import GoldenEggView from "./side/view/GoldenEggView"
+import MorePeopleView from "./side/view/MorePeopleView"
 import SideBotList from "./side/item/SideBotList"
+import SideDoubleList from "./side/item/SideDoubleList"
+import SideMoreGameView from "./side/view/SideMoreGameView"
 import SideOverList from "./side/view/SideOverList"
+import WXModelView from "./side/view/WXModelView"
 /*
 * 游戏初始化配置;
 */
@@ -32,7 +42,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="view/HomeSellView.scene";
+    static startScene:any="view/side/SideMoreGameView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=true;
@@ -47,23 +57,33 @@ export default class GameConfig{
         reg("script/HomeSellView.ts",HomeSellView);
         reg("side/item/SideIconRT.ts",SideIconRT);
         reg("script/HomeView.ts",HomeView);
+        reg("side/view/SideLeftList.ts",SideLeftList);
         reg("side/item/BigBoxItem0.ts",BigBoxItem0);
         reg("side/item/BigBoxItem1.ts",BigBoxItem1);
         reg("side/item/MoreGameItem1.ts",MoreGameItem1);
         reg("side/item/OverGameItem.ts",OverGameItem);
         reg("side/item/SideBotItem.ts",SideBotItem);
-        reg("side/item/MoreGameItem.ts",MoreGameItem);
+        reg("side/item/SideBoxItem.ts",SideBoxItem);
+        reg("side/item/SideBoxItem0.ts",SideBoxItem0);
+        reg("side/item/SideBoxItem1.ts",SideBoxItem1);
         reg("side/item/SideGridItem.ts",SideGridItem);
         reg("side/item/SideListItem.ts",SideListItem);
+        reg("side/item/SideListItem4.ts",SideListItem4);
+        reg("util/ScaleAni.ts",ScaleAni);
         reg("side/item/SideNewItem.ts",SideNewItem);
+        reg("side/item/WXModelItem.ts",WXModelItem);
         reg("script/LoadingView.ts",LoadingView);
         reg("script/RankingView.ts",RankingView);
         reg("script/ResultView.ts",ResultView);
         reg("core/ui/FlyGold.ts",FlyGold);
         reg("side/view/SideBoxView.ts",SideBoxView);
         reg("side/view/GoldenEggView.ts",GoldenEggView);
+        reg("side/view/MorePeopleView.ts",MorePeopleView);
         reg("side/item/SideBotList.ts",SideBotList);
+        reg("side/item/SideDoubleList.ts",SideDoubleList);
+        reg("side/view/SideMoreGameView.ts",SideMoreGameView);
         reg("side/view/SideOverList.ts",SideOverList);
+        reg("side/view/WXModelView.ts",WXModelView);
     }
 }
 GameConfig.init();

@@ -9,14 +9,14 @@ export default class MoreGameItem1 extends ui.view.item.MoreGameItem1UI {
     /**
      * 获取数据源
      */
-    public get dataSource(): ISideboxData {
+    public get dataSource(): IYDHW.GameBase.ISideBoxResult {
         return this._dataSource;
     }
 
     /**
      * 设置数据源
      */
-    public set dataSource(data: ISideboxData) {
+    public set dataSource(data: IYDHW.GameBase.ISideBoxResult) {
         var self = this;
         self._dataSource = data;
         self.refresh();

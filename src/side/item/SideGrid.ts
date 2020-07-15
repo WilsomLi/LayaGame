@@ -1,18 +1,18 @@
 import { ui } from "../../ui/layaMaxUI";
-import SideMgr from "../mgr/SideMgr";
 import SideUtils from "../mgr/SideUtils";
+import SideNewMgr from "../mgr/SideNewMgr";
 
 /**
  * 方格卖量8个
  */
 export default class SideGrid extends ui.view.side.SideGridUI {
 
-    private $datas: ISideboxData[];
+    private $datas: IYDHW.GameBase.ISideBoxResult[];
 
     /**
      * 重写
      */
-    protected initView(caches: ISideboxData[]): void {
+    protected initView(caches: IYDHW.GameBase.ISideBoxResult[]): void {
         var self = this, ltCont = self.ltCont;
         self.$datas = caches.concat();
         self.refresh();
@@ -36,15 +36,15 @@ export default class SideGrid extends ui.view.side.SideGridUI {
      * 重写
      */
     protected onCancel(): void {
-        SideMgr.showMore();
+        SideNewMgr.ins.showMore();
     }
 
     /**
      * 重写
      */
-    protected onRemoved(data: ISideboxData): void {
+    protected onRemoved(data: IYDHW.GameBase.ISideBoxResult): void {
         var self = this;
-        if (SideMgr.hasSide()) {
+        if (SideNewMgr.ins.hasSide()) {
             // 刷新显示列表
             let array = self.ltCont.array;
             for (let i = 0, len = array.length; i < len; i++) {
@@ -65,8 +65,8 @@ export default class SideGrid extends ui.view.side.SideGridUI {
     /**
      * 改变子项数据
      */
-    protected changeItem(index: number, data: ISideboxData): void {
-        var rand = SideUtils.randomInArray(SideMgr.getSides(), data);
+    protected changeItem(index: number, data: IYDHW.GameBase.ISideBoxResult): void {
+        var rand = SideUtils.randomInArray(SideNewMgr.ins.getBoxDatas(), data);
         this.ltCont.setItem(index, rand);
     }
 
@@ -88,13 +88,13 @@ export default class SideGrid extends ui.view.side.SideGridUI {
      * 刷新图标
      */
     public refresh(): void {
-        var self = this, caches = SideMgr.getSides(), chLen = caches.length;
+        var self = this, caches = SideNewMgr.ins.getBoxDatas(), chLen = caches.length;
         if (chLen == 0) {
             self.onClose();
         }
         else {
             // 限定8个
-            let len = 8, datas = self.$datas, ltCont = self.ltCont, oldData = ltCont.array;
+            let len = 6, datas = self.$datas, ltCont = self.ltCont, oldData = ltCont.array;
             if (datas.length < len) {
                 let disL = len - chLen;
                 self.$datas = datas = caches.concat();

@@ -1,19 +1,16 @@
-
 import Utils from "../util/Utils";
 import Tween from "../util/Tween";
-import YLSDK from "../platform/YLSDK";
 import EventMgr from "./EventMgr";
-import GameConst from "../const/GameConst";
-import UIUtils from "../util/UIUtils";
 import EventType from "../const/EventType";
-// import SideList from "../script/side/SideList";
+import GameConst from "../const/GameConst";
+import YLSDK, { IBtnMisTouch } from "../platform/YLSDK";
 
 /**
  * 类接口，新增参数是便于UI管理类的使用，UI类勿随意更改这些变量
  */
 interface IBaseView extends Laya.UIBaseView {
-    $uiConfig?: IUIConfig;              // ui配置
-    $showBanner?: boolean;              // 是否显示banner
+    $uiConfig?: IUIConfig;      // ui配置
+    $showBanner?: boolean;      // 是否显示banner
     // Laya未暴露属性
     _aniList?: Laya.AnimationBase[];    // ui动画列表
 }
@@ -97,11 +94,6 @@ export default class UIMgr {
     private static _tipViews: TipView[];
 
     /**
-     * 误触弹起时间
-     */
-    public static misDelay: number = 0;
-
-    /**
      * 检测界面
      * @param ui 
      */
@@ -139,49 +131,43 @@ export default class UIMgr {
      */
     protected static checkBanner(ui: IBaseView, bool?: boolean): void {
         let uiConfig = ui.$uiConfig;
-        if (bool && uiConfig.banner && GameConst.gamebanner) {
-            // let id = randomBanner();
-            // if (id) {
-            // 显示banner
-            let show = function () {
-                // platform.setBannerVisible(true);
-                YLSDK.ylBannerAdShow();
-            };
-            let delay = uiConfig.delay && UIMgr.misDelay;
-            // 先创建
-            // platform.createBannerAd(id, function (isShow: boolean) {
-            //     isShow || UIMgr.showSideList(ui);
-            // }, uiConfig.keepBan, uiConfig.smallBan);
-            if (Utils.checkPhoneIsBangs()) {
-                YLSDK.ylBannerAdCreate(true);
-            }
-            else {
-                YLSDK.ylBannerAdCreateSmall(true);
-            }
-            if (delay > 0) {
-                // 先隐藏，时间到再显示
-                // platform.setBannerVisible(false);
-                YLSDK.ylBannerAdHide();
-                ui.timer.once(delay, null, function () {
-                    if (ui.$showBanner && ui == UIMgr.topUI()) {
-                        show();
+        if (bool && uiConfig.banner) {
+                //微信误触
+                let misTouchInfo = YLSDK.ins.getBtnMisData() as IBtnMisTouch;
+                let isMisTouchView = misTouchInfo.switch && uiConfig.misTouch;
+                let moveTime = misTouchInfo.bannerTime;
+                let time = moveTime || 0;
+                
+                // 先创建
+                window.ydhw_wx && (ydhw.CreateBannerAd(false, false, this, ()=>{
+                    if (time > 0 && isMisTouchView) {
+                        // 先隐藏，时间到再显示
+                        Laya.timer.once(time, this, ()=>{
+                            if (ui == UIMgr.topUI()) {
+                                ydhw.ShowBannerAd();
+                                ui.$showBanner = true;
+                            }
+                        });
                     }
-                });
-            }
-            else {
-                show();
-            }
-            ui.$showBanner = true;
-            return;
-            // }
-            // else {
-            //     UIMgr.showSideList(ui);
-            // }
+                    else {
+                        //当执行SDK的创建banner的时候 又立刻隐藏，这时候banner还是会出现，这时候你可以用到 $userdata
+                        // if(ui.$uiConfig.class === 'script/GameView.ts' && ui.$userdata)
+                        // {
+                        //     //如果是 Gameview 且 这个开关 则不显示广告牌
+                        // }
+                        // else
+                        // {
+                            ydhw.ShowBannerAd();
+                            ui.$showBanner = true;
+                        // }
+                    }
+                }));
+
+                return;
         }
+
         ui.$showBanner = false;
-        // platform.setBannerVisible(false);
-        YLSDK.ylBannerAdHide();
-        UIMgr.hideSideList();
+        window.ydhw_wx && (ydhw.HideBannerAd());
     }
 
     /**
@@ -194,32 +180,12 @@ export default class UIMgr {
     }
 
     /**
-     * 
-     * @param ui 误触
-     */
-    protected static checkMistouch(ui: IBaseView): void {
-        let name = ui.$uiConfig.mistouch;
-        if (!name) return;
-
-        let originOnAwake = ui.onAwake;
-        ui.onAwake = ()=>{
-            originOnAwake.apply(ui);
-            let component: Laya.UIComponent = ui[name];
-            if (component) {
-                UIUtils.showMisTouch(component);
-            }
-            else {
-                console.warn('checkMistouch null:', name);
-            }
-        }
-    }
-
-    /**
      * 顶层检测
      */
     protected static checkTop(topUI: IBaseView): void {
         var curTop = UIMgr.topUI();
         // 确保关闭了顶层界面的同时没有再打开新界面
+
         if (topUI == curTop && curTop) {
             // 最顶层检测是否显示banner
             UIMgr.checkBanner(topUI, true);
@@ -272,6 +238,7 @@ export default class UIMgr {
      */
     protected static destroyUI(ui: IBaseView): void {
         var list = ui._aniList;
+        UIMgr.checkBanner(ui, false);
         if (list) {
             for (let i = 0, len = list.length; i < len; i++) {
                 let ani = list[i];
@@ -374,23 +341,17 @@ export default class UIMgr {
         e.stopPropagation();
     }
 
+
     //// 供外部使用方法 ////
 
     /**
      * 页面打开
      */
     public static openUI(uiConfig: IUIConfig, data?: any, visible?: boolean, isKeep: boolean = false): IBaseView {
-        if (GameConst.Log) {
-            console.log('openUI', uiConfig.class)
-        }
         if (uiConfig) {
-            if (GameConst.openMisTouch() && uiConfig.mistouch) {
-                uiConfig.delay = GameConst.BannerShowTime;
-            }
-
             let old = UIMgr.findUI(uiConfig);
             if (old) {
-                console.warn('so quick');
+                console.error('so quick');
                 return;
             }
             let clzz = Laya.ClassUtils.getRegClass(uiConfig.class);
@@ -410,13 +371,11 @@ export default class UIMgr {
                 }
                 ui.visible = visible !== false;
                 ui.$uiConfig = uiConfig;     // 额外添加参数
-                
+                Laya.stage.addChild(ui);
                 UIMgr._uiArray.push(ui);
                 UIMgr.checkBanner(ui, true);
-                UIMgr.checkView(ui);
-                UIMgr.checkMistouch(ui);
-                Laya.stage.addChild(ui);
                 UIMgr.checkMask(ui);
+                UIMgr.checkView(ui);
                 // 通知顶层被覆盖
                 top && top.onHide();
                 // 动画
@@ -424,6 +383,7 @@ export default class UIMgr {
                 ui.eventCount && ui.eventCount();
 
                 EventMgr.event(EventType.CloseUI,uiConfig);
+
 
                 return ui;
             }
@@ -449,7 +409,7 @@ export default class UIMgr {
         call && call();
     }
 
-    /**
+    /*
      * 页面关闭
      * @param uiConfig 
      */
@@ -471,7 +431,6 @@ export default class UIMgr {
         if (isTop) {
             Laya.timer.frameOnce(2, UIMgr, UIMgr.checkTop, [UIMgr.topUI()]);
         }
-
         EventMgr.event(EventType.OpenUI,uiConfig);
     }
 

@@ -5,6 +5,16 @@ declare module Laya {
      */
     class UIBaseView extends View {
         /**
+         * 误触按钮
+         */
+        public $btnMisTouch:Laya.Image;
+        /**
+         * 自定义数据
+         */
+        public $userdata:any;
+
+        // public usedata:any;
+        /**
          * 关闭回调内的参数
          */
         protected closeParam: any;
@@ -36,15 +46,19 @@ declare module Laya {
          * @param call 
          * @param thisObj 
          */
-        public setCloseCall(call: (param?: any) => void, thisObj?: any): void;
+
         /**
-         * 清理关闭回调，阻断界面连续关闭
-         */
-        public clearCloseCall():void;
-        /**
-         * 事件打点
+         * 界面事件打点，默认上报ui类名，需要自定义事件名的重载此方法
          */
         public eventCount():void;
+
+        public setCloseCall(call: (param?: any) => void, thisObj?: any): void;
+        /**
+         * 设置界面误触
+         * @param misTouchBtn  误触按钮 
+         * @param  sec  时间
+         */
+        public showMisTouchBtn(sec:any, misTouchBtn?: any): void
     }
 }
 
@@ -143,6 +157,8 @@ interface IShopCfg {
     ConsumptionType: number;    // 消耗类型，暂无用
     consumer: number;           // 消耗数量
     url: string;
+    model: string;
+    icon: string;
     resType: number;
     IsExperience: number;       // 是否能试用，1为是
     ExperienceNumber: number;   // 试用解锁次数
@@ -158,10 +174,9 @@ interface IUIConfig {
     mask?: boolean;             // 是否显示遮罩
     banner?: boolean;           // 是否显示banner
     tween?: boolean;            // 显示和隐藏伴随动画
-
-    name?: string;              //自动设置,用于事件打点
-    mistouch?: string;          //误触组件名字
-    delay?: number;             //延迟显示banner，banner为true时有效    
+    res?: any;                  // 预加载资源，格式同Laya.loader.load，暂无效
+    misTouch?:string;           // 是否有误触  且传入误触按钮的名字 
+    name?:string;               // event 事件
 }
 
 /**

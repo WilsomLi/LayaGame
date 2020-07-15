@@ -1,7 +1,9 @@
 
-import YLSDK from "../../platform/YLSDK";
+import YLSDK, { IBtnMisTouch } from "../../platform/YLSDK";
 import SideMgr from "../mgr/SideMgr";
 import SideMsg, { ESMessage } from "../mgr/SideMsg";
+import SideNewMgr from "../mgr/SideNewMgr";
+import GameConst from "../../const/GameConst";
 
 
 
@@ -16,6 +18,9 @@ export default class SideView extends Laya.View {
      * 新后台参数
      */
     protected paramId: string;
+    private $uiConfig:IUIConfig;
+    public $btnMisTouch:Laya.Image = null;
+    private _misTouchBtnPos:Laya.Vector2 = new Laya.Vector2();
 
     /**
      * 初始化
@@ -33,6 +38,7 @@ export default class SideView extends Laya.View {
         var self = this;
         self.showView(false);
         self.callLater(self.initSide);
+
     }
 
     /**
@@ -41,7 +47,7 @@ export default class SideView extends Laya.View {
     private initSide(): void {
         var self = this;
         // 加载侧边栏数据，存在则显示
-        SideMgr.loadSides(function (datas: ISideboxData[]) {
+        SideNewMgr.ins.getBoxDatasSync( (datas:IYDHW.GameBase.ISideBoxResult[])=> {
             // 未离开场景显示
             if (self.parent) {
                 if (datas && datas.length > 0) {
@@ -50,6 +56,7 @@ export default class SideView extends Laya.View {
                     SideMsg.register(ESMessage.S2S_REMOVE, self.onRemoved, self);
                     // 显示界面
                     self.showView(true);
+                    self.showMisTouchBtn();
                     // 初始化界面
                     self.initView(datas);
                 }
@@ -78,7 +85,7 @@ export default class SideView extends Laya.View {
      * 初始化界面，子类重写该方法绘制界面
      * @param datas 卖量数据
      */
-    protected initView(datas: ISideboxData[]): void {
+    protected initView(datas: IYDHW.GameBase.ISideBoxResult[]): void {
 
     }
 
@@ -103,7 +110,7 @@ export default class SideView extends Laya.View {
      * @param data 数据
      * @param datas 数据列表，如存在则会将img的旧数据存入
      */
-    protected bind(img: Laya.ISideIcon, data: ISideboxData, datas?: ISideboxData[]): void {
+    protected bind(img: Laya.ISideIcon, data: IYDHW.GameBase.ISideBoxResult, datas?: IYDHW.GameBase.ISideBoxResult[]): void {
         var self = this, type = Laya.Event.CLICK;
         var old = img.dataSource;
         img.skin = data.icon;
@@ -118,12 +125,12 @@ export default class SideView extends Laya.View {
     /**
      * 点击图标
      */
-    protected onClick(side: ISideboxData): void {
+    protected onClick(side: IYDHW.GameBase.ISideBoxResult): void {
         var self = this;
         SideMsg.notice(ESMessage.S2C_CLICK_BTN);
         // 小程序跳转
         if (side) {
-            let appId = side.jumpAppid;
+            let appId = side.toAppid;
             if (appId) {
                 // 打点
                 let event = self.$event;
@@ -131,37 +138,20 @@ export default class SideView extends Laya.View {
                 let reqC2SClick = function (enable: boolean) {
                     event && SideMsg.notice(ESMessage.S2C_DOT_SERVER, event, side, enable);
                 };
-                // SideMgr.platform.navigateToMiniProgram({
-                //     appId: appId,
-                //     path: side.path,
-                //     success: function () {
-                //         self.onSuccess(side);
-                //         reqC2SClick(true);
-                //     },
-                //     fail: function () {
-                //         self.onCancel(side);
-                //         reqC2SClick(false);
-                //     }
-                // });
-                YLSDK.ylNavigateToMiniProgram(
-                    {
-                        _id: side.sideboxId,
-                        toAppid: side.jumpAppid,
-                        toUrl: side.path,
-                        type: 0
-                    },
-                    function(success) {
-                        if(success) {
-                            self.onSuccess(side);
-                            reqC2SClick(true);
-                        } else {
-                            self.onCancel(side);
-                            reqC2SClick(false);
-                        }
-                }.bind(this));
+
+                window.ydhw_wx && window.ydhw.NavigateToMiniProgram(side._id, side.toAppid, side.toUrl, "", this, (success)=>{
+                    if(success) {
+                        self.onSuccess(side);
+                        reqC2SClick(true);
+                    } else {
+                        self.onCancel(side);
+                        reqC2SClick(false);
+                    }
+                })
+
                 if (event) {
                     // 阿拉点
-                    let param = <any>{ iconId: side.sideboxId };
+                    let param = <any>{ iconId: side._id };
                     SideMsg.notice(ESMessage.S2C_DOT_ALD, event, param);
                 }
                 if (event1) {
@@ -174,7 +164,7 @@ export default class SideView extends Laya.View {
     /**
      * 跳转成功
      */
-    protected onSuccess(data: ISideboxData): void {
+    protected onSuccess(data: IYDHW.GameBase.ISideBoxResult): void {
         // 卖量屏蔽
         SideMsg.notice(ESMessage.S2C_REMOVE, data)
     }
@@ -182,14 +172,14 @@ export default class SideView extends Laya.View {
     /**
      * 跳转取消，子类重写
      */
-    protected onCancel(data: ISideboxData): void {
+    protected onCancel(data: IYDHW.GameBase.ISideBoxResult): void {
 
     }
 
     /**
      * 移除时回调，子类重写
      */
-    protected onRemoved(data: ISideboxData): void {
+    protected onRemoved(data: IYDHW.GameBase.ISideBoxResult): void {
         
     }
 
@@ -199,5 +189,29 @@ export default class SideView extends Laya.View {
     public setAldEvent(event: string, event1: string): void {
         this.$event = event;
         this.$event1 = event1;
+    }
+
+    /**
+     * 设置界面误触
+     */
+    public showMisTouchBtn(): void {
+        let misTouchInfo = YLSDK.ins.getBtnMisData() as IBtnMisTouch;
+        let moveTime = misTouchInfo.btnTime;        
+        let time = moveTime || 0;
+        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
+        if(misTouchInfo.switch && buttonName && time && this[buttonName])
+        {
+            let misTouchBtn = this[buttonName];
+            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
+            misTouchBtn.bottom = 60;
+
+            Laya.timer.once(time, this, () => {
+                misTouchBtn.bottom = NaN;
+                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
+                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
+
+                misTouchBtn.pos(x, y);            
+            })
+        }
     }
 }

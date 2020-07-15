@@ -350,10 +350,10 @@ export default class UserData {
      * 卖量移除——每日屏蔽版本
      * @param data 
      */
-    public removeSide(data: ISideboxData): void {
+    public removeSide(data: IYDHW.GameBase.ISideBoxResult): void {
         var self = this, ret = false;
         var rmSides = self._rmSides;
-        var sideBoxId = data.sideboxId;
+        var sideBoxId = data._id;
         if (rmSides.indexOf(sideBoxId) == -1) {
             rmSides.push(sideBoxId);
             self.cacheData('_rmSides');

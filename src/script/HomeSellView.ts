@@ -55,7 +55,7 @@ export default class HomeSellView extends ui.view.HomeSellViewUI {
 
     private onAddDesktop(){
         let self = this;
-        YLSDK.shortcuttime = Date.now();
+        YLSDK.ins.shortcuttime = Date.now();
         platform.installShortcut((isAdded:boolean)=>{
             Laya.timer.once(500,self,self.refreshAddDesktop);
         })
@@ -77,11 +77,11 @@ export default class HomeSellView extends ui.view.HomeSellViewUI {
     }
 
     private onNativeIcon(){
-        YLSDK.ylNativeAdClick(0);
+        YLSDK.ins.clickNativeAd(0);
     }
 
     private needShowNative():boolean {
-        if(!GameConst.SwitchYS || !YLSDK.isNativeAdShow) return false;
+        if(!YLSDK.ins.getInsertScreenData().switch || !YLSDK.ins.isNativeAdShow) return false;
         let arr = [
             EUI.SideBoxView,
             EUI.SettingView,
@@ -100,7 +100,8 @@ export default class HomeSellView extends ui.view.HomeSellViewUI {
         if(this.needShowNative()==false) return;
 
         this.nativeBg.visible = false;
-        YLSDK.ylNativeAdCreate(0,(data:IOppoNativeAdData)=>{
+
+        YLSDK.ins.createNative(0, (data:IOppoNativeAdData)=>{
             this.nativeIcon.skin = data.iconUrlList[0];
             this.nativeBg.visible = true;
         })

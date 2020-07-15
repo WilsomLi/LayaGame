@@ -1,15 +1,14 @@
 /**
  * UI 枚举 { [key: string]: IUIConfig }
- * interface IUIConfig {
+ *
+ * 
     class: string;              // UI类路径
     mask?: boolean;             // 是否显示遮罩
     banner?: boolean;           // 是否显示banner
     tween?: boolean;            // 显示和隐藏伴随动画
-
-    name?: string;              //自动设置,用于事件打点
-    mistouch?: string;          //误触组件名字
-    delay?: number;             //延迟显示banner，banner为true时有效    
-}
+    res?: any;                  // 预加载资源，格式同Laya.loader.load，暂无效
+    misTouch?:any;              // 误触传入button名字即可
+    name?:string;               // 界面名称 一般用于界面打点
  */
 let EUI = {
     /////////////////////////////////////////////////////////////////////
@@ -17,15 +16,27 @@ let EUI = {
     BigBoxView: {
         class: "side/view/BigBoxView.ts",
     },
-    SideBoxView:
-    {
+    GoldenEggView: {
+        class: "side/view/GoldenEggView.ts",
+        mask: true,
+        banner: true
+    },
+    MorePeopleView: {
+        class: "side/view/MorePeopleView.ts",
+        mask: true,
+        banner: true
+    },
+    SideMoreGameView: {
+        class: "side/view/SideMoreGameView.ts",
+        banner: true,
+        misTouch: "imgKeep",
+    },
+    SideBoxView: {
         class: "side/view/SideBoxView.ts",
         mask: true,
     },
-    GoldenEggView:
-    {
-        class: "side/view/GoldenEggView.ts",
-        mask: true,
+    WXModelView: {
+        class: "model/side/WXModelView.ts"
     },
 
     /////////////////////////////////////////////////////////////////////
@@ -60,7 +71,8 @@ let EUI = {
     FailView: {
         class: "script/FailView.ts",
         mask: true,
-        banner: true
+        banner: true,
+        misTouch:'imgRestart'
     },
     ReviveView: {
         class: "script/ReviveView.ts",

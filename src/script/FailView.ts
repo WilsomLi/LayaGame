@@ -5,6 +5,7 @@ import GameMgr from "../mgr/GameMgr";
 import UserData from "../mgr/UserData";
 import AldSDK from "../platform/AldSDK";
 import Utils from "../util/Utils";
+import SideNewMgr from "../side/mgr/SideNewMgr";
 
 /**
  * 失败页——失败，进度小于50%触发
@@ -15,6 +16,7 @@ export default class FailView extends ui.view.FailViewUI {
      * 重写
      */
     public onEnable(): void {
+        super.onEnable();
         var self = this, imgRestart = self.imgRestart;
         var prob = 0;
         self.lblProb.text = '完成' + prob + '%';
@@ -27,8 +29,22 @@ export default class FailView extends ui.view.FailViewUI {
      * 点击重新开始
      */
     protected onRestart(): void {
-        AldSDK.aldSendEvent('重新开始页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-重新开始');
-        UIMgr.closeUI(EUI.FailView);
-        GameMgr.instance.restart();
+
+        if(SideNewMgr.ins.hasSide())
+        {
+            UIMgr.closeUI(EUI.FailView);
+            UIMgr.openUI(EUI.SideMoreGameView, ()=>{
+                UIMgr.openUI(EUI.MorePeopleView, ()=>{
+                    AldSDK.aldSendEvent('重新开始页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-重新开始');
+                    GameMgr.instance.restart();
+                })
+            })
+        }
+        else
+        {
+            UIMgr.closeUI(EUI.FailView);
+            AldSDK.aldSendEvent('重新开始页' + (UserData.instance.isNewPlayer ? '新' : '老') + '用户-重新开始');
+            GameMgr.instance.restart();
+        }
     }
 }

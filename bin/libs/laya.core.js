@@ -7702,9 +7702,11 @@ window.Laya= (function (exports) {
                 if (this.hasFreedText(sameTexData)) {
                     sameTexData = wt.pageChars = [];
                 }
-                if (isWT && (this.fontScaleX != wt.scalex || this.fontScaleY != wt.scaley)) {
-                    sameTexData = wt.pageChars = [];
-                }
+
+                //code by lx    修改文字缩放抖动
+                // if (isWT && (this.fontScaleX != wt.scalex || this.fontScaleY != wt.scaley)) {
+                //     sameTexData = wt.pageChars = [];
+                // }
             }
             var ri = null;
             var splitTex = this.renderPerChar = (!isWT) || TextRender.forceSplitRender || isHtmlChar || (isWT && wt.splitRender);

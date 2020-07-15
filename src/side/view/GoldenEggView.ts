@@ -1,10 +1,8 @@
 import { ui } from "../../ui/layaMaxUI";
 import Tween from "../../util/Tween";
-import UIMgr from "../../mgr/UIMgr";
-import YLSDK from "../../platform/YLSDK";
-import GameConst from "../../const/GameConst";
-import UserData from "../../mgr/UserData";
 import TimeLineUtils from "../../util/TimeLineUtils";
+import UserData from "../../mgr/UserData";
+import UIMgr from "../../mgr/UIMgr";
 import EUI from "../../const/EUI";
 
 
@@ -53,8 +51,6 @@ export default class GoldenEggView extends ui.view.side.GoldenEggViewUI {
         var self = this, timer = self.timer, imgBtn = self.imgBtn;
         self.regClick(imgBtn, self.onClick);
         self.$startTime = Date.now();
-        // 创建banner并隐藏
-        YLSDK.ylBannerAdCreate(false, () => { }, () => { }, GameConst.MisTouchSwitch);
         self.showBanner(false);
         self.isBanner = false;
         this.time_ = Math.random() * 1000 + 2000;
@@ -68,21 +64,29 @@ export default class GoldenEggView extends ui.view.side.GoldenEggViewUI {
      * 显示banner
      */
     protected showBanner(visible: boolean): void {
-        // platform.createBannerAd(randomBanner());
-        //  platform.setBannerVisible(visible);
-        visible ? (YLSDK.ylBannerAdShow()) : YLSDK.ylBannerAdHide();
+        // visible ? (YLSDK.ylBannerAdShow()) : YLSDK.ylBannerAdHide();
+        if(visible)
+        {
+            window.ydhw_wx && ydhw.ShowBannerAd()
+
+        }
+        else
+        {
+            window.ydhw_wx && ydhw.HideBannerAd()
+        }
     }
 
     /**
      * 关闭
      */
     protected onClose(): void {
+        let diamond =Math.floor(Math.random() * 40 + 10);
+        // UserData.instance.addDiamond(diamond);
+        UserData.instance.gold += diamond;
         this.clear();
         UIMgr.closeUI(EUI.GoldenEggView);
-
-        // let diamond =Math.floor(Math.random() * 40 + 10);
-        // UserData.instance.addDiamond(diamond);
-        // UIMgr.showTips("获得钻石奖励" + diamond);
+        (this.dataSource && typeof this.dataSource  === "function") && (this.dataSource());
+        UIMgr.showTips("获得金币奖励" + diamond);
     }
 
     /**

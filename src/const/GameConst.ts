@@ -42,7 +42,6 @@ var GameConst = {
     InsertBannerDelayTime: 700,                      //插屏广告 延迟时间  0.7
     InsertbannerInterval: 10,            //插屏时间间隔 s
     SwitchInsertBanner: false,              //插屏开关
-    FirstShowInsertBannerShowTime: 0,        //进入游戏多长时间显示插屏
     SwitchSkinTry: false,                    //皮肤试用开关
 
     /**wx */

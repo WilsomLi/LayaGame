@@ -31,7 +31,7 @@ export default class WXModelView extends ui.view.side.WXModelViewUI {
         // 刷新
         // self.timer.loop(10000, self, self.refresh);
 
-        YLSDK.ylBannerAdHide();
+        window.ydhw_wx && window.ydhw.HideBannerAd();
     }
 
     /**
@@ -94,8 +94,8 @@ export default class WXModelView extends ui.view.side.WXModelViewUI {
      * 改变子项数据
      */
     protected changeItem(index: number, data: ISViewData): void {
-        var rand = Utils.randomInArray(SideMgr.getSides(), data);
-        this.ltCont.setItem(index, rand);
+        // var rand = Utils.randomInArray(SideMgr.getSides(), data);
+        // this.ltCont.setItem(index, rand);
     }
 
     /**
@@ -112,8 +112,8 @@ export default class WXModelView extends ui.view.side.WXModelViewUI {
             randomSort(caches = caches.concat());
             // 随机四星
             for (let i = 0; i < cLen; i++) {
-                let data = datas[i] = <IWXModelItemData>Utils.copy(caches[i]);
-                data.star = i < 4;
+                // let data = datas[i] = <IWXModelItemData>Utils.copy(caches[i]);
+                // data.star = i < 4;
             }
             self.ltCont.array = randomSort(datas);
         }

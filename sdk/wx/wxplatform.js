@@ -112,7 +112,7 @@ window.platform = new ((function () {
 	var WxgamePlatform = function () {
 		this.platType = 2001;
 		//// 根据游戏来进行修改 ////
-		this.appId = "wx638732461656d042";
+		this.appId = "wx8bbc7e1f2db6d579";
 		this.version = "1.0.0";
 		this.hasVideo = true;
 		this.isDebug = false;	// 是否调试阶段，正式版删除

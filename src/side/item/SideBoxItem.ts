@@ -24,19 +24,19 @@ export default class SideBoxItem extends ui.view.item.SideBoxItemUI {
 
     private JumpOtherGame() {
 
-        YLSDK.ylNavigateToMiniProgram({
-            _id: this._dataSource._id,
-            toAppid: this._dataSource.toAppid,
-            toUrl: this._dataSource.toUrl,
-            type: this._dataSource.type,
-            source: 'trygame',//从哪个模块导出的，该字段具体值由调用方
-        }, (status) => {
-            if (status) {
+        // YLSDK.ylNavigateToMiniProgram({
+        //     _id: this._dataSource._id,
+        //     toAppid: this._dataSource.toAppid,
+        //     toUrl: this._dataSource.toUrl,
+        //     type: this._dataSource.type,
+        //     source: 'trygame',//从哪个模块导出的，该字段具体值由调用方
+        // }, (status) => {
+        //     if (status) {
 
-            }
-            else {
+        //     }
+        //     else {
 
-            }
-        });
+        //     }
+        // });
     }
 }

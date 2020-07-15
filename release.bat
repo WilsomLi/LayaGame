@@ -51,7 +51,7 @@ echo 复制SDK文件
 set dir=%cd%\release\wxgame
 xcopy %sdkDir%\wx\* %dir%\* /e /y /exclude:%sdkDir%\wx\uncopy.txt
 echo 游戏代码混淆
-cmd /c gulp obfuse_js --pf wxgame
+REM cmd /c gulp obfuse_js --pf wxgame
 
 REM REM CDN操作 把资源拷贝到外面一级目录，并压缩zip
 REM set AppID=wxd2eb55f1d8e239c6
@@ -128,24 +128,29 @@ REM adb push .\dist\com.szydhw.ssly.vivominigame.signed.rpk sdcard/games &
 REM 头条--------------------------------------------------------------------------------
 :tt
 
-echo 先发布微信小游戏，确保release下有wxgame目录
-
-
+echo 复制SDK文件
 set dir=%cd%\release\ttgame
+set tempDir=%cd%\release\wxgame
+
 if exist %dir% (
-rd /s /q %dir%
+    echo %dir% 已存在
+) else (
+    echo 创建 %dir% 
+    md %dir%
 )
-mkdir %dir%
 
-xcopy %releaseDir%\wxgame %releaseDir%\ttgame /e /y
+del /f /s /q /a %dir%\*
 
-del /f /s /q /a %dir%\libs\laya.wxmini.js
+xcopy %tempDir%\* %dir%\* /e /y
+xcopy %sdkDir%\tt\* %dir%\* /e /y /exclude:%sdkDir%\wx\uncopy.txt
+
+
+if exist %dir%\libs\laya.wxmini.js (
+rd /s /q %dir%\libs\laya.wxmini.js
+)
 
 echo 游戏代码混淆
 cmd /c gulp obfuse_js --pf ttgame
-
-xcopy %sdkDir%\tt\*.* %dir%\ /e /y /exclude:%sdkDir%\tt\uncopy.txt
-
 goto common
 echo 头条版本完成
 

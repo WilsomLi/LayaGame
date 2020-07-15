@@ -2,10 +2,11 @@
     "x":0,
     "type":"SideView",
     "selectedBox":2,
+    "selecteID":18,
     "searchKey":"SideView",
-    "props":{"width":686,"sceneColor":"#000000","runtime":"side/item/SideGrid.ts","height":368},
+    "props":{"width":686,"sceneColor":"#000000","runtime":"side/item/SideGrid.ts","height":600},
     "nodeParent":-1,
-    "maxID":18,
+    "maxID":22,
     "label":"SideView",
     "isOpen":true,
     "isDirectory":true,
@@ -15,57 +16,29 @@
     "child":[
         {
             "x":15,
-            "type":"Image",
-            "searchKey":"Image",
-            "props":{"top":0,"skin":"side/img_bot_bg.png","sizeGrid":"30,30,30,30","right":0,"left":0,"bottom":0},
-            "nodeParent":2,
-            "label":"Image",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":17,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
             "type":"List",
             "searchKey":"List,ltCont",
-            "props":{"width":598,"var":"ltCont","spaceY":10,"spaceX":34,"height":318,"centerY":0,"centerX":0},
+            "props":{"y":0,"x":0,"width":717,"var":"ltCont","spaceY":36,"spaceX":26,"repeatX":3,"height":600},
             "nodeParent":2,
             "label":"ltCont",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":14,
+            "compId":18,
             "child":[
                 {
                     "x":30,
                     "type":"UIView",
-                    "source":"view/item/SideGridItem.scene",
+                    "source":"view/item/SideBoxItem1.scene",
                     "searchKey":"UIView,render",
                     "props":{"name":"render"},
-                    "nodeParent":14,
+                    "nodeParent":18,
                     "label":"render",
                     "isDirectory":false,
                     "isAniNode":false,
                     "hasChild":false,
-                    "compId":15,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"VScrollBar",
-                    "searchKey":"VScrollBar,scrollBar",
-                    "props":{"name":"scrollBar"},
-                    "nodeParent":14,
-                    "label":"scrollBar",
-                    "isDirectory":false,
-                    "isAniNode":false,
-                    "hasChild":false,
-                    "compId":16,
+                    "compId":21,
                     "child":[
                         ]
                 }]

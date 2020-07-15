@@ -12,6 +12,7 @@ import WebPlatform from "./platform/WebPlatform";
 import EventType from "./const/EventType";
 import EUI from "./const/EUI";
 import SideMgr from "./side/mgr/SideMgr";
+import SideReceiver from "./mgr/SideReceiver";
 import YLSDK from "./platform/YLSDK";
 
 class Main {
@@ -79,16 +80,12 @@ class Main {
 		// this.initCDNConfig();
 
 		this.setupPlatform();
-		YLSDK.ylInitSDK((success) => {
-			if(typeof(success) == 'boolean') {
-				this.initSDK(success);
-			}
-		});
-
-		if(platform.isNone) {
-			SideMgr.init(platform, platform.isNone);
-		}
-
+		// if(platform.isNone) {
+		// 	SideMgr.init(platform, platform.isNone);
+		// }
+		// SideMgr.init(platform, platform.isNone);
+		YLSDK.ins;
+		SideReceiver.init();
 		SoundMgr.init();
 		DataStatistics.init();
 		UserData.instance.init();
@@ -96,57 +93,61 @@ class Main {
 	}
 
 	initSDK(success: boolean): void {
-		console.log("ylInitSDK", success);
-		// 开关
-		let userInfo: any = YLSDK.ylGetUserInfo();
-		let switchInfo: any = YLSDK.ylGetSwitchInfo();
-		console.log("YLSDK-user", userInfo);
-		console.log("YLSDK-switch", switchInfo);
+		// console.log("ylInitSDK", success);
+		// // 开关
+		// let userInfo: any = YLSDK.ylGetUserInfo();
+		// let switchInfo: any = YLSDK.ylGetSwitchInfo();
+		// console.log("YLSDK-user", userInfo);
+		// console.log("YLSDK-switch", switchInfo);
 		
-		//账号id
-		if (userInfo) {
-			console.log("userInfo", userInfo);
-			UserData.instance.isNewPlayer = (userInfo.newPlayer === 1) ? true : false;
-			console.log("sdk 新老用户", UserData.instance.isNewPlayer);
-		}
-		if (switchInfo) {
-			GameConst.ShareSwitch = switchInfo.switchShare == 1;
-			GameConst.SideSwitch = switchInfo.switchPush == 1;
-			GameConst.MisTouchSwitch = switchInfo.switchTouch == 1;
-		}
-		//自定义开关
-		YLSDK.initCustomSwitch(() => {
-			// 延迟初始化
-			GameConst.SceneSwitch = YLSDK.getDefValue("guanggaoSwitch") === "true";
-			GameConst.GDMisTouchSwitch = YLSDK.getDefValue("gdMisTouchSwitch") === "true";
-			GameConst.SwitchYS = YLSDK.getDefValue('yuanshengguangg') === 'true';
-			GameConst.InsertBannerDelayTime = YLSDK.getDefValue("insertbannerdelay") * 1000;
-			GameConst.SwitchSkinTry = YLSDK.getDefValue('pifushiyong') === "true";
-			GameConst.SwitchInsertBanner = YLSDK.getDefValue("chapkaiguan") === "true";
-			GameConst.InsertbannerInterval = YLSDK.getDefValue("chapjiange");
-			GameConst.FirstShowInsertBannerShowTime = YLSDK.getDefValue("chapxianshishijian");
+		// //账号id
+		// if (userInfo) {
+		// 	console.log("userInfo", userInfo);
+		// 	UserData.instance.isNewPlayer = (userInfo.newPlayer === 1) ? true : false;
+		// 	console.log("sdk 新老用户", UserData.instance.isNewPlayer);
+		// }
+		// if (switchInfo) {
+		// 	GameConst.ShareSwitch = switchInfo.switchShare == 1;
+		// 	GameConst.SideSwitch = switchInfo.switchPush == 1;
+		// 	GameConst.MisTouchSwitch = switchInfo.switchTouch == 1;
+		// }
+		// //自定义开关
+		// YLSDK.initCustomSwitch(() => {
+		// 	// 延迟初始化
+		// 	GameConst.SceneSwitch = YLSDK.getDefValue("guanggaoSwitch") === "true";
+		// 	GameConst.GDMisTouchSwitch = YLSDK.getDefValue("gdMisTouchSwitch") === "true";
+		// 	GameConst.SwitchYS = YLSDK.getDefValue('yuanshengguangg') === 'true';
+		// 	GameConst.InsertBannerDelayTime = YLSDK.getDefValue("insertbannerdelay") * 1000;
+		// 	GameConst.SwitchSkinTry = YLSDK.getDefValue('pifushiyong') === "true";
+		// 	GameConst.SwitchInsertBanner = YLSDK.getDefValue("chapkaiguan") === "true";
+		// 	GameConst.InsertbannerInterval = YLSDK.getDefValue("chapjiange");
 			
-			GameConst.WCBox = YLSDK.getDefValue("WCBox") === "true";
-			GameConst.BannerShowTime = parseInt(YLSDK.getDefValue("BannerShowTime")) || GameConst.BannerShowTime;
-			GameConst.BtnReSize = parseInt(YLSDK.getDefValue("BtnReSize")) || GameConst.BtnReSize;
-			GameConst.BigBox = YLSDK.getDefValue("out")  === "true";
-			GameConst.gamebanner = YLSDK.getDefValue("game_banner")  === "false" ? false : true;
+		// 	GameConst.WCBox = YLSDK.getDefValue("WCBox") === "true";
+		// 	GameConst.BannerShowTime = parseInt(YLSDK.getDefValue("BannerShowTime")) || GameConst.BannerShowTime;
+		// 	GameConst.BtnReSize = parseInt(YLSDK.getDefValue("BtnReSize")) || GameConst.BtnReSize;
+		// 	GameConst.BigBox = YLSDK.getDefValue("out")  === "true";
+		// 	GameConst.gamebanner = YLSDK.getDefValue("game_banner")  === "false" ? false : true;
 			
-			GameConst.logAllSwitch();
-		});
-		YLSDK.InsertBannerShowTime = Date.now();
-		SideMgr.init(platform, false);
-		SideMgr.reqYLSideboxAndBoard();
+		// 	GameConst.logAllSwitch();
+		// });
+		YLSDK.ins.insertBannerShowTime = Date.now();
+		// SideMgr.init(platform, false);
+		// SideMgr.reqYLSideboxAndBoard();
 
 		//拉取微信分享数据
-		if(platform.isWechat) {
-			YLSDK.ylShareCard(function (shareInfo) {
-				if(shareInfo){
-					console.log("----获取分享图:",JSON.stringify(shareInfo));
-				}else{
-					//获取失败
-				}            
-			}.bind(this),'jiesuan');
+		// if(platform.isWechat) {
+		// 	YLSDK.ylShareCard(function (shareInfo) {
+		// 		if(shareInfo){
+		// 			console.log("----获取分享图:",JSON.stringify(shareInfo));
+		// 		}else{
+		// 			//获取失败
+		// 		}            
+		// 	}.bind(this),'jiesuan');
+		// }
+
+		window.ydhw_wx && window.ydhw.ShareCard('jiesuan', this, (result: IYDHW.GameBase.IShareCardResult[])=>{})
+		{
+
 		}
 	}
 
@@ -169,12 +170,12 @@ class Main {
 			console.info("options:", options);
 			Laya.timer.scale = 1;
 			SoundMgr.playBGM();
-			if (platform.isWechat) {
+			if (ydhw_wx) {
 				GameConst.Scene = options.scene;
 				if (options.scene == 1089 || options.scene == 1104) {
 					//已收藏 从我的小程序  已经得不到1104的场景值					
 				}
-			} else if (platform.isOppo) {
+			} else if (ydhw_oppo) {
 				//判断回到前台得时间
 				self.judgeTime();
 			}
@@ -182,10 +183,10 @@ class Main {
 		});
 		//切换后台
 		platform.onHide(() => {
-			if (platform.isWechat) {
+			if (ydhw_wx) {
 				Laya.timer.scale = 0;
-			} else if (platform.isOppo) {
-				YLSDK.Shortcut();
+			} else if (ydhw_oppo) {
+				YLSDK.ins.shortcut();
 				self._hideTime = Date.now();
 			}
 		});

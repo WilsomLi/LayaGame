@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"UIBaseView",
-    "selectedBox":12,
-    "selecteID":5,
+    "selectedBox":2,
+    "selecteID":19,
     "searchKey":"UIBaseView",
-    "props":{"width":750,"sceneColor":"#000000","runtime":"script/HomeView.ts","height":1334,"centerY":0,"centerX":0},
+    "props":{"width":750,"sceneColor":"#000000","runtime":"script/HomeView.ts","mouseThrough":false,"height":1334,"centerY":0,"centerX":0},
     "nodeParent":-1,
-    "maxID":19,
+    "maxID":20,
     "label":"UIBaseView",
     "isOpen":true,
     "isDirectory":true,
@@ -18,17 +18,16 @@
             "x":15,
             "type":"View",
             "searchKey":"View,vwMain",
-            "props":{"width":750,"var":"vwMain","height":1334,"centerY":0},
+            "props":{"y":0,"x":0,"width":750,"var":"vwMain","mouseThrough":true,"height":1334,"centerY":0},
             "nodeParent":2,
             "label":"vwMain",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":12,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,btnStart",
                     "props":{"y":746,"var":"btnStart","skin":"game/game_start.png","centerX":0},
@@ -41,6 +40,21 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"UIView",
+            "source":"view/side/SideLeftList.scene",
+            "searchKey":"UIView,sideLeft",
+            "props":{"y":0,"x":0,"var":"sideLeft"},
+            "nodeParent":2,
+            "label":"sideLeft",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":19,
+            "child":[
+                ]
         }],
     "animations":[
         {

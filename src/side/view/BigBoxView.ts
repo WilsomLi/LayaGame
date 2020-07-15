@@ -4,7 +4,6 @@ import UIMgr from "../../mgr/UIMgr";
 
 import GameConst from "../../const/GameConst";
 import AutoScroll from "../../util/AutoScroll";
-import YLSDK from "../../platform/YLSDK";
 import UIUtils from "../../util/UIUtils";
 import EUI from "../../const/EUI";
 
@@ -27,22 +26,22 @@ export default class BigBoxView extends ui.view.side.BigBoxViewUI {
         let isWc = GameConst.MisTouchSwitch;
         if (isWc) {
             self.imgKeep.bottom = 100;
-            YLSDK.ylBannerAdCreate(false, () => {
-                if (isWc) {
-                    self.timer.once(GameConst.BannerShowTime, self, () => {
-                        console.log('----------卖量延时显示banner')
-                        YLSDK.ylBannerAdShow();
-                    });
+            // YLSDK.ylBannerAdCreate(false, () => {
+            //     if (isWc) {
+            //         self.timer.once(GameConst.BannerShowTime, self, () => {
+            //             console.log('----------卖量延时显示banner')
+            //             YLSDK.ylBannerAdShow();
+            //         });
 
-                    self.timer.once(GameConst.BtnReSize, self, () => {
-                        self.imgKeep.bottom = 300;
-                    })
-                }
-                else {
-                    YLSDK.ylBannerAdShow();
-                }
+            //         self.timer.once(GameConst.BtnReSize, self, () => {
+            //             self.imgKeep.bottom = 300;
+            //         })
+            //     }
+            //     else {
+            //         YLSDK.ylBannerAdShow();
+            //     }
 
-            }, () => { }, isWc);
+            // }, () => { }, isWc);
         }
     }
     /**

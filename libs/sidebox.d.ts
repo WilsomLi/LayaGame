@@ -75,7 +75,7 @@ interface IPlatform {
 interface IAdConfig {
     version: string;                            // 文件格式的版本号，注意不是游戏的版本号，后期格式发生变动，需要用其来检测文件是否生效
     timestamp: number;                          // 文件时间戳，单位秒，文件唯一标识符
-    boxes: ISideboxData[];                      // 卖量列表
+    boxes: IYDHW.GameBase.ISideBoxResult[];                      // 卖量列表
 }
 
 //// 卖量基类说明文件，支持在皮肤界面也能继承基类，需F9引入SideVide，并加上SideView.init();不使用SideView或者有自己一套管理的可删除下面注释 ////
@@ -86,7 +86,7 @@ declare module Laya {
      * 数据、皮肤、监听，包含三者的对象
      */
     interface ISideIcon extends EventDispatcher {
-        dataSource: ISViewData;
+        dataSource: IYDHW.GameBase.ISideBoxResult;
         skin?: string;
     }
 
@@ -157,5 +157,12 @@ declare module Laya {
          * @param level 是否传送等级参数
          */
         public setAldEvent(event: string, level?: boolean): void;
-    }
+
+        /**
+         * 设置界面误触
+         * @param misTouchBtn  误触按钮 
+         * @param  sec  时间
+         */
+        public showMisTouchBtn(sec:any, misTouchBtn?: any): void;
+}
 }

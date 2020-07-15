@@ -15,6 +15,16 @@ P E83E7937 img_op_desk.png
 P FD542AD5 img_op_hand.png
 P E7D45BAC img_opt_bg.png
 P 87DF11FE img_red_point.png
+D egg
+P C551EDFD img_kddk_zt.png
+P 7D666018 img_lb.png
+P 41959C9D img_lb2.png
+P 1FABBE86 img_lb_st.png
+P 247B0409 img_lh.png
+P 0B029B1C img_lh_tx.png
+P B5D0DDAB img_openbox.png
+P 79165561 ng_progress$bar.png
+P DBA22E0A ng_progress.png
 D game
 P 3108D6B3 btn_blue.png
 P F0C3C78C btn_close.png
@@ -52,23 +62,33 @@ P 7A73CFF6 try_choice1.png
 P CDF7EE2C try_choice_1.png
 D loading
 D side
+P D5A28FAD image_gdhw.png
 P 1E1BF1C3 img_back.png
+P 9344484B img_bg.png
+P 9F0AB613 img_bg1.png
+P 5764C952 img_blueBg.png
+P 11785A20 img_blueframe.png
 P 8755BAAB img_bot_bg.png
+P 9DEE4308 img_btn.png
 P 39EB9775 img_continue.png
+P F9BF8A06 img_iconBg.png
 P 125D2D51 img_left0.png
 P D9CBB6E8 img_left1.png
 P 8D144774 img_left2.png
 P 7610E0B3 img_line.png
 P 06A1D365 img_list_title.png
-P 66F7B56F img_more_back.png
+P 4748DDF3 img_more.png
+P 27FC4E74 img_more_back.png
 P 903FB072 img_more_bg0.png
 P 6DE132E3 img_more_bg1.png
 P 1386BC81 img_more_item.png
 P C0313665 img_more_text_bg.png
 P 6E939D4A img_more_title0.png
 P 6DE13388 img_more_title1.png
-P CBE9C3B5 img_new.png
+P 464885A6 img_new.png
 P 6B9B507E img_new_close.png
+P 20F00ADD img_op_left_bg.png
+P E07E6D27 img_op_left_title.png
 P DA1C1649 img_redpoint.png
 P F4394E3D img_right_bg0.png
 P 49308341 img_right_bg1.png
@@ -77,4 +97,18 @@ P ECE55733 img_side_bg0.png
 P 55400912 img_side_mask.png
 P 1C77E83C img_star.png
 P 288B06F8 img_use_text.png
+P 0A34F4E4 lbl_back.png
+P 90A51CB2 lbl_continue.png
+P BC0AD290 lbl_djgb.png
+P 68ADEF19 lbl_emtj  —.png
+P 26D33B23 lbl_hyew  —.png
+P 0A770DF9 moreplay_frame.png
+P B699BA9C moreplayerlbl.png
 D wxlocal
+D side/sideleft
+P FE90A3A6 img_close.png
+P 949BDF5F img_gamepic.png
+P DB0F1839 img_hightLight.png
+P 042C3064 img_moregame.png
+P CE01663E img_moregameBg.png
+P A642A2C2 底.png

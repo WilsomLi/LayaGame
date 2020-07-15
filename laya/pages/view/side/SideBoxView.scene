@@ -2,11 +2,11 @@
     "x":0,
     "type":"SideView",
     "selectedBox":2,
-    "selecteID":28,
+    "selecteID":33,
     "searchKey":"SideView",
-    "props":{"width":750,"sceneColor":"#000000","sceneBg":"laya/views/view/side/MorePlayGame.jpg","runtime":"side/view/SideBoxView.ts","mouseThrough":true,"height":1334},
+    "props":{"width":750,"top":0,"sceneColor":null,"runtime":"side/view/SideBoxView.ts","right":0,"left":0,"height":1334,"bottom":0},
     "nodeParent":-1,
-    "maxID":31,
+    "maxID":57,
     "label":"SideView",
     "isOpen":true,
     "isDirectory":true,
@@ -16,76 +16,223 @@
     "child":[
         {
             "x":15,
-            "type":"Image",
-            "searchKey":"Image,boxMain",
-            "props":{"x":0,"var":"boxMain","skin":"main/img_hwyx_db0.png","centerY":-126},
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":-5,"x":-5},
             "nodeParent":2,
-            "label":"boxMain",
+            "label":"Sprite",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":39,
+            "child":[
+                {
+                    "type":"Rect",
+                    "searchKey":"Rect",
+                    "props":{"width":760,"lineWidth":1,"height":1700,"fillColor":"#171717"},
+                    "nodeParent":39,
+                    "label":"Rect",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":40,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,boxTop",
+            "props":{"var":"boxTop","top":0,"right":0,"left":0,"bottom":0},
+            "nodeParent":2,
+            "label":"boxTop",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":3,
+            "compId":38,
             "child":[
                 {
                     "x":30,
-                    "type":"Label",
-                    "searchKey":"Label,lblTitle",
-                    "props":{"y":9,"x":159,"var":"lblTitle","text":"更多热门好玩游戏","strokeColor":"#AB380A","stroke":2,"fontSize":28,"color":"#ffffff","bold":true,"align":"center"},
-                    "nodeParent":3,
-                    "label":"lblTitle",
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"top":0,"skin":"side/img_bg1.png","right":0,"left":0,"bottom":0},
+                    "nodeParent":38,
+                    "label":"Image",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":24,
+                    "compId":46,
+                    "child":[
+                        ],
+                    "$HIDDEN":false
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,imgBack",
+                    "props":{"y":0,"x":28,"var":"imgBack"},
+                    "nodeParent":38,
+                    "label":"imgBack",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":32,
                     "child":[
                         ]
                 },
                 {
                     "x":30,
-                    "type":"List",
-                    "searchKey":"List,list",
-                    "props":{"y":80,"x":57,"width":542,"var":"list","spaceY":40,"spaceX":25,"renderType":"render","height":541},
-                    "nodeParent":3,
-                    "label":"list",
-                    "isOpen":true,
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":96,"width":712,"skin":"side/img_bg.png","sizeGrid":"22,28,22,28","height":176,"centerX":-1},
+                    "nodeParent":38,
+                    "label":"Image",
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":6,
                     "child":[
                         {
-                            "x":45,
-                            "type":"UIView",
-                            "source":"view/item/SideBoxItem.scene",
-                            "searchKey":"UIView,render",
-                            "props":{"name":"render"},
+                            "type":"List",
+                            "searchKey":"List,list0",
+                            "props":{"y":22.5,"x":23,"width":662,"var":"list0","spaceX":20,"height":140},
                             "nodeParent":6,
+                            "label":"list0",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":10,
+                            "child":[
+                                {
+                                    "type":"UIView",
+                                    "source":"view/item/SideBoxItem0.scene",
+                                    "searchKey":"UIView,render",
+                                    "props":{"y":0,"x":0,"name":"render"},
+                                    "nodeParent":10,
+                                    "label":"render",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":56,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"HScrollBar",
+                                    "searchKey":"HScrollBar,scrollBar",
+                                    "props":{"y":1,"x":-2,"width":565,"pivotY":1,"name":"scrollBar","height":1},
+                                    "nodeParent":10,
+                                    "label":"scrollBar",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":35,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Sprite",
+                                    "searchKey":"Sprite",
+                                    "props":{"y":-77,"x":220.5,"texture":"side/lbl_hyew  —.png"},
+                                    "nodeParent":10,
+                                    "label":"Sprite",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":54,
+                                    "child":[
+                                        ]
+                                }]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"List",
+                    "searchKey":"List,list1",
+                    "props":{"x":18,"width":717,"var":"list1","top":343,"spaceY":36,"spaceX":26,"repeatX":3,"bottom":138},
+                    "nodeParent":38,
+                    "label":"list1",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":12,
+                    "child":[
+                        {
+                            "type":"UIView",
+                            "source":"view/item/SideBoxItem1.scene",
+                            "searchKey":"UIView,render",
+                            "props":{"y":0,"x":0,"name":"render"},
+                            "nodeParent":12,
                             "label":"render",
                             "isDirectory":false,
                             "isAniNode":false,
                             "hasChild":false,
-                            "compId":28,
+                            "compId":55,
                             "child":[
                                 ]
-                        }],
-                    "$HIDDEN":false
-                },
+                        },
+                        {
+                            "type":"VScrollBar",
+                            "searchKey":"VScrollBar,scrollBar",
+                            "props":{"y":12,"x":0,"width":1,"rotation":0,"name":"scrollBar","height":194},
+                            "nodeParent":12,
+                            "label":"scrollBar",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":37,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Sprite",
+                            "searchKey":"Sprite",
+                            "props":{"y":-53,"x":244,"texture":"side/lbl_emtj  —.png"},
+                            "nodeParent":12,
+                            "label":"Sprite",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":53,
+                            "child":[
+                                ]
+                        }]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,imgKeep",
+            "props":{"width":322,"var":"imgKeep","skin":"game/btn_blue.png","sizeGrid":"37,41,48,44","height":104,"centerX":0,"bottom":13},
+            "nodeParent":2,
+            "label":"imgKeep",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":33,
+            "child":[
                 {
                     "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,imgSlide",
-                    "props":{"y":189,"x":615,"var":"imgSlide","skin":"main/img_cbl.png"},
-                    "nodeParent":3,
-                    "label":"imgSlide",
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":31.5,"x":75.5,"texture":"side/lbl_continue.png"},
+                    "nodeParent":33,
+                    "label":"Sprite",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":23,
+                    "compId":52,
                     "child":[
                         ]
-                }],
-            "$HIDDEN":false
+                }]
         }],
     "animations":[
         {

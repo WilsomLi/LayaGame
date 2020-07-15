@@ -1,5 +1,7 @@
 import EventMgr from "./mgr/EventMgr";
-import YLSDK from "./platform/YLSDK";
+import YLSDK, { IBtnMisTouch } from "./platform/YLSDK";
+import Utils from "./util/Utils";
+import GameConst from "./const/GameConst";
 import UIUtils from "./util/UIUtils";
 
 /**
@@ -7,6 +9,9 @@ import UIUtils from "./util/UIUtils";
  */
 export default class UIBaseView extends Laya.View {
 
+    constructor(){
+        super()
+    }
     /**
      * 初始化
      */
@@ -19,11 +24,18 @@ export default class UIBaseView extends Laya.View {
     private $events: any = {};
     private $calls: any[] = [];
     private $uiConfig:IUIConfig;
+    public $btnMisTouch:Laya.Image = null;
+    public $userdata:any;    //自定义数据
+    private _misTouchBtnPos:Laya.Vector2 = new Laya.Vector2();
 
     /**
      * 当调用了setCloseCall的回调时，该值为其返回参数；子类重写
      */
     protected closeParam: any;
+
+    onEnable(){
+        this.showMisTouchBtn();
+    }
 
     /**
      * 重写
@@ -108,7 +120,32 @@ export default class UIBaseView extends Laya.View {
      */
     public eventCount(){
         if(this.$uiConfig) {
-            YLSDK.ylEventCount(this.$uiConfig.name,'ui');
+            window.ydhw_wx && ydhw.StatisticEvent('ui', this.$uiConfig.name);
+        }
+    }
+
+    /**
+     * 设置界面误触
+     */
+    public showMisTouchBtn(): void {
+        let misTouchInfo = YLSDK.ins.getBtnMisData() as IBtnMisTouch;
+        let moveTime = misTouchInfo.btnTime;        
+        let time = moveTime || 0;
+        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
+
+        if(misTouchInfo.switch && buttonName && time && this[buttonName])
+        {
+            let misTouchBtn = this[buttonName];
+            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
+            misTouchBtn.bottom = 60;
+
+            Laya.timer.once(time, this, () => {
+                misTouchBtn.bottom = NaN;
+                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
+                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
+
+                misTouchBtn.pos(x, y);
+            })
         }
     }
 }

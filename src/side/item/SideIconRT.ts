@@ -54,7 +54,7 @@ export default class SideIconRT extends ui.view.side.SideIconRTUI {
     /**
      * 重写
      */
-    protected initView(datas: ISideboxData[]): void {
+    protected initView(datas: IYDHW.GameBase.ISideBoxResult[]): void {
         var self = this;
         if (self.$isRT) {
             TweenModel.swingTween(self, 500);
@@ -79,7 +79,7 @@ export default class SideIconRT extends ui.view.side.SideIconRTUI {
     /**
      * 重写
      */
-    protected onClick(data: ISideboxData): void {
+    protected onClick(data: IYDHW.GameBase.ISideBoxResult): void {
         var self = this;
         super.onClick(data);
         self.restart();
@@ -96,9 +96,9 @@ export default class SideIconRT extends ui.view.side.SideIconRTUI {
     /**
      * 重写
      */
-    protected onRemoved(data: ISideboxData): void {
+    protected onRemoved(data: IYDHW.GameBase.ISideBoxResult): void {
         var self = this;
-        var curd = <ISideboxData>self.imgIcon.dataSource;
+        var curd = <IYDHW.GameBase.ISideBoxResult>self.imgIcon.dataSource;
         if (curd == data)
             self.refresh();
     }

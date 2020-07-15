@@ -26,7 +26,7 @@ export default class SideReceiver {
     /**
      * 卖量移除
      */
-    protected static onRemove(data: ISideboxData): void {
+    protected static onRemove(data: IYDHW.GameBase.ISideBoxResult): void {
         UserData.instance.removeSide(data);
     }
 
