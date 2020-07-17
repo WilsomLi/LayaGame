@@ -3,6 +3,7 @@ let EventType = {
     //// 通用刷新方法 ////
     EnterLoading: "EnterLoading",           // 开始显示loading
     ResProgress: "ResProgress",             // 资源加载中
+    SubpkgProgress: "SubpkgProgress",       // 分包加载
     LoadingSuc: "LoadingSuc",               // loading结束
     OpenUI: "OpenUI",                       // 界面打开
     CloseUI: "CloseUI",                     // 界面关闭

@@ -72,12 +72,12 @@ export default class DebugView extends ui.view.DebugViewUI {
 
     private onMakeSure():void{
         let level = parseInt(this.imput_Num.text);
-        if(isNaN(level)) {
+        if(!isNaN(level)) {
             SceneMgr.instance.loadSceneData(level);
         }
 
         let gold = parseInt(this.input_money.text);
-        if(isNaN(gold)){
+        if(!isNaN(gold)){
             UserData.instance.gold += gold;
         }
     }

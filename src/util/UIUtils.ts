@@ -271,6 +271,17 @@ export default class UIUtils {
 
         return model;
     }
+    
+    /**
+     * 绘制相机渲染到Sprite
+     * @param camera 
+     * @param sp 
+     */
+    public static drawTexture(camera:Laya.Camera,sp:Laya.Sprite) {
+        let renderTarget = camera.renderTarget;
+        let rederTex = new Laya.Texture(<Laya.Texture2D>(renderTarget as any),Laya.Texture.DEF_UV);
+        sp.graphics.drawTexture(rederTex);
+    }
 
     public static getRightTop(node:Laya.Sprite):Laya.Point {
         let p = new Laya.Point(node.width,0);
@@ -290,4 +301,5 @@ export default class UIUtils {
     public static addClick2(target: Laya.Sprite, call: Function, thisObj?: any): void {
         target.on(Laya.Event.CLICK, thisObj, call);
     }
+
 }
