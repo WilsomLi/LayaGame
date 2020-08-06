@@ -271,4 +271,29 @@ export default class ExUtils {
         tf.lookAt(this._vec,Vector3Ex.Up,false);
     }
 
+    /**
+     * 清理拖尾
+     * @param trail 
+     */
+    static clearTrailPositions(trailSp:Laya.TrailSprite3D):void {
+        let trail = trailSp['trailFilter'];
+        if(!trail) return;
+        trail['_lastPosition'].setValue(0,0,0);
+        trail['_curtime'] = 0;
+        trail['_totalLength'] = 0;
+        
+        let geometry = trail['_trialGeometry'];
+        if(!geometry) return;
+        geometry['_activeIndex'] = 0;
+		geometry['_endIndex'] = 0;
+		geometry['_disappearBoundsMode'] = false;
+        let subBirth = geometry['_subBirthTime'];
+        subBirth && subBirth.fill(0);
+        let subDistance = geometry['_subDistance'];
+        subDistance && subDistance.fill(0);
+		geometry['_segementCount'] = 0;
+		geometry['_isTempEndVertex'] = false;
+		geometry['_needAddFirstVertex'] = false;
+		geometry['_lastFixedVertexPosition'].setValue(0, 0, 0);
+    }
 }
