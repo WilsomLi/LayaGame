@@ -282,7 +282,7 @@ export default class YLSDK
                 if(list)
                 {
                     this._isNativeAdShow = true;
-                    ydhw.ShowNativeAd();
+                    // ydhw.ShowNativeAd();
                     var data:IOppoNativeAdData = list[0];
                     this._nativeData[index] = list;
                     _callback && _callback(data);
@@ -309,7 +309,7 @@ export default class YLSDK
         if (ydhw_oppo) {
             let list = this._nativeData[index];
             if(list) {
-                ydhw.ClickNativeAd();
+                // ydhw.ClickNativeAd();
             }
         }
     }
