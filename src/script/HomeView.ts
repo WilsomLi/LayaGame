@@ -18,8 +18,8 @@ export default class HomeView extends ui.view.HomeViewUI {
     private onStart(){
         if(SideNewMgr.ins.hasSide())
         {
-            UIMgr.openUI(EUI.SideBoxView, ()=>{
-                if(window.ydhw_wx && window.ydhw.SwitchTouch)
+            UIMgr.openUI(EUI.SideBoxView, ()=>{                
+                if(window.ydhw_wx && window.ydhw_wx.SwitchTouch)
                 {
                     UIMgr.openUI(EUI.GoldenEggView, ()=>{
                         UIMgr.openUI(EUI.FailView);

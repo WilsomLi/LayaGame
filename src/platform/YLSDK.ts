@@ -85,7 +85,7 @@ export default class YLSDK
      */
     private init():void
     {
-        (window.ydhw_wx) && (window.ydhw.Login(this, (isOK)=>{
+        (window.ydhw_wx) && (ydhw.Login(this, (isOK)=>{
 			if(isOK)
 			{
 				SideNewMgr.ins.getBoxDatasSync();
