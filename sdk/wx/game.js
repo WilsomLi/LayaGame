@@ -2,7 +2,7 @@
     window.loadLib = require;
 
 var YDHW_CONFIG = {
-    appid: "wx8bbc7e1f2db6d579",
+    appid: "wx3081deb3d8205f2b",
     version: '1.0.5',
     banner_ad_unit_id_list: ['adunit-56102e0a2976b693', 'adunit-9ca7a5d0e702359c'],//Banner广告
     interstitial_ad_unit_id_list: ['xxxxx'],//插屏广告
