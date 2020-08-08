@@ -108,7 +108,6 @@ var getShareRand = function (shareTime, during) {
 };
 
 window.platform = new ((function () {
-
 	var WxgamePlatform = function () {
 		this.platType = 2001;
 		//// 根据游戏来进行修改 ////
