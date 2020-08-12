@@ -1430,7 +1430,7 @@ __webpack_require__.r(__webpack_exports__);
 var EM_PLATFORM_TYPE;
 (function (EM_PLATFORM_TYPE) {
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Common"] = -1] = "Common";
-    EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Web"] = 0] = "Web";
+    EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Wechat"] = 0] = "Wechat";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["QQ"] = 1] = "QQ";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Oppo"] = 2] = "Oppo";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Vivo"] = 3] = "Vivo";
@@ -1440,7 +1440,7 @@ var EM_PLATFORM_TYPE;
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Qutoutiao"] = 7] = "Qutoutiao";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["P_360"] = 8] = "P_360";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Momo"] = 9] = "Momo";
-    EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Wechat"] = 10] = "Wechat";
+    EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Web"] = 10] = "Web";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Xiaomi"] = 11] = "Xiaomi";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["Meizu"] = 12] = "Meizu";
     EM_PLATFORM_TYPE[EM_PLATFORM_TYPE["UC"] = 13] = "UC";
@@ -4842,14 +4842,17 @@ var Strategy = /** @class */ (function () {
      * 随机获取一个分享信息
      */
     Strategy.prototype.GetRandomShareConfig = function () {
+      console.warn("YDHW ---GetRandomShareConfig:" + this._ShareSceneNames.length);
         if (this._ShareSceneNames && this._ShareSceneNames.length > 0) {
-            var scene = Math.random() * this._ShareSceneNames.length;
+            var sIndex = Math.random() * this._ShareSceneNames.length;
+          let scene = this._ShareSceneNames[sIndex];
+          console.warn("YDHW ---GetRandomShareConfig:", scene,this._ShareSceneNames.length);
             if (this._ShareSceneConfig[scene]) {
                 var shareConfig = this._ShareSceneConfig[scene];
                 if (shareConfig && shareConfig.length > 0) {
                     var index = Math.random() * shareConfig.length;
                     var item = shareConfig[index];
-                    console.log("YDHW ---GetRandomShareConfig:" + JSON.stringify(item));
+                  console.warn("YDHW ---GetRandomShareConfig:" + JSON.stringify(item));
                     return item;
                 }
             }
@@ -8941,28 +8944,32 @@ var WechatPlatform = /** @class */ (function (_super) {
             withShareTicket: true,
             menus: ['shareAppMessage', 'shareTimeline']
         });
-        this.OnShareAppMessage();
+      this.OnShareAppMessage();
     };
     /**
      * 菜单分享按钮点击监听
      */
     WechatPlatform.prototype.OnShareAppMessage = function () {
+      console.error("YDHW ---注册分享监听");
         if (!this.IsHasAPI("onShareAppMessage")) {
             this.Warn("onShareAppMessage is not supported");
             return;
         }
         this.Controller.onShareAppMessage(function () {
             var sareCard = _SDK_Declare__WEBPACK_IMPORTED_MODULE_2__["SDK"].Commerce.Strategy.GetRandomShareConfig();
+            var shareInfo = {};
             var nowTime = new Date().getTime();
-            if (sareCard) {
+          if (sareCard) {
+              console.error("YDHW ---onShareAppMessage--4" + JSON.stringify(sareCard));
                 var queryData = 'account_id=' + _SDK_Declare__WEBPACK_IMPORTED_MODULE_2__["SDK"].Commerce.AccountId + '&sharecard_id=' + sareCard.id + '&share_time=' + nowTime + '&from=' + 'stage_invite';
                 var _title = sareCard.title;
                 var _imageUrl = sareCard.img;
                 var _query = queryData;
                 if (sareCard.id) {
-                    var shareInfo = new _Model_Statistic__WEBPACK_IMPORTED_MODULE_4__["StatistiicShareInfo"](nowTime, sareCard.id);
-                    _SDK_Declare__WEBPACK_IMPORTED_MODULE_2__["SDK"].Commerce.StatisticShareCardInner(shareInfo);
+                    var shareInfo_1 = new _Model_Statistic__WEBPACK_IMPORTED_MODULE_4__["StatistiicShareInfo"](nowTime, sareCard.id);
+                    _SDK_Declare__WEBPACK_IMPORTED_MODULE_2__["SDK"].Commerce.StatisticShareCardInner(shareInfo_1);
                 }
+              console.error("YDHW ---用户点击了“转发”按钮-shareInfo:" + JSON.stringify(shareInfo));
                 // 用户点击了“转发”按钮
                 return {
                     title: _title,

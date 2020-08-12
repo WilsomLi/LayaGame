@@ -264,8 +264,8 @@ export default class YLSDK {
             ydhw.CreateNativeAd(this, (list) => {
                 if (list) {
                     this._isNativeAdShow = true;
-                    ydhw.ShowNativeAd();
-                    var data: IOppoNativeAdData = list[0];
+                    // ydhw.ShowNativeAd();
+                    var data:IOppoNativeAdData = list[0];
                     this._nativeData[index] = list;
                     _callback && _callback(data);
                 }
@@ -288,8 +288,8 @@ export default class YLSDK {
     public static clickNativeAd(index: number) {
         if (ydhw_oppo) {
             let list = this._nativeData[index];
-            if (list) {
-                ydhw.ClickNativeAd();
+            if(list) {
+                // ydhw.ClickNativeAd();
             }
         }
     }
@@ -369,7 +369,7 @@ export default class YLSDK {
         this._recordStartTime = 0;
         this.recorderTime = (new Date().getTime() - this._recordStartTime) * 0.001;
         console.log("-------------RecorderStop--------:", this.recorderTime);
-        ydhw_tt.RecorderStop(() =>{});
+        ydhw_tt.RecorderStop();
     }
 
     /**

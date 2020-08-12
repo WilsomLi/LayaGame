@@ -36,34 +36,6 @@ declare namespace IYDHW {
     export namespace Meizu {
         export interface IMeizuSDK {
             /**
-             * 获取设备识别码 (游客登录方式)
-             * 
-             * @param caller 
-             * @param onSuccess 
-             * @param onFail 
-             */
-            GetIMEI(caller: any, onSuccess: (code: string, token: string, result: any) => void, onFail: (error: any) => void): void;
-
-            /**
-             * 获取Token
-             */
-            GetToken(): void;
-
-            /**
-             * 震动-短时
-             * 
-             * (触发较短时间，持续15ms)
-             */
-            VibrateShort(): void;
-
-            /**
-             * 震动-长时
-             * 
-             * (触发较长时间震动，持续400ms)
-             */
-            VibrateLong(): void;
-
-            /**
              * 获取网络类型
              * 
              * @param caller 
@@ -76,28 +48,18 @@ declare namespace IYDHW {
              * @param method 
              */
             OnNetworkStatusChange(caller: any, method: (type: string, isConnected: boolean) => void): void;
-
-            /**
-             * 退出游戏
-             *  
-             */
-            ExitGame():void;
+            
         }
         export interface IMeizuPlatform {
-            _GetIMEI(caller: any, onSuccess: (code: string, token: string, result: any) => void, onFail: (error: any) => void): void;
+            GetIMEI(caller: any, onSuccess: (code: string, token: string, result: any) => void, onFail: (error: any) => void): void;
 
-            _GetToken(): void;
+            GetToken(caller: any, onSuccess: (code: string, token: string, result: any) => void, onFail: (error: any) => void): void;
 
-            _VibrateShort(): void;
+            GetNetworkType(caller: any, method: (type: string) => void): void;
 
-            _VibrateLong(): void;
+            OnNetworkStatusChange(caller: any, method: (type: string, isConnected: boolean) => void): void;
 
-            _GetNetworkType(caller: any, method: (type: string) => void): void;
-
-            _OnNetworkStatusChange(caller: any, method: (type: string, isConnected: boolean) => void): void;
-
-            _ExitGame():void;
-            _SetSurfaceScale(width:number, height:number,type:number):void;
+            SetSurfaceScale(width:number, height:number,type:number):void;
         }
 
         export interface ISDK extends IMeizuSDK, ICommonSDK { }
@@ -123,60 +85,66 @@ declare namespace IYDHW {
 
 declare namespace IYDHW {
     export namespace Oppo {
+        
+        export interface INativeAdInfo {
+            /**
+             * 广告标识，用来上报曝光与点击
+             */
+            adId: string;
+            /**
+             * 广告标题
+             */
+            title: string;
+            /**
+             *  广告描述
+             */
+            desc: string;
+            /**
+             * 推广应用的 Icon 图标
+             */
+            icon: string;
+            /**
+             * 广告图片
+             */
+            imgUrlList: Array<string>;
+            /**
+             * “广告”标签图片
+             */
+            logoUrl: string;
+            /**
+             * 点击按钮文本描述
+             */
+            clickBtnTxt: string;
+            /**
+                获取广告类型，取值说明：
+                0：无
+                1：纯文字
+                2：图片
+                3：图文混合
+                4：视频
+                6. 640x320 大小图文混合
+                7. 320x210 大小图文单图
+                8. 320x210 大小图文多图
+             */
+            creativeType: number;
+            /**
+                获取广告点击之后的交互类型，取值说明：
+                0：无
+                1：浏览类
+                2：下载类
+                3：浏览器（下载中间页广告）
+                4：打开应用首页
+                5：打开应用详情页
+             */
+            interactionType: number;
+        }
+        
         export interface IOppoSDK {
-            /**
-             * 是否已创建桌面图标，oppo专属
-             * 
-             * @param caller 
-             * @param onSuccess 
-             * @param onFail 
-             * @param onComplete 
-             */
-            HasShortcutInstalled(caller: any, onSuccess: (result: any) => void, onFail?: (error: any) => void, onComplete?: () => void): void;
 
-
-            /**
-             * 安卓桌面图标，oppo专属
-             * 
-             * @param caller 
-             * @param onSuccess 
-             * @param onFail 
-             * @param onComplete 
-             */
-            InstallShortcut(caller: any, onSuccess: () => void, onFail?: (error: any) => void, onComplete?: () => void): void;
-
-            /**
-             * 原生广告创建
-             */
-            CreateNativeAd(caller: any,method: (...args: any[]) => void): void;
-
-            /**
-             * 上报广告曝光，一个广告只有一次上报有效
-             */
-            ShowNativeAd(): void;
-
-            /**
-             * 上报广告点击，一个广告只有一次上报有效
-             */
-            ClickNativeAd(): void;
         }
 
         export interface IOppoPlatform {
-            HasShortcutInstalled(caller: any, onSuccess: (result: any) => void, onFail?: (error: any) => void, onComplete?: () => void): void;
-
-            InstallShortcut(caller: any, onSuccess: () => void, onFail?: (error: any) => void, onComplete?: () => void): void;
-
-            CreateNativeAd(adUnitId: string, caller: any,onCreate: () => void,  method: (...args: any[]) => void): void;
             
-            /**
-             * 上报广告曝光，一个广告只有一次上报有效，nativeId 为 load 方法获取的广告数据的 adId 字段
-             */
-            ShowNativeAd(nativeId: string): void;
-
-            /**
-             * 上报广告点击，一个广告只有一次上报有效，nativeId 为 load 方法获取的广告数据的 adId 字段
-             */
-            ClickNativeAd(nativeId: string): void;
         }
 
 
@@ -222,18 +190,6 @@ declare namespace IYDHW {
     export namespace QQ {
         export interface IQQSDK {
             /**
-             * 分享信息
-             * 
-             * @param scene        当前场景
-             * @param channel      渠道名
-             * @param module       模块名
-             * @param inviteType   邀请参数
-             * @param caller       上下文
-             * @param method       回调函数
-             */
-            ShareAppMessage(scene: string, channel: string, module: string, inviteType: string, caller: any, method: (result: any) => void): void;
-
-            /**
              * 分享(邀请类模板)
              * 
              * @param shareInfo 分享参数
@@ -250,13 +206,13 @@ declare namespace IYDHW {
              */
             AddColorSign(caller: any, method: (success: boolean) => void): void;
 
-            /**
-             * 添加桌面图标
-             * 
-             * @param caller 
-             * @param method 
-             */
-            SaveAppToDesktop(caller: any, method: (success: boolean) => void): void;
+            // /**
+            //  * 添加桌面图标
+            //  * 
+            //  * @param caller 
+            //  * @param method 
+            //  */
+            // SaveAppToDesktop(caller: any, method: (success: boolean) => void): void;
 
             /**
              * 主动订阅
@@ -332,21 +288,19 @@ declare namespace IYDHW {
         }
 
         export interface IQQPlatform {            
-            ShareAppMessage(title: string, imageUrl: string, query: string, caller: any, method: () => void);
-            _ShareByTemplateId(shareInfo: IYDHW.QQ.IShareTempletInfo,queryData:string, caller: any, method: (result: any) => void);
-            _AddColorSign(caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
-            _SaveAppToDesktop(caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
-            _SubscribeAppMsg(appMsgInfo:IYDHW.QQ.IAppMsgInfo,caller: any, onSuccess: (result: any) => void, onError: (error: any) => void);
-            _CreateAddFriendButton(btnInfo: IYDHW.QQ.IAddFriendButtonInfo,caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
-            _ShowAddFriendButton();
-            _HideAddFriendButton();
-            _DestroyAddFriendButton();
-            _CreateAppBox(adId: string,caller:any ,hasCreated:()=>void,onCreate:(success:boolean)=>void,onLoad:(success:boolean)=>void,onClose:()=>void);
-            _ShowAppBox(caller:any ,onSuccess: () => void, onError: (error: any) => void);
-            _CreateBlockAd(_adId: string,adInfo:IYDHW.QQ.IBlockAdInfo,caller: any,onCreate:(success:boolean)=>void,onLoad:(success:boolean)=>void,onResize:()=>void);   
-            _ShowBlockAd(caller: any, show: (adId:string) => void);
-            _HideBlockAd();
-            _DestroyBlockAd();
+            ShareByTemplateId(shareInfo: IYDHW.QQ.IShareTempletInfo,queryData:string, caller: any, method: (result: any) => void);
+            AddColorSign(caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
+            SubscribeAppMsg(appMsgInfo:IYDHW.QQ.IAppMsgInfo,caller: any, onSuccess: (result: any) => void, onError: (error: any) => void);
+            CreateAddFriendButton(btnInfo: IYDHW.QQ.IAddFriendButtonInfo,caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
+            ShowAddFriendButton();
+            HideAddFriendButton();
+            DestroyAddFriendButton();
+            CreateAppBox(adId: string,caller:any ,hasCreated:()=>void,onCreate:(success:boolean)=>void,onLoad:(success:boolean)=>void,onClose:()=>void);
+            ShowAppBox(caller:any ,onSuccess: () => void, onError: (error: any) => void);
+            CreateBlockAd(_adId: string,adInfo:IYDHW.QQ.IBlockAdInfo,caller: any,onCreate:(success:boolean)=>void,onLoad:(success:boolean)=>void,onResize:()=>void);   
+            ShowBlockAd(caller: any, show: (adId:string) => void);
+            HideBlockAd();
+            DestroyBlockAd();
         }
 
         export interface IShareTempletInfo{
@@ -357,15 +311,6 @@ declare namespace IYDHW {
             inviteType?:EM_SHARE_APP_TYPE;  //邀请类型,可以通过qq.getLaunchOptionsSync() 或 qq.onShow() 获取启动参数中的 query获取到的参数中拿到from参数的值就是该参数的传值，CP可以通过该参数给玩家发奖。
             shareAppType?:string;           //转发目标类型,不设该属性默认拉起手q通讯录，详见官方文档
             entryDataHash?:string;          //监听用户点击页面内转发按钮的，只有带上该参数，才支持快速分享，详见官方文档
-        }
-
-        export enum EM_SHARE_APP_TYPE{
-            QQ = 'qq',                              //转发到手q通讯录
-            QQ_FAST_SHARE = 'qqFastShare',          //快速转发至来源的聊天窗口
-            QQ_FAST_SHARE_LIST = 'qqFastShareList', //快速转发列表
-            QZONE = 'qzone',                        //转发到空间
-            WECHARTFRIENDS = 'wechatFriends',       //转发到微信好友
-            WECHATMOMENT = 'wechatMoment',          //转发到微信朋友圈
         }
 
         export interface ISHareTemplateData{
@@ -382,6 +327,14 @@ declare namespace IYDHW {
         export interface IAppMsgInfo{
             tmplIds?:string[];   //需订阅的消息模板的id的集合，一次调用最多可订阅3条消息。
             subscribe:boolean;  //订阅(true)及取消订阅(false)
+        }
+
+        //用户信息按钮信息
+        export interface IUserInfoButtonInfo{
+            type: string;       //按钮的类型 ['text':可以设置背景色和文本的按钮 ,'image':只能设置背景贴图的按钮，背景贴图会直接拉伸到按钮的宽高]
+            text?: string;      //按钮上的文本，仅当 type 为 text 时有效
+            image?:string;      //按钮的背景图片，仅当 type 为 image 时有效
+            style: IFbStyle;    //按钮的样式
         }
 
         //增加好友按钮信息
@@ -452,6 +405,14 @@ declare namespace IYDHW {
             BLOCK_ONRESIZE = 2,         
         }
 
+        export enum EM_SHARE_APP_TYPE{
+            QQ = 'qq',                              //转发到手q通讯录
+            QQ_FAST_SHARE = 'qqFastShare',          //快速转发至来源的聊天窗口
+            QQ_FAST_SHARE_LIST = 'qqFastShareList', //快速转发列表
+            QZONE = 'qzone',                        //转发到空间
+            WECHARTFRIENDS = 'wechatFriends',       //转发到微信好友
+            WECHATMOMENT = 'wechatMoment',          //转发到微信朋友圈
+        }
         export interface ISDK extends IQQSDK, ICommonSDK { }
         export interface IPlatform extends IQQPlatform, ICommonPlatform { }
     }
@@ -607,14 +568,15 @@ declare namespace IYDHW {
             // ShareAppMessage(shareCardId: number, scene: string, channel: string, templateId: string,
             //     desc: string, title: string, imageUrl: string, query: string,
             //     extra: YDHW.TT.IShareAppMessageExtra, caller: any, onSuccess: (isOk: boolean) => void, onError?: (error: any) => void): void;
-
-
+            
             /**
              * 图片分享(含模板)
              * 
-             * @param scene 场景名称 (从ShareCard接口获得)
+             * @param scene   场景名称 (从ShareCard接口获得)
+             * @param onSuccess 
+             * @param description 分享文案,不超过 28 个中文字符
              */
-            ShareImage(scene: string, onSuccess: (isOk: boolean) => void, channel?: string, description?: string);
+            ShareImage(scene: string, onSuccess: (isOk: boolean) => void, description?: string);
 
             /**
              * 视频分享(含模板)
@@ -646,42 +608,54 @@ declare namespace IYDHW {
             ShowMoreGamesModal(onEvtOpen: (isOk: boolean) => void): void;
 
             /**
+             * 创建更多游戏按钮
+             * 
+             * @param type 按钮的类型，取值 image 或 text。image 对应图片按钮，text 对应文本按钮
+             * @param imageUrl 按钮的背景图片，type 为 image 时必填。
+             * @param style 按钮的样式
+             * @param caller 
+             * @param onMoreGame 
+             * @param onTip 
+             */
+            CreateMoreGamesButton(type: string, imageUrl: string, style: IYDHW.TT.IMoreGamesButtonStyle, caller: any, onMoreGame: (isOk: boolean) => void, onTip: () => void): void;
+            /**
              *  开始录屏
              * 
              * @param duration 录屏的时长，单位 s，必须 >3 &&  <= 300s（5 分钟）
-             * @param onStart 监听录屏开始事件
-             * @param onError 监听录屏错误事件
+             * @param onStart  监听录屏开始事件
+             * @param onStop   录屏停止监听,回调参数videoPath：视频保存地址
+             * @param onResume 暂停录屏
+             * @param onPause  继续录屏
+             * @param onError  监听录屏错误事件
              * @param onInterruptionBegin 监听录屏中断开始
              * @param onInterruptionEnd 监听录屏中断结束
              */
-            RecorderStart(duration: number, onStart: (result: any) => void, onError: (error: any) => void, onInterruptionBegin?: () => void, onInterruptionEnd?: () => void): void;
-
+            RecorderStart(duration: number, onStart: (result: any) => void,onStop: (videoPath: string) => void, 
+                            onResume?: (result: any) => void,onPause?: (result: any) => void,
+                            onError?: (error: any) => void, onInterruptionBegin?: () => void, onInterruptionEnd?: () => void): void;
             /**
              *  停止录屏
-             * @param onStop 监听录屏结束事件
              */
-            RecorderStop(onStop: () => void): void;
+            RecorderStop(): void;
 
             /**
              * 暂停录屏
              * 
-             * @param onPause 监听录屏暂停事件
              */
-            RecorderPause(onPause: (result?: any) => void): void;
+            RecorderPause(): void;
 
             /**
              * 继续录屏
              * 
-             * @param onResume 
              */
-            RecorderResume(onResume: (result?: any) => void): void;
-            /**
-             * 获取用户平台信息
-             * 
-             * @param caller 
-             * @param method 
-             */
-            GetPlatformUserInfo(caller: any, method: (userInfo: IYDHW.TT.IUserInfo) => void): void;
+            RecorderResume(): void;
+            // /**
+            //  * 获取用户平台信息
+            //  * 
+            //  * @param caller 
+            //  * @param method 
+            //  */
+            // GetPlatformUserInfo(caller: any, method: (userInfo: IYDHW.TT.IUserInfo) => void): void;
         }
         export interface IToutiaoPlatform {
             RecorderStatus: EM_RECORD_TYPE;
@@ -692,26 +666,31 @@ declare namespace IYDHW {
             VideoPath: string;
 
 
-            ShareAppMessage(channel: string, templateId: string,
+            TTShareAppMessage(channel: string, templateId: string,
                 desc: string, title: string, imageUrl: string, query: string,
                 extra: IYDHW.TT.IShareAppMessageExtra,
-                caller: any, onSuccess: () => void, onFail: (error: any) => void): void;
+                caller: any, onSuccess: (res:any) => void, onFail: (error: any) => void): void;
 
 
             RecorderStart(duration: number, caller: any,
-                onStart: (result: any) => void, onError: (error: any) => void,
-                onInterruptionBegin?: () => void, onInterruptionEnd?: () => void): void;
+                onStart: (result: any) => void, 
+                onStop: (videoPath: string) => void,
+                onResume?: (result: any) => void,
+                onPause?: (result: any) => void,
+                onError?: (error: any) => void,
+                onInterruptionBegin?: () => void, 
+                onInterruptionEnd?: () => void): void;
 
-            RecorderStop(caller: any, onStop: (videoPath: string) => void): void;
+            RecorderStop(): void;
 
-            RecorderPause(caller: any, onPause: (result: any) => void): void;
-            RecorderResume(caller: any, onResume: (result: any) => void): void;
+            RecorderPause(): void;
+            RecorderResume(): void;
 
             ShowMoreGamesModal(caller: any, onGetOptions: () => any[], onSuccess: (isOk: boolean) => void, onError: (error: any) => void): void;
             CreateMoreGamesButton(type: string, image: string, style: IYDHW.TT.IMoreGamesButtonStyle,
                 caller: any, onGetOptions: () => any[], onMoreGame: (isOk: boolean) => void, onTip: () => void): void;
 
-            GetPlatformUserInfo(caller: any, onSuccess: (userInfo: IYDHW.TT.IUserInfo) => void, onFail: (error: any) => void);
+            // GetPlatformUserInfo(caller: any, onSuccess: (userInfo: IYDHW.TT.IUserInfo) => void, onFail: (error: any) => void);
         }
 
         export enum EM_RECORD_TYPE {
@@ -728,7 +707,7 @@ declare namespace IYDHW {
              */
             T_Pasuse = 2,
         }
-        
+
         export interface ISDK extends IToutiaoSDK, ICommonSDK { }
         export interface IPlatform extends IToutiaoPlatform, ICommonPlatform { }
     }
@@ -755,17 +734,70 @@ declare namespace IYDHW {
 
 declare namespace IYDHW {
     export namespace Vivo {
+        export interface INativeAdInfo{
+            /**
+             * 广告标识，用来上报曝光与点击
+             */
+            adId: string;
+            /**
+             * 广告标题
+             */
+            title: string;
+            /**
+             *  广告描述
+             */
+            desc: string;
+            /**
+             * 推广应用的 Icon 图标
+             */
+            icon: string;
+            /**
+             * 广告图片
+             */
+            imgUrlList: Array<string>;
+            /**
+             * “广告”标签图片
+             */
+            logoUrl: string;
+            /**
+             * 点击按钮文本描述
+             */
+            clickBtnTxt: string;
+            /**
+                获取广告类型，取值说明：
+                0：混合
+            */
+            creativeType: number;
+            /**
+                获取广告点击之后的交互类型，取值说明：
+                0：无
+                1：网址类
+                2：应用下载类
+                8：快应用生态应用）
+            */
+            interactionType: number;
+        }
         export interface IVivoSDK {
+
+            /**
+             * 判断用户是否通过桌面图标来启动应用
+             * @param caller 
+             * @param onSuccess 
+             * @param onFail 
+             */
+            IsStartupByShortcut(caller:any , onSuccess:(status:boolean)=>void,onFail?: (error: any) => void):void;
 
         }
         export interface IVivoPlatform {
-
+            
+            IsStartupByShortcut(caller:any , onSuccess:(status:boolean)=>void,onFail?: (error: any) => void):void;
         }
 
         export interface ISDK extends IVivoSDK, ICommonSDK { }
         export interface IPlatform extends IVivoPlatform, ICommonPlatform { }
     }
 }
+declare var ydhw_vivo: IYDHW.Vivo.ISDK;
 
 
 declare namespace IYDHW {
@@ -785,19 +817,253 @@ declare namespace IYDHW {
 
 declare namespace IYDHW {
     export namespace Wechat {
+        export enum EM_RECORD_EVENT {
+            /**
+             * 录制开始事件
+             */
+            E_START = "start",
+            /**
+             * 录制结束事件
+             */
+            E_STOP = "stop",
+            /**
+             * 录制暂停事件
+             */
+            E_PAUSE = "pause",
+            /**
+             * 录制恢复事件
+             */
+            E_RESUME = "resume",
+            /**
+             * 录制取消事件
+             */
+            E_ABORT = "abort",
+            /**
+             * 录制时间更新事件.在录制过程中触发该事件
+             */
+            E_TIME_UPDATE = "timeUpdate",
+            /**
+             * 错误事件。当录制和分享过程中发生错误时触发该事件
+             */
+            E_ERROR = "error"
+        }
+
+        /**
+         * 分享到朋友圈参数
+         */
+        export interface IOnShareTimelineInfo {
+            /**
+             * 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。（该图片用于分享到朋友圈的卡片以及从朋友圈转发到会话消息的卡片展示）
+             */
+            imageUrl:string;
+            /**
+             * 转发标题，不传则默认使用当前小游戏的昵称
+             */
+            title?:string;
+            /**
+             * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.getLaunchOptionsSync() 或 wx.onShow() 获取启动参数中的 query。不传则默认使用当前页面query
+             */
+            query?:string;
+        }
+
+        export interface IGameRecorderInfo {
+            /**
+             * 视频 fps
+             * 默认：24
+             */
+            fps?:number;
+            /**
+             * 视频的时长限制，单位为秒（s）。最大值 7200，最小值 5，到达指定时长后不会再录入。但还需要手动调用 GameRecorder.stop() 来结束录制。
+             * 默认：7200
+             */
+            duration?:number;
+            /**
+             * 视频比特率（kbps），默认值1000，最大值 3000，最小值 600
+             * 默认：1000
+             */
+            bitrate?:number;
+            /**
+             * 视频关键帧间隔
+             * 默认：12
+             */
+            gop?:number;
+            /**
+             * 是否录制游戏音效
+             * 默认：true
+             */
+            hookBgm?:boolean;
+
+        }
+
+        /**
+         * 创建分享按钮传参
+         * 
+         * 详情参考官网文档：
+         * https://developers.weixin.qq.com/minigame/dev/api/game-recorder/wx.createGameRecorderShareButton.html
+         */
+        export interface IGameRecorderBtnInfo {
+            /**
+             * 按钮的样式
+             */
+            style:IGameRecorderBtnStyle;
+            /**
+             * 图标的 url。支持 http/https 开头的网络资源和 wxfile:// 开头的本地资源。如果不设置则使用默认图标。
+             */
+            icon?:string;
+            /**
+             * 按钮的背景图片的 url。支持 http/https 开头的网络资源和 wxfile:// 开头的本地资源。如果不设置则使用默认图标
+             */
+            image?:string;
+            /**
+             * 按钮的文本
+             */
+            text?:string;
+            /**
+             * 对局回放的分享参数
+             */
+            share:IGameRecorderShareInfo;
+        }
+        export interface IGameRecorderBtnStyle {
+            /**
+             * 左上角横坐标，单位 逻辑像素
+             * 默认值:0
+             */
+            left?:number;
+            /**
+             * 左上角纵坐标，单位 逻辑像素
+             * 默认值:0
+             */
+            top?:number;
+            /**
+             * 按钮的高度，最小 40 逻辑像素
+             * 默认值:40
+             */
+            height?:number;
+            /**
+             * 图标和文本之间的距离，最小 8 逻辑像素
+             * 默认值:8
+             */
+            iconMarginRight?:number;
+            /**
+             * 文本的字体大小。最小 17，最大 22。
+             * 默认值:17
+             */
+            fontSize?:number;
+            /**
+             * 文本的颜色
+             * 默认值:#ffffff
+             */
+            color?:string;
+            /**
+             * 按钮的左内边距，最小 16 逻辑像素
+             * 默认值:16
+             */
+            paddingLeft?:number;
+            /**
+             * 按钮的右内边距，最小 16 逻辑像素。
+             * 默认值:16
+             */
+            paddingRight?:number;
+        }
+        export interface IGameRecorderShareInfo {
+            /**
+             * 分享的对局回放打开后跳转小游戏的 query。
+             */
+            query:string;
+            /**
+             * 对局回放的标题。对局回放标题不能随意设置，只能选择预设的文案模版和对应的参数。
+             */
+            title?:IGameRecorderTitle;
+            /**
+             * 对局回放的按钮。只能选择预设的文案模版
+             */
+            button?:IGameRecorderBotton;
+            /**
+             * 对局回放背景音乐的地址。必须是一个代码包文件路径或者 wxfile:// 文件路径，不支持 http/https 开头的 url。
+             */
+            bgm:string;
+            /**
+             * 对局回放的剪辑区间，是一个二维数组，单位 ms（毫秒）。[[1000, 3000], [4000, 5000]] 表示剪辑已录制对局回放的 1-3 秒和 4-5 秒最终合成为一个 3 秒的对局回放。对局回放剪辑后的总时长最多 60 秒，即 1 分钟。
+             */
+            timeRange:Array<number>;
+            /**
+             * 对局回放的音量大小，最小 0，最大 1
+             */
+            volume?:number;
+            /**
+             * 对局回放的播放速率，只能设置以下几个值：0.3，0.5，1，1.5，2，2.5，3。其中1表示原速播放，小于1表示减速播放，大于1表示加速播放。
+             */
+            atempo?:number;
+            /**
+             * 如果原始视频文件中有音频，是否与新传入的bgm混音，默认为false，表示不混音，只保留一个音轨，值为true时表示原始音频与传入的bgm混音。
+             */
+            audioMix?:boolean;
+        }
+        export interface IGameRecorderTitle {
+            /**
+             * 对局回放的标题的模版,
+             * 不传则为：${用户昵称} 在 ${游戏名称} 的游戏时刻
+             * 
+             *  值	                说明	
+             * default.score	    模版格式为，${游戏名称}，本局得分：${score}，对应的 data 应该如 { score: 4500 }	
+             * default.level	    模版格式为，${游戏名称}，当前关卡：第42关，对应的 data 应该如 { level: 23 }	
+             * default.opponent	    模版格式为，${游戏名称}，本局对手：${opponent}，对应的 data 应该如 { opponent_openid: 'oC6J75Sh1_4K8Mf5b1mlgDkMPhoI' }	
+             * default.cost	        模版格式为，${游戏名称}，本局耗时：${cost}秒，对应的 data 应该如 { cost_seconds: 123 }
+             * 
+             */
+            template:string;
+            /**
+             * 对局回放的标题的模版参数
+             */
+            data:IGameRecorderTitleData;
+        }
+        export interface IGameRecorderBotton {
+            /**
+             * 对局回放的按钮的模版
+             * 默认值:enter 
+             *      值	        说明	
+             *      enter	    马上玩	
+             *      challenge	去挑战	
+             *      play	    玩一把
+             * 
+             */
+            template:string;
+        }
+        /**
+         * 该参数根据template选择的模板传对应参数
+         */
+        export interface IGameRecorderTitleData {
+            /**
+             * template值为default.score选该参数
+             */
+            score?: number;
+            /**
+             * template值为default.level选该参数
+             */
+            level?: number;
+            /**
+             * template值为default.opponent选该参数
+             */
+            opponent_openid?:string;
+            /**
+             * template值为default.cost选该参数
+             */
+            cost_seconds?:number;
+        }
+        
         export interface IWechatSDK {
             GridAdUnitIdList: string[];
-            /**
-             * 分享信息
-             * 
-             * @param scene        当前场景
-             * @param channel      渠道名
-             * @param module       模块名
-             * @param inviteType   邀请参数
-             * @param caller       上下文
-             * @param method       回调函数
-             */
-            ShareAppMessage(scene: string, channel: string, module: string, inviteType: string, caller: any, method: (result: any) => void): void;
+            // /**
+            //  * 分享信息
+            //  * 
+            //  * @param scene        当前场景
+            //  * @param channel      渠道名
+            //  * @param module       模块名
+            //  * @param inviteType   邀请参数
+            //  * @param caller       上下文
+            //  * @param method       回调函数
+            //  */
+            // ShareAppMessage(scene: string, channel: string, module: string, inviteType: string, caller: any, method: (result: any) => void): void;
             /**
              * 创建格子广告
              * 
@@ -819,27 +1085,166 @@ declare namespace IYDHW {
              * 系统订阅消息
              */
             SubscribeSysMsg(msgTypeList: string[], onSuccess: (result: any) => void, onError: (error: any) => void): void;
+
             /**
              * 获取用户的当前设置
+             * @param isSubcribe 是否同时获取用户订阅消息的订阅状态
+             * @param onSuccess 
+             * @param onError 
              */
             GetSetting(isSubcribe: boolean, onSuccess: (result: any) => void, onError: (error: any) => void): void;
+            /**
+             * 取消监听录制事件。当对应事件触发时，该回调函数不再执行
+             * 
+             * @param event 事件名
+             * @param caller 
+             * @param callBack 
+             */
+            GameRecorderOff(event:IYDHW.Wechat.EM_RECORD_EVENT,caller?: any, callBack?: (res:any) => void):void;
+
+            /**
+             * 注册监听录制事件的回调函数。当对应事件触发时，回调函数会被执行
+             * 
+             * @param event  事件名
+             * @param caller 
+             * @param callBack 
+             */
+            GameRecorderOn(event:IYDHW.Wechat.EM_RECORD_EVENT,caller?: any, callBack?: (res:any) => void):void;
+
+            /**
+             * 开始录制游戏画面
+             * 
+             * @param info 创建分享按钮传参
+             * @param caller 
+             * @param onStart 录制事件监听-开始
+             * @param onStop 录制事件监听-结束
+             * @param onError 录制事件监听-错误
+             * @param onPause 录制事件监听-暂停
+             * @param onResume 录制事件监听-恢复
+             * @param onAbort 录制事件监听-取消
+             * @param onTimeUpdate  录制时间更新事件监听，在录制过程中触发该事件(如果没有回调可能是录屏)
+             */
+            GameRecorderStart(info:IYDHW.Wechat.IGameRecorderInfo,caller: any, onStart: (res: any) => void, onStop: (res: any) => void, 
+                onError?: (error: any) => void, onPause?: (res: any) => void, onResume?: (res: any) => void, onAbort?: (res: any) => void, onTimeUpdate?: (res: any) => void):void;
+            /**
+             * 结束录制游戏画面。结束录制后可以发起分享。
+             */
+            GameRecorderStop():void;
+            /**
+             * 暂停录制游戏画面。
+             */
+            GameRecorderPause():void;
+            /**
+             * 恢复录制游戏画面
+             */
+            GameRecorderResume():void;
+            /**
+             * 放弃录制游戏画面。此时已经录制的内容会被丢弃
+             */
+            GameRecorderAbort():void;
+            /**
+             * 获取是否支持调节录制视频的播放速率
+             */
+            IsAtempoSupported():boolean;
+            /**
+             * 获取是否支持录制游戏画面
+             */
+            IsFrameSupported():boolean;
+            /**
+             * 获取是否在录制游戏画面的同时支持录制游戏音频的信息
+             */
+            IsSoundSupported():boolean;
+            /**
+             * 获取是否支持调节录制视频的音量
+             */
+            IsVolumeSupported():boolean;
+
+            /**
+             * 创建游戏对局回放分享按钮，返回一个单例对象
+             * 按钮在被用户点击后会发起对最近一次录制完成的游戏对局回放的分享
+             * @param btnInfo 按钮信息(后面补充类型说明)
+             */
+            CreateGameRecorderShareButton(btnInfo:IYDHW.Wechat.IGameRecorderBtnInfo):void;
+            /**
+             * 隐藏游戏对局回放分享按钮
+             */
+            GameRecorderShareButtonHide():void;
+            /**
+             * 显示游戏对局回放分享按钮
+             */
+            GameRecorderShareButtonShow():void;
+            /**
+             * 监听游戏对局回放分享按钮的点击事件
+             */
+            GameRecorderShareButtonOnTap(caller: any, method: (res: any) => void):void;
+            /**
+             * 取消监听游戏对局回放分享按钮的点击事件
+             */
+            GameRecorderShareButtonOffTap(caller: any, method: (res: any) => void):void;
+            /**
+             * 设置 wx.shareMessageToFriend 接口 query 字段的值
+             * 
+             * @param shareMessageToFriendScene 需要传递的代表场景的数字，需要在 0 - 50 之间 (场景值CP自己在该范围定义)
+             */
+            SetMessageToFriendQuery(shareMessageToFriendScene:number):boolean;
+            /**
+             * 监听主域接收 wx.shareMessageToFriend 接口的成功失败通知
+             * @param caller 
+             * @param method 
+             */
+            OnShareMessageToFriend(caller: any, method: (res: any) => void):void;
+            /**
+             * 绑定朋友圈分享参数
+             * @param shareInfo 分享参数
+             * @param caller 
+             * @param method 
+             */
+            OnShareTimeline(shareInfo:IYDHW.Wechat.IOnShareTimelineInfo,caller: any, method: (res: any) => void):void;
+            /**
+             * 取消绑定分享参数
+             */
+            OffShareTimeline():void;
         }
 
         export interface IWechatPlatform {
             GridAd: any;
-            ShareAppMessage(title: string, imageUrl: string, query: string, caller: any, method: () => void);
-
             CreateGridAd(isShow: boolean, adId: string, adTheme: string, gridCount: number, style: IYDHW.IAdStyle, caller: any, onLoad: () => void, onShow: () => void, onError: (error: any) => void): void;
             ShowGridAd(caller: any, onError: (error: any) => void): void;
             HideGridAd(caller: any, onError: (error: any) => void): void;
             SubscribeSysMsg(msgTypeList: string[], caller: any, onSuccess: (result: any) => void, onError: (error: any) => void): void;
             GetSetting(isSubcribe: boolean, caller: any, onSuccess: (result: any) => void, onError: (error: any) => void): void;
+
+            GameRecorderOff(event:IYDHW.Wechat.EM_RECORD_EVENT,caller?: any, callBack?: (res:any) => void):void;
+            GameRecorderOn(event:IYDHW.Wechat.EM_RECORD_EVENT,caller?: any, callBack?: (res:any) => void):void;
+            GameRecorderStart(info:IYDHW.Wechat.IGameRecorderInfo,caller: any, onStart: (res: any) => void, onStop: (res: any) => void, 
+                onError?: (error: any) => void, onPause?: (res: any) => void, onResume?: (res: any) => void, onAbort?: (res: any) => void, onTimeUpdate?: (res: any) => void):void;
+
+            GameRecorderStop():void;
+            GameRecorderPause():void;
+            GameRecorderResume():void;
+            GameRecorderAbort():void;
+            IsAtempoSupported():boolean;
+            IsFrameSupported():boolean;
+            IsSoundSupported():boolean;
+            IsVolumeSupported():boolean;
+
+            CreateGameRecorderShareButton(btnInfo:IYDHW.Wechat.IGameRecorderBtnInfo):void;
+            GameRecorderShareButtonHide():void;
+            GameRecorderShareButtonShow():void;
+            GameRecorderShareButtonOnTap(caller: any, method: (res: any) => void):void;
+            GameRecorderShareButtonOffTap(caller: any, method: (res: any) => void):void;
+            SetMessageToFriendQuery(shareMessageToFriendScene:number):boolean;
+            OnShareMessageToFriend(caller: any, method: (res: any) => void):void;
+            OnShareTimeline(shareInfo:IYDHW.Wechat.IOnShareTimelineInfo,caller: any, method: (res: any) => void):void;
+            OffShareTimeline():void;
+            ShowShareMenu():void;
         }
 
         export interface ISDK extends IWechatSDK, ICommonSDK { }
 
         export interface IPlatform extends IWechatPlatform, ICommonPlatform { }
     }
+
 }
 
 declare var ydhw_wx: IYDHW.Wechat.ISDK;
@@ -943,6 +1348,18 @@ declare namespace IYDHW {
              * 分享时传的邀请类型
              */
             from: string;
+            /**
+             * 分享时的时间戳
+             */
+            shareTime: number;
+            /**
+             * 分享类型(头条平台需要)
+             */
+            shareType?: string; 
+            /**
+             * 模板ID(头条平台需要)
+             */
+            templateId?: string;
         }
 
         export interface IClientInfo {
@@ -1207,6 +1624,27 @@ declare namespace IYDHW {
             hasWin?:boolean;     //是否获胜[true:获胜,false:失败]
             source?:number;      //获得分数
             detail?:any;         //其他详情,CP自由发挥
+        }
+
+        export interface IStatistiicShareInfo {
+            /**
+             * 分享图ID ,-1：没有分享图
+             */
+            sharecardId?:number;
+            /**
+             * 0:分享图,1:视频分享,2:口令分享(头条需要)
+             *
+             */
+            sType?:number;
+            /**
+             * 1: 转发到手q通讯录,1:快速转发至来源的聊天窗口,2:快速转发列表,3:转发到空间,4:转发到微信好友,5:转发到微信朋友圈(QQ需要)
+             */
+            target?:number;
+            /**
+             * -1:分享-取消,0:分享-不确定,1:分享-确定 
+             * (头条有确定回调,微信和QQ都没有)
+             */
+            real?: number;
         }
     }
 
@@ -1671,9 +2109,6 @@ declare namespace IYDHW {
 
     }
 
-
-
-
     export interface ICommonSDK {
         _Platform: IYDHW.ICommonPlatform;
         /**
@@ -1797,6 +2232,22 @@ declare namespace IYDHW {
         NativeAdUnitIdList: string[];//原生广告
         VideoAdUnitIdList: string[];//视频广告
 
+        IsWechat: boolean;
+        IsQQ: boolean;
+        IsOppo: boolean;
+        IsVivo: boolean;
+        IsToutiao: boolean;
+        IsBaidu: boolean;
+        Is4399: boolean;
+        IsQutoutiao: boolean;
+        Is360: boolean;
+        IsMomo: boolean;
+        IsXiaomi: boolean;
+        IsMeizu: boolean;
+        IsUC: boolean;
+        IsWeb: boolean;
+        IsAlipay: boolean;
+
 
         LoginAddress(): string;
 
@@ -1842,7 +2293,7 @@ declare namespace IYDHW {
          */
         StatisticInterstitial(type: IYDHW.Statistic.EM_STATISTIC_TYPE, adId: string): void;
 
-        StatisticSdk(sdksInfo: IYDHW.Statistic.IApiInfo[]): void ;
+        // StatisticSdk(sdksInfo: IYDHW.Statistic.IApiInfo[]): void ;
 
         /**
          * 结果统计
@@ -2016,7 +2467,7 @@ declare namespace IYDHW {
          * @param caller 
          * @param method 
          */
-        CreateBannerAd(isMisTouch: boolean, isShow: boolean, caller: any, method: () => void): void;
+        CreateBannerAd(isMisTouch: boolean, isShow: boolean, caller: any, method: (isOk: boolean) => void): void;
         
         /**
          * 创建banner广告(小的)
@@ -2026,7 +2477,7 @@ declare namespace IYDHW {
          * @param caller 
          * @param method 
          */
-        CreateSmallBannerAd(isMisTouch: boolean, isShow: boolean, caller: any, method: () => void): void;
+        CreateSmallBannerAd(isMisTouch: boolean, isShow: boolean, caller: any, method: (isOk: boolean) => void): void;
         
         /**
          * 创建banner自定义style
@@ -2060,13 +2511,8 @@ declare namespace IYDHW {
         /**
          * 创建激励视频广告
          * 
-         * @param adUnitId 广告ID
-         * @param caller 
-         * @param onLoad onLoad回调监听
-         * @param onClose onClose回调监听
-         * @param onError onError回调监听
          */
-        CreateRewardVideoAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;
+        CreateRewardVideoAd(): void;
 
         /**
          * 播放视频广告
@@ -2088,36 +2534,56 @@ declare namespace IYDHW {
 
         /**
          * 分享图统计（打点统计）
-         * 
-         * @param id 分享图ID(从ShareCard接口获取)
+         * @param info  分享参数
          */
-        StatisticShareCard(id: number): void;
+        StatisticShareCard(info: IYDHW.Statistic.IStatistiicShareInfo): void;
 
-        /**
-         * 小游戏跳转
-         * 
-         *  （以下参数从GetSideBox接口获取）
-         * @param id 卖量ItemID
-         * @param toAppId 跳转AppID
-         * @param toUrl  跳转路径
-         * @param caller 
-         * @param method 
-         */
+         /**
+          * 小游戏跳转
+          * （以下参数从GetSideBox接口获取）
+          * @param id 卖量ItemID
+          * @param toAppId 跳转AppID
+          * @param toUrl 跳转路径
+          * @param source 从哪个模块导出的，该字段具体值由调用方自行定义
+          * @param caller 
+          * @param method 
+          */
         NavigateToMiniProgram(id: number, toAppId: string, toUrl: string, source: string, caller: any, method: (isOk: boolean) => void): void;
 
         /**
-         * 显示平台获取用户信息的按钮
+         * 创建-用户信息按钮
          * 
-         * @param info  具体格式查看微信官方文档
+         * @param btnInfo 具体格式查看官方文档(目前只支持微信/QQ)
          * @param caller 
          * @param method 
          */
-        ShowUserInfoButton(info: any, caller: any, method: (data: any) => void): void;
+        CreateUserInfoButton(btnInfo:any,caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void): void;
 
         /**
-         * 隐藏平台获取用户信息的按钮
+         * 显示-用户信息按钮
+         * 
+         */
+        ShowUserInfoButton(): void;
+
+        /**
+         * 隐藏-用户信息按钮
          */
         HideUserInfoButton(): void;
+
+        /**
+         * 销毁-用户信息按钮void;
+         */
+        DestroyUserInfoButton(): void;
+
+        /**
+         * 获取平台用户信息
+         * 支持平台:QQ,微信,头条
+         *
+         * @param caller 
+         * @param onSuccess 
+         * @param onError 
+         */
+        GetUserInfo(caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void):void;
 
         /**
          * 创建插屏广告
@@ -2177,6 +2643,107 @@ declare namespace IYDHW {
         GetServerInfo(caller: any, method: (result: IYDHW.User.IMyInfoResult) => void): void;
 
         Hook(name: string, caller: any, method: (inputObjectList: any[], outputObject: any) => void): void;
+
+        /**
+         * 退出游戏
+         *  
+         */
+        ExitGame():void;
+        /**
+         * 震动-短时
+         * 
+         * (触发较短时间，持续15ms)
+         */
+        VibrateShort(): void;
+
+        /**
+         * 震动-长时
+         * 
+         * (触发较长时间震动，持续400ms)
+         */
+        VibrateLong(): void;
+
+        /** 
+         * 创建桌面图标，每次创建都需要用户授权
+         * 两次调用之间的间隔时间是120秒以上
+         * 
+         * @param caller 
+         * @param onSuccess 
+         * @param onFail 
+         * @param onComplete 
+         * @param message 权限弹窗上的说明文字，用于向用户解释为什么要创建桌面图标(VIVO可传)
+         */
+        InstallShortcut(caller: any, onSuccess: () => void,  onFail?: (error: any) => void, onComplete?: () => void,message?:string): void;
+
+
+        /**
+         * 原生广告创建
+         */
+        CreateNativeAd(caller: any,method: (args: any) => void): void;
+
+        /**
+         * 上报广告曝光，一个广告只有一次上报有效
+         * 
+         * @param nativeId 创建返回的adId
+         */
+        ShowNativeAd(nativeId: string): void;
+
+        /**
+         * 上报广告点击，一个广告只有一次上报有效
+         * 
+         * @param nativeId  创建返回的adId
+         */
+        ClickNativeAd(nativeId: string): void;
+
+        /**
+         * 是否已经创建桌面图标
+         * @param caller 
+         * @param onSuccess 
+         * @param onFail 
+         * @param onComplete  (VIVO平台没有回调)
+         */
+        HasShortcutInstalled(caller: any, onSuccess: (result: any) => void, onFail?: (error: any) => void, onComplete?: () => void): void; 
+        /**
+         * 分享信息
+         * 
+         * @param scene        当前场景
+         * @param channel      渠道名
+         * @param module       模块名
+         * @param inviteType   邀请参数
+         * @param caller       上下文
+         * @param method       回调函数
+         * @param target       回调函数
+         */
+        ShareAppMessage(scene: string, channel: string, module: string, inviteType: string, caller: any, method: (result: any) => void,target?:EM_SHARE_APP_TYPE): void;
+        /**
+         * onShow监听回调
+         * @param caller 
+         * @param method 
+         */
+        OnShow(caller: any, method: (res:any) => void): void;
+
+        /**
+         * onHide监听回调
+         * @param caller 
+         * @param method 
+         */
+        OnHide(caller: any, method: (res:any) => void): void;
+
+        /**
+         * onError监听回调
+         * @param caller 
+         * @param method 
+         */
+        OnError(caller: any, method: (error:any) => void): void;
+
+        /**
+         * 自定以存储空间
+         * 
+         * @param storeInfo  操作参数
+         * @param caller 
+         * @param method 
+         */
+        StoreValue(storeInfo: IYDHW.GameBase.IStoreValueRequest, caller?: any, method?: (result: IYDHW.GameBase.IStoreValueResult) => void): void;
     }
 
     export interface ISystemInfo {
@@ -2192,7 +2759,7 @@ declare namespace IYDHW {
         screenWidth: number;//屏幕宽度
         system: string;//操作系统版本
         windowHeight: number;//可使用窗口高度
-        windowWidth: number; 可使用窗口宽度
+        windowWidth: number; //可使用窗口宽度
     }
 
     export enum EM_PLATFORM_TYPE {
@@ -2446,7 +3013,7 @@ declare namespace IYDHW {
          */
         deepTouch: boolean;
         /**
-         * 深度误触屏蔽处理完之后的自定配置开关状态数据
+         * 深度误触屏蔽处理完之后的自定配置数据
          */
         ListCustomInfo: IYDHW.GameBase.ICustomConfigResult[];
     }
@@ -2497,7 +3064,14 @@ declare namespace IYDHW {
          */
         CountDown = 3,
     }
-
+    export enum EM_SHARE_APP_TYPE {
+        QQ = 'qq',                              //转发到手q通讯录
+        QQ_FAST_SHARE = 'qqFastShare',          //快速转发至来源的聊天窗口
+        QQ_FAST_SHARE_LIST = 'qqFastShareList', //快速转发列表
+        QZONE = 'qzone',                        //转发到空间
+        WECHARTFRIENDS = 'wechatFriends',       //转发到微信好友
+        WECHATMOMENT = 'wechatMoment',          //转发到微信朋友圈
+    }
 
     export interface IPowerSystem {
         Initialize(): void;
@@ -2510,6 +3084,7 @@ declare namespace IYDHW {
         InitShareConfig(scene: string, configs: IYDHW.GameBase.IShareCardResult[]): void;
         IsHasShareScene(scene: string): boolean;
         GetShareSceneConfig(scene: string): IYDHW.GameBase.IShareCardResult[];
+        GetRandomShareConfig():IYDHW.GameBase.IShareCardResult;
         // GetShareStrategy(channel:string, module:string): YDHW.User.IShareVideoModuleFalse;
         GetShareResult(shareAppInfo: IShareAppInfo, caller: any, method: (shareBackInfo: IShareBackInfo) => void): void;
         ShowShareVideo(channel: string, module: string, caller: any, method: (type: EM_SHARE_TYPE) => void): void;
@@ -2561,6 +3136,8 @@ declare namespace IYDHW {
         Model: string;
         Resolution: string;
 
+        AppName:string;    //字节跳动
+
         Env: string;
 
         IsDebug: boolean;
@@ -2610,18 +3187,18 @@ declare namespace IYDHW {
         IsHasAPI(name: string): boolean;
         LaunchInfo(): any;
         GetSystemInfoSync(caller: any, method: (data: any) => void): void;
-        OnFrontend(caller: any, method: () => void): void;
-        OnBackend(caller: any, method: () => void): void;
-        OnError(caller: any, method: () => void): void;
+        OnFrontend(caller: any, method: (res:any) => void): void;
+        OnBackend(caller: any, method: (res:any) => void): void;
+        OnError(caller: any, method: (error: any) => void): void;
         CreateFeedbackButton(_btnVect: IRectangle, hide?: boolean): void;
         ShowFeedbackButton(visible: boolean): void;
         ExitMiniProgram(): void;
         TriggerGC(): void;
         OnShare(_data: any): void;
         NavigateToMiniProgram(ownAppId: string, toAppId: string, toUrl: string, caller: any, onSuccess: () => void, onFail: () => void): void;
-        CreateBannerAd(adUnitId: string, isMisTouch: boolean, style: IAdStyle, caller: any, onResize: (result: any) => void): void;
+        CreateBannerAd(isSmall: boolean,adUnitId: string, isMisTouch: boolean, style: IAdStyle, caller: any, onResize: (result: any) => void): void;
         RefreshBannerAd(): void
-        CloseBannerAd(): void;
+        DestroyBannerAd(): void;
         SetBannerVisible(val: boolean): void;
         ChangeBannerStyle(style: IYDHW.IAdStyle): void;
         CreateRewardVideoAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;
@@ -2629,19 +3206,21 @@ declare namespace IYDHW {
         CreateInterstitialAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;
         ShowInterstitialAd(caller: any, method: () => void);
         ClearInterstitialAd(): void;
-        ShowUserInfoButton(info: any, caller: any, onSuccess: (data: any) => void, onError: (error: any) => void): void;
-        HideUserInfoButton(): void;
+        CreateUserInfoButton(btnInfo:any,caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void);
+        ShowUserInfoButton();
+        HideUserInfoButton();
+        DestroyUserInfoButton();
+        GetUserInfo(caller:any ,onSuccess: (result: any) => void, onError: (error: any) => void):void;
 
-        /**
-         * 短震动
-         */
+        ExitGame():void;
         VibrateShort(): void;
-
-        /**
-         * 长震动
-         */
         VibrateLong(): void;
-
+        CreateNativeAd(adUnitId: string, caller: any,onCreate: () => void,  method: (args: any) => void): void;            
+        ShowNativeAd(nativeId: string): void;
+        ClickNativeAd(nativeId: string): void;
+        HasShortcutInstalled(caller: any, onSuccess: (result: any) => void, onFail?: (error: any) => void, onComplete?: () => void): void;
+        InstallShortcut(caller: any, onSuccess: () => void,  onFail?: (error: any) => void, onComplete?: () => void,message?:string): void;
+        ShareAppMessage(title: string, imageUrl: string, query: string, caller: any, method: () => void,target?:EM_SHARE_APP_TYPE);
         /**
          * 设置玩家云数据
          * @param _kvDataList 
@@ -2716,10 +3295,9 @@ declare namespace IYDHW {
         IYDHW.TT.IToutiaoSDK,
         IYDHW.UC.IUCSDK,
         IYDHW.Vivo.IVivoSDK,
-        IYDHW.Web.IWebSDK,
+        IYDHW.Web.IWebSDK,                   
         IYDHW.Wechat.IWechatSDK,
         IYDHW.Xiaomi.IXiaomiSDK {
-
     }
 
 

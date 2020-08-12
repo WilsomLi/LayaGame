@@ -38,6 +38,10 @@ https://cdofs.oppomobile.com/cdo-activity/static/201810/26/quickgame/documentati
 adb push .\ydhw.ssly2.nearme.gamecenter.signed.rpk sdcard/games
 
 
+## 工程编译发布
+ 1.Laya工程编译-->发布
+ 2.运行更目录下的release.bat,选择发布平台
+
 ## 代码版本管理：	
 - 主干master	核心玩法开发，纯净版，不涉及任何平台相关业务逻辑
 - 各平台相关分支（名字必须明确是哪个平台）	各自平台业务功能，如在开发过程修改到游戏核心玩法相关内容，必须把这些代码合并回主干版本。
