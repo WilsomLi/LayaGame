@@ -3,7 +3,7 @@ import Tween from "./Tween";
 import GameConst from "../const/GameConst";
 import Utils from "./Utils";
 import SceneMgr from "../mgr/SceneMgr";
-import ViewModel from "./VideModel";
+// import ViewModel from "./VideModel";
 
 
 export default class UIUtils {
@@ -231,46 +231,46 @@ export default class UIUtils {
         }
     }
 
-    /**
-     * 显示界面模型
-     */
-    public static showViewModel(view:Laya.Sprite, cameraUrl:string,url:string=null,aniName:string=null,zOrder:number=-1):ViewModel {
-        let scene:Laya.Scene3D = new Laya.Scene3D();
-        scene.input.multiTouchEnabled = true;
-        if(zOrder != -1){
-            view.addChildAt(scene,zOrder);
-        }
-        else {
-            view.addChild(scene);
-        }
-        scene.ambientColor = SceneMgr.instance.scene.ambientColor;
+    // /**
+    //  * 显示界面模型
+    //  */
+    // public static showViewModel(view:Laya.Sprite, cameraUrl:string,url:string=null,aniName:string=null,zOrder:number=-1):ViewModel {
+    //     let scene:Laya.Scene3D = new Laya.Scene3D();
+    //     scene.input.multiTouchEnabled = true;
+    //     if(zOrder != -1){
+    //         view.addChildAt(scene,zOrder);
+    //     }
+    //     else {
+    //         view.addChild(scene);
+    //     }
+    //     scene.ambientColor = SceneMgr.instance.scene.ambientColor;
         
-        let lightOrigin = SceneMgr.instance.light;
-        // let light:Laya.DirectionLight = Laya.Sprite3D.instantiate(lightOrigin, null, false) as Laya.DirectionLight; 实例化无效
-        let light:Laya.DirectionLight = new Laya.DirectionLight();
-        light.transform.rotation = lightOrigin.transform.rotation;
-        var attrs = ['color', 'intensity', 'lightmapBakedType'];
-        Utils.copyAttrs(attrs, light, lightOrigin);
+    //     let lightOrigin = SceneMgr.instance.light;
+    //     // let light:Laya.DirectionLight = Laya.Sprite3D.instantiate(lightOrigin, null, false) as Laya.DirectionLight; 实例化无效
+    //     let light:Laya.DirectionLight = new Laya.DirectionLight();
+    //     light.transform.rotation = lightOrigin.transform.rotation;
+    //     var attrs = ['color', 'intensity', 'lightmapBakedType'];
+    //     Utils.copyAttrs(attrs, light, lightOrigin);
 
-        scene.addChild(light);
-
-        
-        let camera:Laya.Camera = Laya.Sprite3D.instantiate(Laya.loader.getRes(cameraUrl), null, false) as Laya.Camera;
-        scene.addChild(camera);
-        camera.clearFlag = Laya.BaseCamera.CLEARFLAG_DEPTHONLY;
-        camera.enableHDR = false;
+    //     scene.addChild(light);
 
         
-        let modelParent:Laya.Sprite3D = new Laya.Sprite3D();
-        scene.addChild(modelParent);
-        modelParent.transform.localRotationEulerY = 180;
-        let model:ViewModel = modelParent.addComponent(ViewModel);
-        model.changeModel(url);
-        model.play(aniName);
-        model.camera = camera;
+    //     let camera:Laya.Camera = Laya.Sprite3D.instantiate(Laya.loader.getRes(cameraUrl), null, false) as Laya.Camera;
+    //     scene.addChild(camera);
+    //     camera.clearFlag = Laya.BaseCamera.CLEARFLAG_DEPTHONLY;
+    //     camera.enableHDR = false;
 
-        return model;
-    }
+        
+    //     let modelParent:Laya.Sprite3D = new Laya.Sprite3D();
+    //     scene.addChild(modelParent);
+    //     modelParent.transform.localRotationEulerY = 180;
+    //     let model:ViewModel = modelParent.addComponent(ViewModel);
+    //     model.changeModel(url);
+    //     model.play(aniName);
+    //     model.camera = camera;
+
+    //     return model;
+    // }
     
     /**
      * 绘制相机渲染到Sprite

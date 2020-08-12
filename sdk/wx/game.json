@@ -7,6 +7,10 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
+  "subpackages": [{
+    "name": "nativescene",
+    "root": "nativescene/"
+  }],
   "navigateToMiniProgramAppIdList": [
 
   ]

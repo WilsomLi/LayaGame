@@ -142,7 +142,7 @@ if exist %dir% (
 del /f /s /q /a %dir%\*
 
 xcopy %tempDir%\* %dir%\* /e /y
-xcopy %sdkDir%\tt\* %dir%\* /e /y /exclude:%sdkDir%\wx\uncopy.txt
+xcopy %sdkDir%\tt\* %dir%\* /e /y /exclude:%sdkDir%\tt\uncopy.txt
 
 
 if exist %dir%\libs\laya.wxmini.js (

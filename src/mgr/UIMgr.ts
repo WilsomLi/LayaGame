@@ -133,7 +133,7 @@ export default class UIMgr {
         let uiConfig = ui.$uiConfig;
         if (bool && uiConfig.banner) {
                 //微信误触
-                let misTouchInfo = YLSDK.ins.getBtnMisData() as IBtnMisTouch;
+                let misTouchInfo = YLSDK.getBtnMisData() as IBtnMisTouch;
                 let isMisTouchView = misTouchInfo.switch && uiConfig.misTouch;
                 let moveTime = misTouchInfo.bannerTime;
                 let time = moveTime || 0;
