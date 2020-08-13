@@ -1,0 +1,1 @@
+{"type":"SideView","props":{"width":118,"runtime":"side/item/SideIconRT.ts","height":144},"compId":2,"child":[{"type":"Image","props":{"y":6,"width":102,"var":"imgIcon","height":102,"centerX":0},"compId":4},{"type":"Image","props":{"var":"imgBg","skin":"side/img_right_bg0.png"},"compId":3}],"loadList":["side/img_right_bg0.png"],"loadList3D":[]}

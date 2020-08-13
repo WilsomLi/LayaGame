@@ -5,7 +5,7 @@ node_modules/
 .laya/chrome
 .rpt2_cache
 
-/release
+#/release
 
 bin.rar
 bin.zip

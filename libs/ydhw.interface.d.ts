@@ -1208,8 +1208,8 @@ declare namespace IYDHW {
 
         export interface IWechatPlatform {
             GridAd: any;
-            CreateGridAd(isShow: boolean, adId: string, adTheme: string, gridCount: number, style: IYDHW.IAdStyle, caller: any, onLoad: () => void, onShow: () => void, onError: (error: any) => void): void;
-            ShowGridAd(caller: any, onError: (error: any) => void): void;
+            CreateGridAd(isShow: boolean, adId: string, adTheme: string, gridCount: number, style: IYDHW.IAdStyle, caller: any, onLoad: () => void, onError: (error: any) => void): void;
+            ShowGridAd(caller: any,onSuccess: () => void, onError: (error: any) => void): void;
             HideGridAd(caller: any, onError: (error: any) => void): void;
             SubscribeSysMsg(msgTypeList: string[], caller: any, onSuccess: (result: any) => void, onError: (error: any) => void): void;
             GetSetting(isSubcribe: boolean, caller: any, onSuccess: (result: any) => void, onError: (error: any) => void): void;
@@ -3123,6 +3123,12 @@ declare namespace IYDHW {
         //InterstitialAd
         InterstitialAdId: string;
         InterstitialAd: any;
+        //GridAd
+        GridAdId: string;
+        //AppBox
+        AppBoxAdId: string;
+        //BlockAdId
+        BlockAdId: string;
         //UserInfoButton
         UserInfoButton: any;
 
@@ -3201,8 +3207,10 @@ declare namespace IYDHW {
         DestroyBannerAd(): void;
         SetBannerVisible(val: boolean): void;
         ChangeBannerStyle(style: IYDHW.IAdStyle): void;
-        CreateRewardVideoAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;
+        CreateRewardVideoAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;        
         ShowRewardVideoAd(caller: any, onShow: () => void, onException: (result: any) => void): void;
+        CreateRewardVideoAd2(adUnitId: string, caller: any, onClose: (result: any) => void, onError: (error: any) => void): void;        
+        ShowRewardVideoAd2(caller: any, onLoad: () => void, onShow: () => void, onException: (result: any) => void): void;
         CreateInterstitialAd(adUnitId: string, caller: any, onLoad: () => void, onClose: (result: any) => void, onError: (error: any) => void): void;
         ShowInterstitialAd(caller: any, method: () => void);
         ClearInterstitialAd(): void;

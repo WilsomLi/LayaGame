@@ -486,8 +486,8 @@ export namespace YDHW {
         
         constructor(sharecardId?:number,sType?:number,target?:number,real?: number){
             this.sharecardId = sharecardId || -1;
-            if(sType) this.sType = sType;
-            if(target) this.target = target;
+            if(sType != null) this.sType = sType;
+            if(target != null) this.target = target;
             this.real = real || 0;
         }
     }
