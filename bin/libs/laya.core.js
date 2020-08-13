@@ -13965,7 +13965,17 @@ window.Laya= (function (exports) {
             ctx._targets.restore();
             var dt = ctx._targets.getData(0, 0, canvasWidth, canvasHeight);
             ctx.destroy();
-            var imgdata = new ImageData(canvasWidth, canvasHeight);
+
+            //----------------修改前----------------------star
+            //var imgdata = new ImageData(canvasWidth, canvasHeight);
+            //----------------修改前----------------------end
+
+            //--------------修改后-------------------------star
+            var canvx = new HTMLCanvas(true); 
+            canvx.size(canvasWidth, canvasHeight);
+            var ctx2dx = canvx.getContext('2d');
+            var imgdata = ctx2dx.getImageData(0,0,canvasWidth,canvasHeight);
+            //--------------修改后-------------------------end
             var lineLen = canvasWidth * 4;
             var dst = imgdata.data;
             var y = canvasHeight - 1;

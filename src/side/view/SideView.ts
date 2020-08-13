@@ -195,7 +195,7 @@ export default class SideView extends Laya.View {
      * 设置界面误触
      */
     public showMisTouchBtn(): void {
-        let misTouchInfo = YLSDK.ins.getBtnMisData() as IBtnMisTouch;
+        let misTouchInfo = YLSDK.getBtnMisData() as IBtnMisTouch;
         let moveTime = misTouchInfo.btnTime;        
         let time = moveTime || 0;
         let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';

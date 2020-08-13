@@ -66,7 +66,7 @@ export default class SideMoreGameView extends ui.view.side.SideMoreGameViewUI {
     protected onKeep(): void {
         var list = this.list0;
 
-        // let swit = Number(YLSDK.ins.getCustomSwitch(EYLCustomSwitch.ContinueGameSwitch));
+        // let swit = Number(YLSDK.getCustomSwitch(EYLCustomSwitch.ContinueGameSwitch));
         // if(!!swit)
         // {
             if(this._firstClick <= 0)
