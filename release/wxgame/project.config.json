@@ -1,17 +1,28 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
 		"minified": false,
 		"newFeature": true,
-		"autoAudits": false
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "game",
 	"libVersion": "game",
-	"appid": "wx3081deb3d8205f2b",
-	"projectname": "缤纷夏日水枪大战",
+	"appid": "wxb8a1a0b3ad591b03",
+	"projectname": "%E7%BC%A4%E7%BA%B7%E5%A4%8F%E6%97%A5%E6%B0%B4%E6%9E%AA%E5%A4%A7%E6%88%98",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

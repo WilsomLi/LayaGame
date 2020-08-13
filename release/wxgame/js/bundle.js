@@ -223,653 +223,6 @@
 	    ChangeRoleModel: "ChangeRoleModel",
 	};
 
-	var EYLCustomSwitch;
-	(function (EYLCustomSwitch) {
-	    EYLCustomSwitch[EYLCustomSwitch["Record_screen_popup"] = 0] = "Record_screen_popup";
-	    EYLCustomSwitch[EYLCustomSwitch["Video_Unlock_lvl"] = 1] = "Video_Unlock_lvl";
-	    EYLCustomSwitch[EYLCustomSwitch["Check_box"] = 2] = "Check_box";
-	    EYLCustomSwitch[EYLCustomSwitch["Insert_screen"] = 3] = "Insert_screen";
-	    EYLCustomSwitch[EYLCustomSwitch["Native_Ads"] = 4] = "Native_Ads";
-	    EYLCustomSwitch[EYLCustomSwitch["Skin_trial"] = 5] = "Skin_trial";
-	    EYLCustomSwitch[EYLCustomSwitch["Lucky_wheel"] = 6] = "Lucky_wheel";
-	    EYLCustomSwitch[EYLCustomSwitch["Game_scene_banner"] = 7] = "Game_scene_banner";
-	    EYLCustomSwitch[EYLCustomSwitch["Button_mistake"] = 8] = "Button_mistake";
-	    EYLCustomSwitch[EYLCustomSwitch["Baoxiang"] = 9] = "Baoxiang";
-	    EYLCustomSwitch[EYLCustomSwitch["Button_to_banner"] = 10] = "Button_to_banner";
-	    EYLCustomSwitch[EYLCustomSwitch["Text_button"] = 11] = "Text_button";
-	    EYLCustomSwitch[EYLCustomSwitch["False_close_button"] = 12] = "False_close_button";
-	    EYLCustomSwitch[EYLCustomSwitch["End_page_style"] = 13] = "End_page_style";
-	    EYLCustomSwitch[EYLCustomSwitch["Game_name"] = 14] = "Game_name";
-	    EYLCustomSwitch[EYLCustomSwitch["More_games"] = 15] = "More_games";
-	    EYLCustomSwitch[EYLCustomSwitch["Game_scene_elect"] = 16] = "Game_scene_elect";
-	    EYLCustomSwitch[EYLCustomSwitch["Pendant_8_elect"] = 17] = "Pendant_8_elect";
-	})(EYLCustomSwitch || (EYLCustomSwitch = {}));
-	class YLSDK {
-	    constructor() {
-	        this._customSwitch = [];
-	        this._shortcuttime = 0;
-	        this._insertBannerShowTime = 0;
-	        this._insertBanerLastShowTime = 0;
-	        this._canShowInsertBanner = false;
-	        this._isNativeAdShow = false;
-	        this._nativeData = [];
-	        this._btnMisTouchInfo = {};
-	        this._insertScreenInfo = {};
-	        this._fuckAwayPaths = {};
-	    }
-	    static get ins() {
-	        if (!this._ins) {
-	            this._ins = new YLSDK();
-	            this._ins.init();
-	        }
-	        return this._ins;
-	    }
-	    init() {
-	        (window.ydhw_wx) && (ydhw.Login(this, (isOK) => {
-	            if (isOK) {
-	                SideNewMgr.ins.getBoxDatasSync();
-	                GameConst.MisTouchSwitch = window.ydhw.SwitchTouch;
-	                ydhw.GetCustomConfig(this, (res) => {
-	                    this.initCustomSwitch(res);
-	                });
-	                ydhw.GetLayerList((layerList) => {
-	                    for (let i = 0; i < layerList.length; i++) {
-	                        let info = layerList[i];
-	                        if (!this._fuckAwayPaths[info.layer]) {
-	                            this._fuckAwayPaths[info.layer] = [];
-	                        }
-	                        this._fuckAwayPaths[info.layer].push(info);
-	                    }
-	                });
-	            }
-	        }));
-	    }
-	    initCustomSwitch(datas) {
-	        if (!datas) {
-	            console.warn("未获取到自定义开关配置数据");
-	            return;
-	        }
-	        for (let index = 0; index < datas.length; index++) {
-	            const e = datas[index];
-	            if (EYLCustomSwitch[e.name] == void 0) {
-	                console.warn('Warn：请在枚举中 添加对应的自定义开关  e.name = ', e.name);
-	            }
-	            else {
-	                this._customSwitch[EYLCustomSwitch[e.name]] = e.value;
-	            }
-	        }
-	    }
-	    getCustomSwitch(type) {
-	        return this._customSwitch[type];
-	    }
-	    getBtnMisData() {
-	        if (this._customSwitch[EYLCustomSwitch.Button_mistake]) {
-	            let serverInfo = this._customSwitch[EYLCustomSwitch.Button_mistake];
-	            let datas = serverInfo.split(',');
-	            this._btnMisTouchInfo.switch = Number(datas[0]);
-	            this._btnMisTouchInfo.bannerTime = Number(datas[1]);
-	            this._btnMisTouchInfo.btnTime = Number(datas[2]);
-	        }
-	        return this._btnMisTouchInfo;
-	    }
-	    getInsertScreenData() {
-	        if (this._customSwitch[EYLCustomSwitch.Insert_screen]) {
-	            let serverInfo = this._customSwitch[EYLCustomSwitch.Insert_screen];
-	            let datas = serverInfo.split(',');
-	            this._insertScreenInfo.switch = Number(datas[0]);
-	            this._insertScreenInfo.firstDelayTime = Number(datas[1]);
-	            this._insertScreenInfo.spaceTime = Number(datas[2]);
-	            this._insertScreenInfo.delayPopTime = Number(datas[3]);
-	        }
-	        return this._insertScreenInfo;
-	    }
-	    getFuckAwayData(layer) {
-	        return this._fuckAwayPaths[layer];
-	    }
-	    shortcut() {
-	        if (ydhw_oppo) {
-	            ydhw.HasShortcutInstalled(this, (res) => {
-	                let foolState = false;
-	                let timedelay = 0;
-	                if (this._shortcuttime === 0) {
-	                    this._shortcuttime = Date.now();
-	                    foolState = true;
-	                }
-	                else {
-	                    timedelay = Date.now() - this._shortcuttime;
-	                    if (timedelay > 60 * 1000) {
-	                        this._shortcuttime = Date.now();
-	                        foolState = true;
-	                    }
-	                }
-	                if (res == false && foolState) {
-	                    ydhw.InstallShortcut(this, () => {
-	                        Laya.timer.once(500, this, () => {
-	                            EventMgr.event(EventType.AddDesktopSuccess);
-	                        });
-	                    }, () => {
-	                    }, () => {
-	                    });
-	                }
-	                else {
-	                    console.log("用户有添加 游戏");
-	                }
-	            }, (err) => {
-	                console.log(err);
-	            }, () => {
-	            });
-	        }
-	    }
-	    createInserstitialAd() {
-	        let insertData = this.getInsertScreenData();
-	        if (!insertData.switch)
-	            return;
-	        if (this._canShowInsertBanner === false) {
-	            let curtimeInterval = Date.now() - this._insertBannerShowTime;
-	            if (curtimeInterval > 1000 * insertData.firstDelayTime) {
-	                this._canShowInsertBanner = true;
-	            }
-	            console.log("插屏  时间判断", curtimeInterval);
-	        }
-	        if (this._insertBanerLastShowTime !== 0) {
-	            let curtimeLasttime = Date.now() - this._insertBanerLastShowTime;
-	            if (curtimeLasttime < insertData.spaceTime) {
-	                console.log("插屏展示时间加个太短  ");
-	                return;
-	            }
-	        }
-	        if (window.ydhw_wx && this._canShowInsertBanner && insertData.switch) {
-	            Laya.timer.once(GameConst.InsertBannerDelayTime, this, () => {
-	                ydhw.CreateInterstitialAd(true, this, () => {
-	                    ydhw.ShowInterstitialAd();
-	                    ydhw.HideBannerAd();
-	                    this._insertBanerLastShowTime = Date.now();
-	                }, () => {
-	                }, () => {
-	                    if (this._isNativeAdShow) { }
-	                    else {
-	                        ydhw.ShowBannerAd();
-	                    }
-	                });
-	            });
-	        }
-	    }
-	    createNative(index, _callback) {
-	        if (ydhw_oppo) {
-	            ydhw.CreateNativeAd(this, (list) => {
-	                if (list) {
-	                    this._isNativeAdShow = true;
-	                    var data = list[0];
-	                    this._nativeData[index] = list;
-	                    _callback && _callback(data);
-	                }
-	                else {
-	                    this._isNativeAdShow = false;
-	                }
-	            });
-	        }
-	    }
-	    get nativeData() {
-	        return this._nativeData;
-	    }
-	    clickNativeAd(index) {
-	        if (ydhw_oppo) {
-	            let list = this._nativeData[index];
-	            if (list) {
-	            }
-	        }
-	    }
-	    set shortcuttime(time) {
-	        this._shortcuttime = time;
-	    }
-	    set insertBannerShowTime(time) {
-	        this._insertBannerShowTime = time;
-	    }
-	    get isNativeAdShow() {
-	        return this._isNativeAdShow;
-	    }
-	}
-
-	let addRoot = function (obj, root) {
-	    for (let i in obj) {
-	        obj[i] = root + obj[i];
-	    }
-	};
-	let AtlasRoot = "nativescene/res/";
-	let SceneRoot = "nativescene/scene/Conventional/";
-	let SkinRoot = SceneRoot + "Assets/Resources/Texture2D/";
-	let SoundRoot = "nativescene/sound/";
-	let MapRoot = "nativescene/map/";
-	let JsonRoot = "nativescene/";
-	let EAtlas = {
-	    Game: "game.atlas",
-	};
-	addRoot(EAtlas, AtlasRoot);
-	let ESprite3D = {
-	    MainCamera: "MainCamera.lh",
-	    DirectionalLight: "DirectionalLight.lh",
-	    Effect: "Effect.lh",
-	};
-	addRoot(ESprite3D, SceneRoot);
-	let EJson = {
-	    Configs: "configs.json"
-	};
-	let ECfg = {
-	    GlobalCfg: "globalcfg",
-	    LevelCfg: "level",
-	    Player: "player",
-	    ShopCfg: "shop",
-	};
-	addRoot(EJson, JsonRoot);
-	let ESound = {
-	    Bgm: "bgmusic.mp3",
-	    BtnClick: "click.mp3"
-	};
-	addRoot(ESound, SoundRoot);
-
-	class SoundMgr {
-	    static init() {
-	        var self = this;
-	        var getItem = Laya.LocalStorage.getItem;
-	        self.$openMusic = getItem(self.$cacheMusic) !== '0';
-	        self.$openSound = getItem(self.$cacheSound) !== '0';
-	        self.$openVibrate = getItem(self.$cacheVibrate) !== '0';
-	        Laya.SoundManager.autoStopMusic = true;
-	    }
-	    static get openMusic() {
-	        return this.$openMusic;
-	    }
-	    static set openMusic(open) {
-	        var self = this;
-	        if (self.$openMusic != open) {
-	            self.$openMusic = open;
-	            if (open)
-	                self.playBGM();
-	            else
-	                self.stopBGM();
-	            Laya.LocalStorage.setItem(self.$cacheMusic, Number(open) + '');
-	        }
-	    }
-	    static get openSound() {
-	        return this.$openSound;
-	    }
-	    static set openSound(open) {
-	        var self = this;
-	        if (self.$openSound != open) {
-	            self.$openSound = open;
-	            Laya.LocalStorage.setItem(self.$cacheSound, Number(open) + '');
-	        }
-	    }
-	    static get openVibrate() {
-	        return this.$openVibrate;
-	    }
-	    static set openVibrate(open) {
-	        var self = this;
-	        if (self.$openVibrate != open) {
-	            self.$openVibrate = open;
-	            Laya.LocalStorage.setItem(self.$cacheVibrate, Number(open) + '');
-	        }
-	    }
-	    static playBGM() {
-	        var self = this;
-	        if (self.openMusic) {
-	            if (!self.$channel) {
-	                self.$channel = Laya.SoundManager.playMusic(ESound.Bgm);
-	            }
-	            self.setMusicVolume(0.2);
-	        }
-	    }
-	    static stopBGM() {
-	        this.setMusicVolume(0);
-	    }
-	    static playBtnClick() {
-	        this.playSound(ESound.BtnClick);
-	    }
-	    static playSound(url, loops) {
-	        if (this.openSound) {
-	            Laya.SoundManager.playSound(url, loops);
-	        }
-	    }
-	    static setMusicVolume(val) {
-	        Laya.SoundManager.setMusicVolume(val);
-	    }
-	    static setSoundVolume(val) {
-	        Laya.SoundManager.setSoundVolume(val);
-	    }
-	    static playVibrate(isLong) {
-	        if (this.openVibrate) {
-	            if (isLong) {
-	                platform.vibrateLong();
-	            }
-	            else {
-	                platform.vibrateShort();
-	            }
-	        }
-	    }
-	}
-	SoundMgr.$cacheMusic = 'cacheMusic';
-	SoundMgr.$cacheSound = "cacheSound";
-	SoundMgr.$cacheVibrate = 'cacheVibrate';
-
-	class Timer {
-	    constructor(call, thisObj, delay = 1, isTime, isStop) {
-	        this.$runTime = 0;
-	        this.$runCount = 0;
-	        this.$call = call;
-	        this.$thisObj = thisObj;
-	        isStop || this.start();
-	        Laya.timer[isTime ? 'loop' : 'frameLoop'](delay, this, this.update);
-	    }
-	    update() {
-	        var self = this;
-	        if (self.$running) {
-	            self.$runCount++;
-	            self.$call.call(self.$thisObj);
-	        }
-	        else {
-	            let aTime = self.$awaitTime;
-	            if (aTime && aTime <= Date.now()) {
-	                self.start();
-	            }
-	        }
-	    }
-	    start() {
-	        var self = this;
-	        if (!self.$running) {
-	            self.$lastTime = Date.now();
-	            self.$running = true;
-	            self.$awaitTime = null;
-	        }
-	    }
-	    stop() {
-	        var self = this;
-	        if (self.$running) {
-	            let nowT = Date.now();
-	            self.$runTime += nowT - self.$lastTime;
-	            self.$lastTime = nowT;
-	            self.$running = false;
-	            self.$awaitTime = null;
-	        }
-	    }
-	    await(time) {
-	        var self = this;
-	        if (time > 0) {
-	            self.stop();
-	            self.$awaitTime = Date.now() + time;
-	        }
-	        else {
-	            self.start();
-	        }
-	    }
-	    get running() {
-	        return this.$running;
-	    }
-	    get runTime() {
-	        var self = this;
-	        return self.$runTime + (self.running ?
-	            Date.now() - self.$lastTime : 0);
-	    }
-	    get runCount() {
-	        return this.$runCount;
-	    }
-	    reset() {
-	        var self = this;
-	        self.$runTime = self.$runCount = 0;
-	        self.$lastTime = Date.now();
-	    }
-	    clear() {
-	        var self = this;
-	        Laya.timer.clear(self, self.update);
-	        self.$call = self.$thisObj = null;
-	    }
-	}
-
-	var sign = 'LTween', cache = '$' + sign;
-	var removeAt = function (array, item) {
-	    var index = array.indexOf(item);
-	    index > -1 && array.splice(index, 1);
-	};
-	class Tween {
-	    $init(target, props) {
-	        var self = this;
-	        var tweens = target[cache] || (target[cache] = []);
-	        tweens.push(self);
-	        self.$target = target;
-	        self.$frame = props.frame;
-	        self.$loop = props.loop;
-	        self.$once = props.once !== false;
-	        self.$frameCall = props.frameCall;
-	        self.$frameObj = props.frameObj;
-	        self.$curTime = 0;
-	        self.$needCopy = true;
-	        self.$steps = [];
-	        self.$cSteps = [];
-	        self.$timer = new Timer(self.$update, self, 1, false, true);
-	    }
-	    get $runTime() {
-	        var timer = this.$timer;
-	        return this.$frame ? timer.runCount : timer.runTime;
-	    }
-	    $update() {
-	        var self = this;
-	        var steps = self.$steps, cSteps = self.$cSteps;
-	        if (self.$needCopy) {
-	            self.$needCopy = false;
-	            cSteps.push.apply(cSteps, steps);
-	        }
-	        var runTime = self.$runTime, remove = 0;
-	        for (let i = 0, len = steps.length; i < len; i++) {
-	            let step = steps[i];
-	            if (step.startTime > runTime)
-	                break;
-	            self.$runStep(step);
-	            if (step.endTime <= runTime)
-	                remove++;
-	        }
-	        remove > 0 && steps.splice(0, remove);
-	        var call = self.$frameCall;
-	        call && call.call(self.$frameObj);
-	        steps = self.$steps;
-	        if (steps && steps.length == 0) {
-	            if (self.$loop) {
-	                self.$timer.reset();
-	                self.$steps = cSteps.concat();
-	            }
-	            else {
-	                self.$once ? self.clear() : self.$pause();
-	            }
-	        }
-	    }
-	    $pause() {
-	        var self = this;
-	        var timer = self.$timer;
-	        self.$needCopy = true;
-	        self.$curTime = 0;
-	        self.$steps = [];
-	        timer.stop();
-	        timer.reset();
-	    }
-	    $addStep(type, duration, param) {
-	        var self = this;
-	        var startTime = self.$curTime;
-	        var endTime = self.$curTime = startTime + duration;
-	        self.$steps.push({ type, startTime, endTime, param });
-	        self.$timer.start();
-	    }
-	    $getIncrement(start, end) {
-	        var copy = {};
-	        var keys = Object.keys(end);
-	        var hasv = function (obj) {
-	            return !!obj || (obj != null && obj != void 0);
-	        };
-	        for (let i in keys) {
-	            let key = keys[i];
-	            let value = start[key];
-	            if (hasv(value))
-	                copy[key] = end[key] - value;
-	        }
-	        return copy;
-	    }
-	    $runStep(step) {
-	        var self = this;
-	        var type = step.type;
-	        switch (type) {
-	            case 0:
-	                self.$to(step);
-	                break;
-	            case 1:
-	                self.$set(step.param);
-	                break;
-	            case 2:
-	                break;
-	            case 3:
-	                self.$call(step.param);
-	                break;
-	            case 4:
-	                self.$form(step);
-	                break;
-	        }
-	    }
-	    $to(step) {
-	        var self = this;
-	        var start = step.startTime;
-	        var ratio = Math.min((self.$runTime - start) / (step.endTime - start), 1);
-	        var param = step.param;
-	        var ease = param[0];
-	        ease && (ratio = ease(ratio));
-	        var target = self.$target, endp = param[1], dstp = param[2] || (param[2] = self.$getIncrement(target, endp));
-	        for (let i in dstp) {
-	            target[i] = endp[i] - dstp[i] * (1 - ratio);
-	        }
-	    }
-	    $set(props) {
-	        var self = this;
-	        var target = self.$target;
-	        for (let i in props)
-	            target[i] = props[i];
-	    }
-	    $call(param) {
-	        param[0].apply(param[1], param[2]);
-	    }
-	    $form(step) {
-	        var self = this, props = step.param, target = self.$target, start = step.startTime, ratio = Math.min((self.$runTime - start) / (step.endTime - start), 1);
-	        for (let i in props) {
-	            target[i] = props[i](ratio);
-	        }
-	    }
-	    to(props, duration, ease) {
-	        var self = this;
-	        if (isNaN(duration) || duration <= 0) {
-	            self.set(props);
-	        }
-	        else {
-	            self.$addStep(0, duration, [ease, props]);
-	        }
-	        return self;
-	    }
-	    set(props) {
-	        var self = this;
-	        self.$addStep(1, 0, props);
-	        return self;
-	    }
-	    wait(delay) {
-	        var self = this;
-	        delay > 0 && self.$addStep(2, delay);
-	        return self;
-	    }
-	    call(call, thisObj, params) {
-	        var self = this;
-	        call && self.$addStep(3, 0, [call, thisObj, params]);
-	        return self;
-	    }
-	    form(props, duration) {
-	        var self = this;
-	        if (isNaN(duration) || duration <= 0) {
-	            let obj = {};
-	            for (let i in props) {
-	                obj[i] = props[i](1);
-	            }
-	            self.set(obj);
-	        }
-	        else {
-	            self.$addStep(4, duration, props);
-	        }
-	        return self;
-	    }
-	    repeat(repeat, step) {
-	        var self = this;
-	        if (repeat > 0 && self.$timer) {
-	            let steps = self.$cSteps.concat().concat(self.$steps), len = steps.length;
-	            if (len > 0) {
-	                if (!(step > 0) || step > len)
-	                    step = len;
-	                let startI = len - step;
-	                for (let i = 0; i < repeat; i++) {
-	                    for (let j = 0; j < step; j++) {
-	                        let step = steps[startI + j];
-	                        self.$addStep(step.type, step.endTime - step.startTime, step.param);
-	                    }
-	                }
-	            }
-	        }
-	        return self;
-	    }
-	    stop() {
-	        var timer = this.$timer;
-	        timer && timer.stop();
-	    }
-	    resume() {
-	        var timer = this.$timer;
-	        timer && timer.start();
-	    }
-	    clear() {
-	        var self = this;
-	        if (self.$timer) {
-	            let target = self.$target;
-	            let tweens = target[cache];
-	            if (tweens instanceof Array) {
-	                removeAt(tweens, self);
-	                tweens.length == 0 && (delete target[cache]);
-	            }
-	            self.$timer.clear();
-	            self.$timer = self.$steps = self.$cSteps = self.$target = self.$frameCall = self.$frameObj = null;
-	            Laya.Pool.recover(sign, self);
-	        }
-	    }
-	    static get(target, props) {
-	        var tween = Laya.Pool.getItemByClass(sign, Tween);
-	        tween.$init(target, props || {});
-	        return tween;
-	    }
-	    static once(target, props) {
-	        Tween.clear(target);
-	        return Tween.get(target, props);
-	    }
-	    static clear(target) {
-	        if (target) {
-	            let tweens = target[cache];
-	            if (tweens instanceof Array) {
-	                for (let i = 0, len = tweens.length; i < len; i++) {
-	                    let tween = tweens[i];
-	                    tween instanceof Tween && tween.clear();
-	                }
-	            }
-	            delete target[cache];
-	        }
-	    }
-	    static clearAll(root) {
-	        Tween.clear(root);
-	        for (let i = 0, len = root.numChildren; i < len; i++) {
-	            Tween.clearAll(root.getChildAt(i));
-	        }
-	    }
-	    static turnEase(ease) {
-	        return function (t) {
-	            return ease(t, 0, 1, 1);
-	        };
-	    }
-	}
-
 	var outCode = 0, valCode = 0, timeout = {}, interval = {};
 	var clear = function (data, key) {
 	    var info = data[key];
@@ -1387,395 +740,1762 @@
 	Utils._tmpVec = new Vector3();
 	Utils._tmpVec2 = new Vector3();
 
-	var FSMState;
-	(function (FSMState) {
-	    FSMState[FSMState["None"] = 0] = "None";
-	    FSMState[FSMState["GrabBallState"] = 1] = "GrabBallState";
-	    FSMState[FSMState["AttackState"] = 2] = "AttackState";
-	    FSMState[FSMState["AttackHoldBallState"] = 3] = "AttackHoldBallState";
-	    FSMState[FSMState["DefenseState"] = 4] = "DefenseState";
-	})(FSMState || (FSMState = {}));
-	class ActionFSM {
-	    constructor(player) {
-	        this._stateMap = null;
-	        this._aiInterval = 1;
-	        this._nextCheckFrame = 0;
-	        this._curFrame = 0;
-	        this._stateMap = {};
-	        this._player = player;
-	        this._isRunning = false;
+	class Timer {
+	    constructor(call, thisObj, delay = 1, isTime, isStop) {
+	        this.$runTime = 0;
+	        this.$runCount = 0;
+	        this.$call = call;
+	        this.$thisObj = thisObj;
+	        isStop || this.start();
+	        Laya.timer[isTime ? 'loop' : 'frameLoop'](delay, this, this.update);
 	    }
-	    ;
-	    changeState(type) {
-	        let state = this._stateMap[type];
-	        if (state == null) {
-	            switch (type) {
-	                default:
-	                    break;
-	            }
-	            this._stateMap[type] = state;
+	    update() {
+	        var self = this;
+	        if (self.$running) {
+	            self.$runCount++;
+	            self.$call.call(self.$thisObj);
 	        }
-	        if (this._curState)
-	            this._curState.onExit(this._player);
-	        state.onEnter(this._player);
-	        this._curState = state;
+	        else {
+	            let aTime = self.$awaitTime;
+	            if (aTime && aTime <= Date.now()) {
+	                self.start();
+	            }
+	        }
 	    }
-	    setRunning(value) {
-	        this._isRunning = value;
+	    start() {
+	        var self = this;
+	        if (!self.$running) {
+	            self.$lastTime = Date.now();
+	            self.$running = true;
+	            self.$awaitTime = null;
+	        }
 	    }
-	    isRunning() {
-	        return this._isRunning;
+	    stop() {
+	        var self = this;
+	        if (self.$running) {
+	            let nowT = Date.now();
+	            self.$runTime += nowT - self.$lastTime;
+	            self.$lastTime = nowT;
+	            self.$running = false;
+	            self.$awaitTime = null;
+	        }
 	    }
-	    setAIInterval(val) {
-	        this._aiInterval = val;
+	    await(time) {
+	        var self = this;
+	        if (time > 0) {
+	            self.stop();
+	            self.$awaitTime = Date.now() + time;
+	        }
+	        else {
+	            self.start();
+	        }
 	    }
-	    updateLogic() {
-	        if (!this._isRunning || !this._curState)
-	            return;
-	        this._curFrame++;
-	        if (this._curFrame < this._nextCheckFrame)
-	            return;
-	        if (this._player.isDead)
-	            return;
-	        this._curState.onRuning(this._player);
-	        this._nextCheckFrame = this._curFrame + this._aiInterval;
+	    get running() {
+	        return this.$running;
+	    }
+	    get runTime() {
+	        var self = this;
+	        return self.$runTime + (self.running ?
+	            Date.now() - self.$lastTime : 0);
+	    }
+	    get runCount() {
+	        return this.$runCount;
+	    }
+	    reset() {
+	        var self = this;
+	        self.$runTime = self.$runCount = 0;
+	        self.$lastTime = Date.now();
+	    }
+	    clear() {
+	        var self = this;
+	        Laya.timer.clear(self, self.update);
+	        self.$call = self.$thisObj = null;
 	    }
 	}
 
-	var Vector3$1 = Laya.Vector3;
-	class Vector3Ex {
-	}
-	Vector3Ex.ZERO = new Vector3$1(0, 0, 0);
-	Vector3Ex.One = new Vector3$1(1, 1, 1);
-	Vector3Ex.Up = new Vector3$1(0, 1, 0);
-	Vector3Ex.ForwardLH = new Vector3$1(0, 0, 1);
-	Vector3Ex.ForwardRH = new Vector3$1(0, 0, -1);
-	Vector3Ex.UnitX = new Vector3$1(1, 0, 0);
-	Vector3Ex.UnitY = new Vector3$1(0, 1, 0);
-	Vector3Ex.UnitZ = new Vector3$1(0, 0, 1);
-
-	class SceneConst {
-	}
-	SceneConst.Realtime_Shadow = false;
-	SceneConst.Enable_Fog = false;
-	SceneConst.Enable_Skybox = false;
-
-	var Sprite3D = Laya.Sprite3D;
-	var Texture2D = Laya.Texture2D;
-	var MeshSprite3D = Laya.MeshSprite3D;
-	var SkinnedMeshSprite3D = Laya.SkinnedMeshSprite3D;
-	var Handler = Laya.Handler;
-	var BaseMaterial = Laya.BaseMaterial;
-	var Vector3$2 = Laya.Vector3;
-	class ExUtils {
-	    constructor() {
+	var sign = 'LTween', cache = '$' + sign;
+	var removeAt = function (array, item) {
+	    var index = array.indexOf(item);
+	    index > -1 && array.splice(index, 1);
+	};
+	class Tween {
+	    $init(target, props) {
+	        var self = this;
+	        var tweens = target[cache] || (target[cache] = []);
+	        tweens.push(self);
+	        self.$target = target;
+	        self.$frame = props.frame;
+	        self.$loop = props.loop;
+	        self.$once = props.once !== false;
+	        self.$frameCall = props.frameCall;
+	        self.$frameObj = props.frameObj;
+	        self.$curTime = 0;
+	        self.$needCopy = true;
+	        self.$steps = [];
+	        self.$cSteps = [];
+	        self.$timer = new Timer(self.$update, self, 1, false, true);
 	    }
-	    static setPathSkin(model, skinUrl) {
-	        if (!skinUrl)
-	            return;
-	        Laya.loader.create(skinUrl, Laya.Handler.create(this, (texture) => {
-	            ExUtils.setModelSkin(model, texture, null, "materials");
-	            model.active = true;
-	        }), null, Laya.Loader.TEXTURE2D, [256, 256, 0, false]);
+	    get $runTime() {
+	        var timer = this.$timer;
+	        return this.$frame ? timer.runCount : timer.runTime;
 	    }
-	    static setModelSkinByUrl(model, skinUrl) {
-	        if (!skinUrl)
-	            return;
-	        Texture2D.load(skinUrl, Handler.create(this, function (texture) {
-	            ExUtils.setModelSkin(model, texture, null, "materials");
-	            model.active = true;
-	        }));
-	    }
-	    static setModelSkin(model, texture, color = null, matName = "sharedMaterials") {
-	        if (model == null || texture == null)
-	            return;
-	        if (model instanceof MeshSprite3D) {
-	            var meshSprite3D = model;
-	            for (var i = 0; i < meshSprite3D.meshRenderer[matName].length; i++) {
-	                var material = meshSprite3D.meshRenderer[matName][i];
-	                material.albedoTexture = texture;
-	                if (color)
-	                    material.albedoColor = color;
+	    $update() {
+	        var self = this;
+	        var steps = self.$steps, cSteps = self.$cSteps;
+	        if (self.$needCopy) {
+	            self.$needCopy = false;
+	            cSteps.push.apply(cSteps, steps);
+	        }
+	        var runTime = self.$runTime, remove = 0;
+	        for (let i = 0, len = steps.length; i < len; i++) {
+	            let step = steps[i];
+	            if (step.startTime > runTime)
+	                break;
+	            self.$runStep(step);
+	            if (step.endTime <= runTime)
+	                remove++;
+	        }
+	        remove > 0 && steps.splice(0, remove);
+	        var call = self.$frameCall;
+	        call && call.call(self.$frameObj);
+	        steps = self.$steps;
+	        if (steps && steps.length == 0) {
+	            if (self.$loop) {
+	                self.$timer.reset();
+	                self.$steps = cSteps.concat();
 	            }
-	            meshSprite3D.meshRenderer.castShadow = SceneConst.Realtime_Shadow;
-	        }
-	        if (model instanceof SkinnedMeshSprite3D) {
-	            var skinnedMeshSprite3D = model;
-	            for (var i = 0; i < skinnedMeshSprite3D.skinnedMeshRenderer[matName].length; i++) {
-	                var material = skinnedMeshSprite3D.skinnedMeshRenderer[matName][i];
-	                material.albedoTexture = texture;
-	                if (color)
-	                    material.albedoColor = color;
-	            }
-	            skinnedMeshSprite3D.skinnedMeshRenderer.castShadow = SceneConst.Realtime_Shadow;
-	        }
-	        for (var i = 0, n = model.numChildren; i < n; i++) {
-	            this.setModelSkin(model.getChildAt(i), texture, color, matName);
-	        }
-	    }
-	    static setMatetial(node, path, handler = null) {
-	        BaseMaterial.load(path, Handler.create(this, function (mat) {
-	            let mesh = this.getMesh(node);
-	            if (mesh) {
-	                mesh.meshRenderer.material = mat;
-	                mesh.meshRenderer.castShadow = SceneConst.Realtime_Shadow;
-	                mesh.meshRenderer.receiveShadow = SceneConst.Realtime_Shadow;
-	                if (handler)
-	                    handler.run();
-	            }
-	        }));
-	    }
-	    static setSkinMeshMaterail(node, mat) {
-	        let mesh = this.getSkinMesh(node);
-	        if (mesh) {
-	            mesh.skinnedMeshRenderer.material = mat;
-	        }
-	    }
-	    static getMaterial(node) {
-	        if (node == null)
-	            return null;
-	        let mesh = this.getMesh(node);
-	        if (mesh) {
-	            var material = mesh.meshRenderer.sharedMaterials[0];
-	            return material;
-	        }
-	        let mat;
-	        for (let i = 0; i < node.numChildren; i++) {
-	            mat = this.getMaterial(node.getChildAt(i));
-	            if (mat) {
-	                return mat;
+	            else {
+	                self.$once ? self.clear() : self.$pause();
 	            }
 	        }
-	        return null;
 	    }
-	    static setRecieveShadow(model, val) {
-	        if (model instanceof MeshSprite3D) {
-	            var meshSprite3D = model;
-	            meshSprite3D.meshRenderer.receiveShadow = val;
+	    $pause() {
+	        var self = this;
+	        var timer = self.$timer;
+	        self.$needCopy = true;
+	        self.$curTime = 0;
+	        self.$steps = [];
+	        timer.stop();
+	        timer.reset();
+	    }
+	    $addStep(type, duration, param) {
+	        var self = this;
+	        var startTime = self.$curTime;
+	        var endTime = self.$curTime = startTime + duration;
+	        self.$steps.push({ type, startTime, endTime, param });
+	        self.$timer.start();
+	    }
+	    $getIncrement(start, end) {
+	        var copy = {};
+	        var keys = Object.keys(end);
+	        var hasv = function (obj) {
+	            return !!obj || (obj != null && obj != void 0);
+	        };
+	        for (let i in keys) {
+	            let key = keys[i];
+	            let value = start[key];
+	            if (hasv(value))
+	                copy[key] = end[key] - value;
 	        }
-	        if (model instanceof SkinnedMeshSprite3D) {
-	            var skinnedMeshSprite3D = model;
-	            skinnedMeshSprite3D.skinnedMeshRenderer.receiveShadow = val;
-	        }
-	        for (var i = 0; i < model.numChildren; i++) {
-	            this.setRecieveShadow(model.getChildAt(i), val);
+	        return copy;
+	    }
+	    $runStep(step) {
+	        var self = this;
+	        var type = step.type;
+	        switch (type) {
+	            case 0:
+	                self.$to(step);
+	                break;
+	            case 1:
+	                self.$set(step.param);
+	                break;
+	            case 2:
+	                break;
+	            case 3:
+	                self.$call(step.param);
+	                break;
+	            case 4:
+	                self.$form(step);
+	                break;
 	        }
 	    }
-	    static setCastShadow(model, val) {
-	        if (model instanceof MeshSprite3D) {
-	            var meshSprite3D = model;
-	            meshSprite3D.meshRenderer.castShadow = val;
-	        }
-	        if (model instanceof SkinnedMeshSprite3D) {
-	            var skinnedMeshSprite3D = model;
-	            skinnedMeshSprite3D.skinnedMeshRenderer.castShadow = val;
-	        }
-	        for (var i = 0; i < model.numChildren; i++) {
-	            this.setCastShadow(model.getChildAt(i), val);
+	    $to(step) {
+	        var self = this;
+	        var start = step.startTime;
+	        var ratio = Math.min((self.$runTime - start) / (step.endTime - start), 1);
+	        var param = step.param;
+	        var ease = param[0];
+	        ease && (ratio = ease(ratio));
+	        var target = self.$target, endp = param[1], dstp = param[2] || (param[2] = self.$getIncrement(target, endp));
+	        for (let i in dstp) {
+	            target[i] = endp[i] - dstp[i] * (1 - ratio);
 	        }
 	    }
-	    static getMesh(obj) {
-	        if (obj == null)
-	            return null;
-	        let mesh;
-	        if (obj instanceof MeshSprite3D) {
-	            return obj;
+	    $set(props) {
+	        var self = this;
+	        var target = self.$target;
+	        for (let i in props)
+	            target[i] = props[i];
+	    }
+	    $call(param) {
+	        param[0].apply(param[1], param[2]);
+	    }
+	    $form(step) {
+	        var self = this, props = step.param, target = self.$target, start = step.startTime, ratio = Math.min((self.$runTime - start) / (step.endTime - start), 1);
+	        for (let i in props) {
+	            target[i] = props[i](ratio);
 	        }
-	        for (let i = 0; i < obj.numChildren; i++) {
-	            mesh = this.getMesh(obj.getChildAt(i));
-	            if (mesh) {
-	                return mesh;
+	    }
+	    to(props, duration, ease) {
+	        var self = this;
+	        if (isNaN(duration) || duration <= 0) {
+	            self.set(props);
+	        }
+	        else {
+	            self.$addStep(0, duration, [ease, props]);
+	        }
+	        return self;
+	    }
+	    set(props) {
+	        var self = this;
+	        self.$addStep(1, 0, props);
+	        return self;
+	    }
+	    wait(delay) {
+	        var self = this;
+	        delay > 0 && self.$addStep(2, delay);
+	        return self;
+	    }
+	    call(call, thisObj, params) {
+	        var self = this;
+	        call && self.$addStep(3, 0, [call, thisObj, params]);
+	        return self;
+	    }
+	    form(props, duration) {
+	        var self = this;
+	        if (isNaN(duration) || duration <= 0) {
+	            let obj = {};
+	            for (let i in props) {
+	                obj[i] = props[i](1);
+	            }
+	            self.set(obj);
+	        }
+	        else {
+	            self.$addStep(4, duration, props);
+	        }
+	        return self;
+	    }
+	    repeat(repeat, step) {
+	        var self = this;
+	        if (repeat > 0 && self.$timer) {
+	            let steps = self.$cSteps.concat().concat(self.$steps), len = steps.length;
+	            if (len > 0) {
+	                if (!(step > 0) || step > len)
+	                    step = len;
+	                let startI = len - step;
+	                for (let i = 0; i < repeat; i++) {
+	                    for (let j = 0; j < step; j++) {
+	                        let step = steps[startI + j];
+	                        self.$addStep(step.type, step.endTime - step.startTime, step.param);
+	                    }
+	                }
 	            }
 	        }
-	        return null;
+	        return self;
 	    }
-	    static getSkinMesh(obj) {
-	        if (obj == null)
-	            return null;
-	        let mesh;
-	        if (obj instanceof SkinnedMeshSprite3D) {
-	            return obj;
-	        }
-	        for (let i = 0; i < obj.numChildren; i++) {
-	            mesh = this.getSkinMesh(obj.getChildAt(i));
-	            if (mesh) {
-	                return mesh;
+	    stop() {
+	        var timer = this.$timer;
+	        timer && timer.stop();
+	    }
+	    resume() {
+	        var timer = this.$timer;
+	        timer && timer.start();
+	    }
+	    clear() {
+	        var self = this;
+	        if (self.$timer) {
+	            let target = self.$target;
+	            let tweens = target[cache];
+	            if (tweens instanceof Array) {
+	                removeAt(tweens, self);
+	                tweens.length == 0 && (delete target[cache]);
 	            }
+	            self.$timer.clear();
+	            self.$timer = self.$steps = self.$cSteps = self.$target = self.$frameCall = self.$frameObj = null;
+	            Laya.Pool.recover(sign, self);
 	        }
-	        return null;
 	    }
-	    static instanceSprite3D(path, parent, handler = null) {
-	        let callback = Handler.create(this, function (obj) {
-	            if (obj == null || obj == null) {
-	                console.error("instanceSprite3D null", path);
-	                return;
+	    static get(target, props) {
+	        var tween = Laya.Pool.getItemByClass(sign, Tween);
+	        tween.$init(target, props || {});
+	        return tween;
+	    }
+	    static once(target, props) {
+	        Tween.clear(target);
+	        return Tween.get(target, props);
+	    }
+	    static clear(target) {
+	        if (target) {
+	            let tweens = target[cache];
+	            if (tweens instanceof Array) {
+	                for (let i = 0, len = tweens.length; i < len; i++) {
+	                    let tween = tweens[i];
+	                    tween instanceof Tween && tween.clear();
+	                }
 	            }
-	            let instance = Sprite3D.instantiate(obj, parent, false);
-	            if (handler)
-	                handler.runWith(instance);
-	        });
-	        let obj = Laya.loader.getRes(path);
-	        if (obj) {
-	            callback.runWith(obj);
-	            return;
+	            delete target[cache];
 	        }
-	        Sprite3D.load(path, callback);
 	    }
-	    static getComponentInChild(obj, cls) {
-	        let component = obj.getComponent(cls);
-	        if (component instanceof cls) {
-	            return component;
+	    static clearAll(root) {
+	        Tween.clear(root);
+	        for (let i = 0, len = root.numChildren; i < len; i++) {
+	            Tween.clearAll(root.getChildAt(i));
 	        }
-	        for (let i = 0; i < obj.numChildren; i++) {
-	            component = this.getComponentInChild(obj.getChildAt(i), cls);
-	            if (component instanceof cls) {
-	                return component;
-	            }
-	        }
-	        return null;
 	    }
-	    static addSingleComponent(obj, cls) {
-	        if (obj == null) {
-	            console.trace("addSingleComponent obj null", cls);
-	            return null;
-	        }
-	        let component = obj.getComponent(cls);
-	        if (component == null) {
-	            component = obj.addComponent(cls);
-	        }
-	        return component;
-	    }
-	    static getChild(obj, path) {
-	        let nodeNames = path.split("/");
-	        for (let i = 0, size = nodeNames.length; i < size; i++) {
-	            obj = obj.getChildByName(nodeNames[i]);
-	        }
-	        return obj;
-	    }
-	    static findChild(obj, name) {
-	        if (obj.name == name) {
-	            return obj;
-	        }
-	        let result = null;
-	        for (let i = 0, size = obj.numChildren; i < size; i++) {
-	            result = this.findChild(obj.getChildAt(i), name);
-	            if (result) {
-	                return result;
-	            }
-	        }
-	        return null;
-	    }
-	    static LayaLookAt(tf, targetPos, ignoreY = false) {
-	        Vector3$2.subtract(tf.position, targetPos, this._vec);
-	        Vector3$2.add(tf.position, this._vec, this._vec);
-	        if (ignoreY) {
-	            this._vec.y = tf.position.y;
-	        }
-	        tf.lookAt(this._vec, Vector3Ex.Up, false);
-	    }
-	    static clearTrailPositions(trailSp) {
-	        let trail = trailSp['trailFilter'];
-	        if (!trail)
-	            return;
-	        trail['_lastPosition'].setValue(0, 0, 0);
-	        trail['_curtime'] = 0;
-	        trail['_totalLength'] = 0;
-	        let geometry = trail['_trialGeometry'];
-	        if (!geometry)
-	            return;
-	        geometry['_activeIndex'] = 0;
-	        geometry['_endIndex'] = 0;
-	        geometry['_disappearBoundsMode'] = false;
-	        let subBirth = geometry['_subBirthTime'];
-	        subBirth && subBirth.fill(0);
-	        let subDistance = geometry['_subDistance'];
-	        subDistance && subDistance.fill(0);
-	        geometry['_segementCount'] = 0;
-	        geometry['_isTempEndVertex'] = false;
-	        geometry['_needAddFirstVertex'] = false;
-	        geometry['_lastFixedVertexPosition'].setValue(0, 0, 0);
+	    static turnEase(ease) {
+	        return function (t) {
+	            return ease(t, 0, 1, 1);
+	        };
 	    }
 	}
-	ExUtils._vec = new Vector3$2();
 
-	var EntityType;
-	(function (EntityType) {
-	    EntityType[EntityType["Player"] = 0] = "Player";
-	    EntityType[EntityType["Obstacle"] = 1] = "Obstacle";
-	    EntityType[EntityType["SpeedupBuff"] = 2] = "SpeedupBuff";
-	    EntityType[EntityType["Glod"] = 3] = "Glod";
-	    EntityType[EntityType["Box"] = 4] = "Box";
-	})(EntityType || (EntityType = {}));
-	class BaseEntity extends Laya.Script {
+	class TipView extends Laya.View {
 	    constructor() {
 	        super();
-	        this._animatorSpeed = 0;
-	        this._animatorName = "";
+	        var width = 800, height = 80;
+	        var img = new Laya.Image("common/blank.png");
+	        img.width = width;
+	        img.height = height;
+	        var txt = new Laya.Text();
+	        this._txt = txt;
+	        txt.fontSize = 36;
+	        txt.wordWrap = true;
+	        txt.color = "#FFFFFF";
+	        txt.width = width;
+	        txt.height = height;
+	        txt.align = "center";
+	        txt.valign = "middle";
+	        this.addChild(img);
+	        this.addChild(txt);
+	        this.width = width;
+	        this.height = height;
 	    }
-	    onAwake() {
-	        this.gameObject = this.owner;
-	        this.transform = this.gameObject.transform;
-	        if (this.entityType == EntityType.Player) {
-	            this.animator = ExUtils.getComponentInChild(this.gameObject, Laya.Animator);
+	    set text(text) {
+	        this._txt.text = text;
+	    }
+	    play(call, thisObj) {
+	        var self = this;
+	        self.scale(.8, .8);
+	        self.alpha = 1;
+	        Tween.get(self).
+	            to({
+	            scaleX: 1, scaleY: 1
+	        }, 200, Tween.turnEase(Laya.Ease.backOut)).
+	            wait(400).
+	            to({ alpha: 0 }, 400).
+	            call(call, thisObj);
+	    }
+	}
+	const randomBanner = function () {
+	    var banners = platform.banners;
+	    return banners && banners[Math.random() * banners.length | 0];
+	};
+	class UIMgr {
+	    static checkView(ui) {
+	        if (ui.setCloseCall === void 0) {
+	            ui.setCloseCall = function (call, obj) {
+	                let ond = ui.onDisable;
+	                ui.onDisable = function () {
+	                    ond.call(ui);
+	                    ui.onDisable = ond;
+	                    call && call.call(obj);
+	                };
+	            };
+	        }
+	        if (ui.onShow === void 0) {
+	            ui.onShow = function () { };
+	        }
+	        if (ui.onHide === void 0) {
+	            ui.onHide = function () { };
 	        }
 	    }
-	    updateLogic(now) {
-	    }
-	    getModelId() {
-	        return this.modelId;
-	    }
-	    crossFade(name, time) {
-	        if (!this.animator)
-	            return;
-	        this.animator.crossFade(name, time);
-	    }
-	    playAnimation(_animatorName, _isPlay = true) {
-	        if (this.animator) {
-	            if (_isPlay) {
-	                if (this._animatorSpeed > 0) {
-	                    this.animator.speed = this._animatorSpeed;
+	    static checkBanner(ui, bool) {
+	        let uiConfig = ui.$uiConfig;
+	        if (bool && uiConfig.banner) {
+	            let misTouchInfo = YLSDK.getBtnMisData();
+	            let isMisTouchView = misTouchInfo.switch && uiConfig.misTouch;
+	            let moveTime = misTouchInfo.bannerTime;
+	            let time = moveTime || 0;
+	            window.ydhw_wx && (ydhw.CreateBannerAd(false, false, this, () => {
+	                if (time > 0 && isMisTouchView) {
+	                    Laya.timer.once(time, this, () => {
+	                        if (ui == UIMgr.topUI()) {
+	                            ydhw.ShowBannerAd();
+	                            ui.$showBanner = true;
+	                        }
+	                    });
 	                }
-	                this._animatorSpeed = 0;
-	                if (_animatorName.length > 0 && (_animatorName != this._animatorName)) {
-	                    this._animatorName = _animatorName;
-	                    this.crossFade(_animatorName, 0.1);
+	                else {
+	                    ydhw.ShowBannerAd();
+	                    ui.$showBanner = true;
+	                }
+	            }));
+	            return;
+	        }
+	        ui.$showBanner = false;
+	        window.ydhw_wx && (ydhw.HideBannerAd());
+	    }
+	    static checkMask(ui) {
+	        var config = ui.$uiConfig;
+	        config && config.mask ? UIMgr.showMaskBg(ui) : UIMgr.hideMaskBg();
+	    }
+	    static checkTop(topUI) {
+	        var curTop = UIMgr.topUI();
+	        if (topUI == curTop && curTop) {
+	            UIMgr.checkBanner(topUI, true);
+	            UIMgr.checkMask(topUI);
+	            curTop.onShow();
+	        }
+	    }
+	    static showSideList(ui) {
+	    }
+	    static hideSideList() {
+	    }
+	    static onUIClose(ui) {
+	        var config = ui.$uiConfig;
+	        var tween = config && config.tween;
+	        if (tween) {
+	            UIMgr.hideTween(ui);
+	        }
+	        else {
+	            UIMgr.destroyUI(ui);
+	        }
+	    }
+	    static destroyUI(ui) {
+	        var list = ui._aniList;
+	        UIMgr.checkBanner(ui, false);
+	        if (list) {
+	            for (let i = 0, len = list.length; i < len; i++) {
+	                let ani = list[i];
+	                if (ani instanceof Laya.AnimationBase)
+	                    ani.clear();
+	            }
+	            ui._aniList = null;
+	        }
+	        Laya.timer.clearAll(ui);
+	        Laya.stage.removeChild(ui);
+	        Tween.clearAll(ui);
+	        ui.close();
+	        ui.destroy(true);
+	    }
+	    static showTween(ui) {
+	        Utils.uiEnableCall(ui, UIMgr.onShowTween, UIMgr, ui);
+	    }
+	    static onShowTween(ui) {
+	        var stage = Laya.stage;
+	        if (isNaN(ui.anchorX)) {
+	            ui.anchorX = .5;
+	            ui.x += ui.width / 2;
+	        }
+	        if (isNaN(ui.anchorY)) {
+	            ui.anchorY = .5;
+	            ui.y += ui.height / 2;
+	        }
+	        ui.scale(0, 0);
+	        stage.mouseEnabled = false;
+	        Tween.get(ui).to({ scaleX: 1, scaleY: 1 }, 300, Tween.turnEase(Laya.Ease.backOut)).call(function () {
+	            stage.mouseEnabled = true;
+	        });
+	    }
+	    static hideTween(ui) {
+	        var stage = Laya.stage;
+	        UIMgr.showMaskBg(ui);
+	        stage.mouseEnabled = false;
+	        Tween.get(ui).to({ scaleX: 0, scaleY: 0 }, 300, Tween.turnEase(Laya.Ease.backIn)).call(function () {
+	            UIMgr.hideMaskBg();
+	            stage.mouseEnabled = true;
+	            UIMgr.destroyUI(ui);
+	        });
+	    }
+	    static showMaskBg(ui) {
+	        var mask = UIMgr._maskBg;
+	        var stage = Laya.stage;
+	        if (!mask) {
+	            mask = UIMgr._maskBg = new Laya.Image("common/blank_2.png");
+	            mask.sizeGrid = "2,2,2,2";
+	            mask.size(stage.width + 20, stage.height + 20);
+	            mask.pos(-10, -10);
+	            mask.alpha = .7;
+	            mask.on(Laya.Event.MOUSE_DOWN, UIMgr, UIMgr.onStMask);
+	        }
+	        stage.addChild(mask);
+	        mask.zOrder = ui.zOrder;
+	        stage.setChildIndex(mask, stage.getChildIndex(ui));
+	    }
+	    static hideMaskBg() {
+	        var mask = UIMgr._maskBg;
+	        mask && mask.removeSelf();
+	    }
+	    static onStMask(e) {
+	        e.stopPropagation();
+	    }
+	    static openUI(uiConfig, data, visible, isKeep = false) {
+	        if (uiConfig) {
+	            let old = UIMgr.findUI(uiConfig);
+	            if (old) {
+	                console.error('so quick');
+	                return;
+	            }
+	            let clzz = Laya.ClassUtils.getRegClass(uiConfig.class);
+	            if (clzz && clzz.prototype instanceof Laya.Sprite) {
+	                let ui = new clzz;
+	                let top = UIMgr.topUI();
+	                if (data != null) {
+	                    ui.dataSource = data;
+	                }
+	                if (isKeep) {
+	                    ui.zOrder = UIMgr._keepZOrder;
+	                }
+	                else {
+	                    ui.zOrder = UIMgr._zOrder++;
+	                }
+	                ui.visible = visible !== false;
+	                ui.$uiConfig = uiConfig;
+	                Laya.stage.addChild(ui);
+	                UIMgr._uiArray.push(ui);
+	                UIMgr.checkBanner(ui, true);
+	                UIMgr.checkMask(ui);
+	                UIMgr.checkView(ui);
+	                top && top.onHide();
+	                uiConfig.tween && UIMgr.showTween(ui);
+	                ui.eventCount && ui.eventCount();
+	                EventMgr.event(EventType.CloseUI, uiConfig);
+	                return ui;
+	            }
+	            else
+	                console.error("openUI error", uiConfig);
+	        }
+	    }
+	    static openUIs(views, call) {
+	        for (let i = views.length - 1; i >= 0; i--) {
+	            let view = views[i];
+	            let old = call;
+	            call = function () {
+	                UIMgr.openUI(view[0], view[1]).setCloseCall(old);
+	            };
+	        }
+	        call && call();
+	    }
+	    static closeUI(uiConfig) {
+	        var isTop = false;
+	        if (uiConfig) {
+	            let _uiArray = UIMgr._uiArray;
+	            for (let endi = _uiArray.length - 1, i = endi; i >= 0; i--) {
+	                let ui = _uiArray[i];
+	                if (ui.$uiConfig == uiConfig) {
+	                    _uiArray.splice(i, 1);
+	                    UIMgr.onUIClose(ui);
+	                    isTop = i == endi;
+	                    break;
+	                }
+	            }
+	        }
+	        if (isTop) {
+	            Laya.timer.frameOnce(2, UIMgr, UIMgr.checkTop, [UIMgr.topUI()]);
+	        }
+	        EventMgr.event(EventType.OpenUI, uiConfig);
+	    }
+	    static updateUI(uiConfig, data) {
+	        var view = UIMgr.findUI(uiConfig);
+	        if (view) {
+	            UIMgr.setTop(uiConfig);
+	        }
+	        else
+	            UIMgr.openUI(uiConfig, data);
+	    }
+	    static toUI(uiConfig, data) {
+	        var array = UIMgr._uiArray, oldUI;
+	        for (let i = array.length - 1; i >= 0; i--) {
+	            let ui = array[i];
+	            if (ui.$uiConfig != uiConfig) {
+	                if (ui.zOrder != UIMgr._keepZOrder) {
+	                    UIMgr.onUIClose(ui);
+	                    array.splice(i, 1);
 	                }
 	            }
 	            else {
-	                if (this.animator.speed > 0) {
-	                    this._animatorSpeed = this.animator.speed;
-	                }
-	                this.animator.speed = 0;
+	                oldUI = ui;
+	                data !== void 0 && (ui.dataSource = data);
+	            }
+	        }
+	        if (oldUI) {
+	            UIMgr.checkTop(oldUI);
+	        }
+	        else {
+	            oldUI = UIMgr.openUI(uiConfig, data);
+	        }
+	        return oldUI;
+	    }
+	    static showBanner(uiConfig, bool) {
+	        var view = UIMgr.topUI();
+	        if (view && view.$uiConfig == uiConfig) {
+	            UIMgr.checkBanner(view, bool);
+	        }
+	    }
+	    static showTips(msg) {
+	        var tips = UIMgr._tipViews;
+	        if (tips == null) {
+	            let box = new Laya.Box();
+	            tips = UIMgr._tipViews = [];
+	            Laya.stage.addChild(box);
+	            box.zOrder = UIMgr._tZOrder;
+	            for (let i = 0; i < 3; i++) {
+	                let subBox = new TipView;
+	                subBox.alpha = 0;
+	                box.addChild(subBox);
+	                subBox.anchorX = subBox.anchorY = 0.5;
+	                subBox.x = 400;
+	                subBox.visible = false;
+	                tips.push(subBox);
+	            }
+	            box.width = 800;
+	            box.centerX = 0;
+	            box.centerY = -20;
+	        }
+	        if (tips.length == 0)
+	            return;
+	        var txt = tips.shift();
+	        txt.text = msg;
+	        txt.visible = true;
+	        txt.play(function () {
+	            tips.push(txt);
+	            txt.visible = false;
+	        });
+	    }
+	    static findUI(uiConfig) {
+	        if (uiConfig) {
+	            let _uiArray = UIMgr._uiArray;
+	            for (let i = _uiArray.length - 1; i >= 0; i--) {
+	                let ui = _uiArray[i];
+	                if (ui.$uiConfig == uiConfig)
+	                    return ui;
+	            }
+	        }
+	        return null;
+	    }
+	    static setTop(uiConfig) {
+	        var ui = UIMgr.findUI(uiConfig);
+	        if (ui) {
+	            let _uiArray = UIMgr._uiArray;
+	            let index = _uiArray.indexOf(ui);
+	            _uiArray.splice(index, 1);
+	            _uiArray.push(ui);
+	            ui.visible = true;
+	            ui.zOrder = UIMgr._zOrder++;
+	            UIMgr.checkTop(ui);
+	        }
+	    }
+	    static topUI() {
+	        var array = UIMgr._uiArray;
+	        var length = array.length;
+	        if (length > 0)
+	            return array[length - 1];
+	    }
+	    static setVisible(uiConfig, bool, isKeep) {
+	        var ui = UIMgr.findUI(uiConfig);
+	        if (bool && !ui) {
+	            ui = UIMgr.openUI(uiConfig, null, bool, isKeep);
+	        }
+	        ui && (ui.visible = bool);
+	        return ui;
+	    }
+	    static get topZOrder() {
+	        return UIMgr._tZOrder - 1;
+	    }
+	}
+	UIMgr._zOrder = 1000;
+	UIMgr._keepZOrder = 80000;
+	UIMgr._tZOrder = 100000;
+	UIMgr._uiArray = [];
+
+	var EYLCustomSwitch;
+	(function (EYLCustomSwitch) {
+	    EYLCustomSwitch[EYLCustomSwitch["Record_screen_popup"] = 0] = "Record_screen_popup";
+	    EYLCustomSwitch[EYLCustomSwitch["Video_Unlock_lvl"] = 1] = "Video_Unlock_lvl";
+	    EYLCustomSwitch[EYLCustomSwitch["Check_box"] = 2] = "Check_box";
+	    EYLCustomSwitch[EYLCustomSwitch["Insert_screen"] = 3] = "Insert_screen";
+	    EYLCustomSwitch[EYLCustomSwitch["Native_Ads"] = 4] = "Native_Ads";
+	    EYLCustomSwitch[EYLCustomSwitch["Skin_trial"] = 5] = "Skin_trial";
+	    EYLCustomSwitch[EYLCustomSwitch["Lucky_wheel"] = 6] = "Lucky_wheel";
+	    EYLCustomSwitch[EYLCustomSwitch["Game_scene_banner"] = 7] = "Game_scene_banner";
+	    EYLCustomSwitch[EYLCustomSwitch["Button_mistake"] = 8] = "Button_mistake";
+	    EYLCustomSwitch[EYLCustomSwitch["Baoxiang"] = 9] = "Baoxiang";
+	    EYLCustomSwitch[EYLCustomSwitch["Button_to_banner"] = 10] = "Button_to_banner";
+	    EYLCustomSwitch[EYLCustomSwitch["Text_button"] = 11] = "Text_button";
+	    EYLCustomSwitch[EYLCustomSwitch["False_close_button"] = 12] = "False_close_button";
+	    EYLCustomSwitch[EYLCustomSwitch["End_page_style"] = 13] = "End_page_style";
+	    EYLCustomSwitch[EYLCustomSwitch["Game_name"] = 14] = "Game_name";
+	    EYLCustomSwitch[EYLCustomSwitch["More_games"] = 15] = "More_games";
+	    EYLCustomSwitch[EYLCustomSwitch["Game_scene_elect"] = 16] = "Game_scene_elect";
+	    EYLCustomSwitch[EYLCustomSwitch["Pendant_8_elect"] = 17] = "Pendant_8_elect";
+	})(EYLCustomSwitch || (EYLCustomSwitch = {}));
+	var sdkSuport = typeof (ydhw) != "undefined";
+	class YLSDK {
+	    static get isWX() {
+	        return typeof (ydhw_wx) != "undefined";
+	    }
+	    static get isTT() {
+	        return typeof (ydhw_tt) != "undefined";
+	    }
+	    static init() {
+	        if (!sdkSuport)
+	            return;
+	        ydhw.Login(this, (isOK) => {
+	            if (isOK) {
+	                SideNewMgr.ins.getBoxDatasSync();
+	                GameConst.MisTouchSwitch = window.ydhw.SwitchTouch;
+	                ydhw.GetCustomConfig(this, (res) => {
+	                    YLSDK.initCustomSwitch(res);
+	                });
+	                ydhw.GetLayerList((layerList) => {
+	                    for (let i = 0; i < layerList.length; i++) {
+	                        let info = layerList[i];
+	                        if (!this._fuckAwayPaths[info.layer]) {
+	                            this._fuckAwayPaths[info.layer] = [];
+	                        }
+	                        this._fuckAwayPaths[info.layer].push(info);
+	                    }
+	                });
+	            }
+	        });
+	    }
+	    static initCustomSwitch(datas) {
+	        if (!datas) {
+	            console.warn("未获取到自定义开关配置数据");
+	            return;
+	        }
+	        for (let index = 0; index < datas.length; index++) {
+	            const e = datas[index];
+	            if (EYLCustomSwitch[e.name] == void 0) {
+	                console.warn('Warn：请在枚举中 添加对应的自定义开关  e.name = ', e.name);
+	            }
+	            else {
+	                this._customSwitch[EYLCustomSwitch[e.name]] = e.value;
 	            }
 	        }
 	    }
-	    setData(data) {
-	        this.cfgData = data;
+	    static getCustomSwitch(type) {
+	        return this._customSwitch[type];
+	    }
+	    static getBtnMisData() {
+	        if (this._customSwitch[EYLCustomSwitch.Button_mistake]) {
+	            let serverInfo = this._customSwitch[EYLCustomSwitch.Button_mistake];
+	            let datas = serverInfo.split(',');
+	            this._btnMisTouchInfo.switch = Number(datas[0]);
+	            this._btnMisTouchInfo.bannerTime = Number(datas[1]);
+	            this._btnMisTouchInfo.btnTime = Number(datas[2]);
+	        }
+	        return this._btnMisTouchInfo;
+	    }
+	    static getInsertScreenData() {
+	        if (this._customSwitch[EYLCustomSwitch.Insert_screen]) {
+	            let serverInfo = this._customSwitch[EYLCustomSwitch.Insert_screen];
+	            let datas = serverInfo.split(',');
+	            this._insertScreenInfo.switch = Number(datas[0]);
+	            this._insertScreenInfo.firstDelayTime = Number(datas[1]);
+	            this._insertScreenInfo.spaceTime = Number(datas[2]);
+	            this._insertScreenInfo.delayPopTime = Number(datas[3]);
+	        }
+	        return this._insertScreenInfo;
+	    }
+	    static getFuckAwayData(layer) {
+	        return this._fuckAwayPaths[layer];
+	    }
+	    static shortcut() {
+	        if (ydhw_oppo) {
+	            ydhw.HasShortcutInstalled(this, (res) => {
+	                let foolState = false;
+	                let timedelay = 0;
+	                if (this._shortcuttime === 0) {
+	                    this._shortcuttime = Date.now();
+	                    foolState = true;
+	                }
+	                else {
+	                    timedelay = Date.now() - this._shortcuttime;
+	                    if (timedelay > 60 * 1000) {
+	                        this._shortcuttime = Date.now();
+	                        foolState = true;
+	                    }
+	                }
+	                if (res == false && foolState) {
+	                    ydhw.InstallShortcut(this, () => {
+	                        Laya.timer.once(500, this, () => {
+	                            EventMgr.event(EventType.AddDesktopSuccess);
+	                        });
+	                    }, () => {
+	                    }, () => {
+	                    });
+	                }
+	                else {
+	                    console.log("用户有添加 游戏");
+	                }
+	            }, (err) => {
+	                console.log(err);
+	            }, () => {
+	            });
+	        }
+	    }
+	    static createInserstitialAd() {
+	        let insertData = this.getInsertScreenData();
+	        if (!insertData.switch)
+	            return;
+	        if (this._canShowInsertBanner === false) {
+	            let curtimeInterval = Date.now() - this._insertBannerShowTime;
+	            if (curtimeInterval > 1000 * insertData.firstDelayTime) {
+	                this._canShowInsertBanner = true;
+	            }
+	            console.log("插屏  时间判断", curtimeInterval);
+	        }
+	        if (this._insertBanerLastShowTime !== 0) {
+	            let curtimeLasttime = Date.now() - this._insertBanerLastShowTime;
+	            if (curtimeLasttime < insertData.spaceTime) {
+	                console.log("插屏展示时间加个太短  ");
+	                return;
+	            }
+	        }
+	        if (window.ydhw_wx && this._canShowInsertBanner && insertData.switch) {
+	            Laya.timer.once(GameConst.InsertBannerDelayTime, this, () => {
+	                ydhw.CreateInterstitialAd(true, this, () => {
+	                    ydhw.ShowInterstitialAd();
+	                    ydhw.HideBannerAd();
+	                    this._insertBanerLastShowTime = Date.now();
+	                }, () => {
+	                }, () => {
+	                    if (this._isNativeAdShow) { }
+	                    else {
+	                        ydhw.ShowBannerAd();
+	                    }
+	                });
+	            });
+	        }
+	    }
+	    static createNative(index, _callback) {
+	        if (ydhw_oppo) {
+	            ydhw.CreateNativeAd(this, (list) => {
+	                if (list) {
+	                    this._isNativeAdShow = true;
+	                    var data = list[0];
+	                    this._nativeData[index] = list;
+	                    _callback && _callback(data);
+	                }
+	                else {
+	                    this._isNativeAdShow = false;
+	                }
+	            });
+	        }
+	    }
+	    static get nativeData() {
+	        return this._nativeData;
+	    }
+	    static clickNativeAd(index) {
+	        if (ydhw_oppo) {
+	            let list = this._nativeData[index];
+	            if (list) {
+	            }
+	        }
+	    }
+	    static set shortcuttime(time) {
+	        this._shortcuttime = time;
+	    }
+	    static set insertBannerShowTime(time) {
+	        this._insertBannerShowTime = time;
+	    }
+	    static get isNativeAdShow() {
+	        return this._isNativeAdShow;
+	    }
+	    static showRewardVideoAd(callFun) {
+	        if (!sdkSuport) {
+	            callFun(true);
+	            return;
+	        }
+	        ydhw.ShowRewardVideoAd(0, true, this, (type) => {
+	            console.log("video play state", type);
+	            let isOk = true;
+	            if (type == 2) {
+	                UIMgr.showTips("您的视频还没看完，无法获得奖励!");
+	                isOk = false;
+	            }
+	            else if (type == 0) {
+	                UIMgr.showTips("广告拉取繁忙，稍后再试!");
+	                isOk = false;
+	            }
+	            callFun(isOk);
+	        });
+	    }
+	    static statisResult(name, param = null) {
+	        if (!sdkSuport)
+	            return;
+	        let fuckAwayLists = YLSDK.getFuckAwayData(name);
+	        fuckAwayLists && ydhw.StatisticResult(param);
+	    }
+	    static statisEvent(name, scene) {
+	        if (!sdkSuport)
+	            return;
+	        ydhw.StatisticEvent(name, scene);
+	    }
+	    static RecorderStart() {
+	        if (!sdkSuport || !YLSDK.isTT || this._recordStartTime > 0)
+	            return;
+	        this._recordStartTime = new Date().getTime();
+	        console.log("-------------RecorderStart--------:", this._recordStartTime);
+	        let duration = 100;
+	        ydhw_tt.RecorderStart(duration, (result) => {
+	            console.log("YLSDK -RecorderStart-onStart:", JSON.stringify(result));
+	        }, (result) => {
+	            console.log("YLSDK -RecorderStart-onError:", JSON.stringify(result));
+	        });
+	    }
+	    static RecorderStop() {
+	        if (!sdkSuport || !YLSDK.isTT || this._recordStartTime == 0)
+	            return;
+	        this._recordStartTime = 0;
+	        this.recorderTime = (new Date().getTime() - this._recordStartTime) * 0.001;
+	        console.log("-------------RecorderStop--------:", this.recorderTime);
+	        ydhw_tt.RecorderStop();
+	    }
+	    static ShareVideo(title, desc, query, success) {
+	        if (!sdkSuport || !YLSDK.isTT) {
+	            success && success();
+	            return;
+	        }
+	        ydhw_tt.ShareVideo(title, desc, query, (isOk) => {
+	            console.log("分享回调", isOk);
+	            if (isOk) {
+	                success && success();
+	            }
+	            else {
+	                console.log(isOk);
+	                UIMgr.showTips("分享视频失败!");
+	            }
+	        });
+	    }
+	}
+	YLSDK._customSwitch = [];
+	YLSDK._shortcuttime = 0;
+	YLSDK._insertBannerShowTime = 0;
+	YLSDK._insertBanerLastShowTime = 0;
+	YLSDK._canShowInsertBanner = false;
+	YLSDK._isNativeAdShow = false;
+	YLSDK._nativeData = [];
+	YLSDK._btnMisTouchInfo = {};
+	YLSDK._insertScreenInfo = {};
+	YLSDK._fuckAwayPaths = {};
+	YLSDK._recordStartTime = 0;
+
+	let addRoot = function (obj, root) {
+	    for (let i in obj) {
+	        obj[i] = root + obj[i];
+	    }
+	};
+	let AtlasRoot = "nativescene/res/";
+	let SceneRoot = "nativescene/scene/Conventional/";
+	let SkinRoot = SceneRoot + "Assets/Resources/Texture2D/";
+	let SoundRoot = "nativescene/sound/";
+	let MapRoot = "nativescene/map/";
+	let JsonRoot = "nativescene/";
+	let EAtlas = {
+	    Game: "game.atlas",
+	};
+	addRoot(EAtlas, AtlasRoot);
+	let ESprite3D = {
+	    MainCamera: "MainCamera.lh",
+	    DirectionalLight: "DirectionalLight.lh",
+	    Effect: "Effect.lh",
+	};
+	addRoot(ESprite3D, SceneRoot);
+	let EJson = {
+	    Configs: "configs.json"
+	};
+	let ECfg = {
+	    GlobalCfg: "globalcfg",
+	    LevelCfg: "level",
+	    Player: "player",
+	    ShopCfg: "shop",
+	};
+	addRoot(EJson, JsonRoot);
+	let ESound = {
+	    Bgm: "bgmusic.mp3",
+	    BtnClick: "click.mp3"
+	};
+	addRoot(ESound, SoundRoot);
+
+	class SoundMgr {
+	    static init() {
+	        var self = this;
+	        var getItem = Laya.LocalStorage.getItem;
+	        self.$openMusic = getItem(self.$cacheMusic) !== '0';
+	        self.$openSound = getItem(self.$cacheSound) !== '0';
+	        self.$openVibrate = getItem(self.$cacheVibrate) !== '0';
+	        Laya.SoundManager.autoStopMusic = true;
+	    }
+	    static get openMusic() {
+	        return this.$openMusic;
+	    }
+	    static set openMusic(open) {
+	        var self = this;
+	        if (self.$openMusic != open) {
+	            self.$openMusic = open;
+	            if (open)
+	                self.playBGM();
+	            else
+	                self.stopBGM();
+	            Laya.LocalStorage.setItem(self.$cacheMusic, Number(open) + '');
+	        }
+	    }
+	    static get openSound() {
+	        return this.$openSound;
+	    }
+	    static set openSound(open) {
+	        var self = this;
+	        if (self.$openSound != open) {
+	            self.$openSound = open;
+	            Laya.LocalStorage.setItem(self.$cacheSound, Number(open) + '');
+	        }
+	    }
+	    static get openVibrate() {
+	        return this.$openVibrate;
+	    }
+	    static set openVibrate(open) {
+	        var self = this;
+	        if (self.$openVibrate != open) {
+	            self.$openVibrate = open;
+	            Laya.LocalStorage.setItem(self.$cacheVibrate, Number(open) + '');
+	        }
+	    }
+	    static playBGM() {
+	        var self = this;
+	        if (self.openMusic) {
+	            if (!self.$channel) {
+	                self.$channel = Laya.SoundManager.playMusic(ESound.Bgm);
+	            }
+	            self.setMusicVolume(0.2);
+	        }
+	    }
+	    static stopBGM() {
+	        this.setMusicVolume(0);
+	    }
+	    static playBtnClick() {
+	        this.playSound(ESound.BtnClick);
+	    }
+	    static playSound(url, loops) {
+	        if (this.openSound) {
+	            Laya.SoundManager.playSound(url, loops);
+	        }
+	    }
+	    static setMusicVolume(val) {
+	        Laya.SoundManager.setMusicVolume(val);
+	    }
+	    static setSoundVolume(val) {
+	        Laya.SoundManager.setSoundVolume(val);
+	    }
+	    static playVibrate(isLong) {
+	        if (this.openVibrate) {
+	            if (isLong) {
+	                platform.vibrateLong();
+	            }
+	            else {
+	                platform.vibrateShort();
+	            }
+	        }
+	    }
+	}
+	SoundMgr.$cacheMusic = 'cacheMusic';
+	SoundMgr.$cacheSound = "cacheSound";
+	SoundMgr.$cacheVibrate = 'cacheVibrate';
+
+	class UIUtils {
+	    static getCell(list, index) {
+	        return list.getCell(index);
+	    }
+	    static globalToLocal(sprite, x, y) {
+	        var temp = Laya.Point.TEMP;
+	        temp.setTo(x, y);
+	        sprite.globalToLocal(temp);
+	        return temp;
+	    }
+	    static centerChild(parent, num, dist = 0) {
+	        let len = parent.numChildren;
+	        if (len > 0) {
+	            let sum = 0, i, j = 0, arr = [];
+	            num === void 0 && (num = len);
+	            for (i = 0; i < len; i++) {
+	                let csi = parent.getChildAt(i);
+	                if (csi.visible) {
+	                    sum += csi.width;
+	                    arr.push(csi);
+	                    if (++j >= num) {
+	                        break;
+	                    }
+	                }
+	            }
+	            len = arr.length;
+	            sum = (parent.width - sum - (len - 1) * dist) / 2;
+	            for (i = 0; i < len; i++) {
+	                arr[i].x = sum;
+	                sum += arr[i].width + dist;
+	            }
+	        }
+	    }
+	    static initVSBtn(btn, module, childIdx, format) {
+	        var bool = false, config = 0;
+	        if (module) {
+	            bool = config > 0;
+	            if (bool && !(childIdx < 0)) {
+	                let child = (childIdx > -1 && btn.getChildAt(childIdx) || btn);
+	                let skin = Utils.formatString((format || 'main/icon_%s.png'), (config == 2 ? 'video' : 'share'));
+	                if (child instanceof Laya.Image)
+	                    child.skin = skin;
+	                else {
+	                    Utils.getRes(skin).then(function (res) {
+	                        child.texture = res;
+	                    });
+	                }
+	                child.visible = true;
+	            }
+	        }
+	        if (!bool) {
+	            let child = btn.getChildAt(childIdx);
+	            if (child) {
+	                child.visible = false;
+	                UIUtils.centerChild(btn, 1);
+	            }
+	        }
+	        return config;
+	    }
+	    static showMisTouch(view, time, offsetY = 0, later) {
+	        if (!GameConst.openMisTouch())
+	            return;
+	        if (later) {
+	            let arg = arguments;
+	            arg[arg.length - 1] = false;
+	            Laya.timer.frameOnce(2, UIUtils, UIUtils.showMisTouch, arg, false);
+	        }
+	        else {
+	            let height = view.height;
+	            let parent = view.parent;
+	            let oldY = view.y, anchorY = view.anchorY || 0;
+	            let point = UIUtils.globalToLocal(parent, 0, 1180 / 1334 * Laya.stage.height);
+	            view.y = point.y + ((parent.anchorY || 0) * parent.height) + (anchorY - 0.5) * height + offsetY;
+	            time = time || GameConst.BtnReSize;
+	            Laya.timer.once(time, null, function () {
+	                let offY = 0;
+	                view.y = oldY + ((view.anchorY || 0) - anchorY) * height - offY;
+	            });
+	        }
+	    }
+	    static addClick(node, func, thisObj, once, data, time = 300) {
+	        var fun = once ? "once" : "on", clickTime = 0, params = [], evtIdx;
+	        node.offAll();
+	        if (data !== void 0) {
+	            params.push(data);
+	            evtIdx = 1;
+	        }
+	        node[fun](Laya.Event.CLICK, thisObj, function (e) {
+	            var now = Date.now();
+	            e.stopPropagation();
+	            if (now - clickTime < time) {
+	                return;
+	            }
+	            params[evtIdx] = e;
+	            SoundMgr.playBtnClick();
+	            func.apply(thisObj, params);
+	            clickTime = now;
+	        });
+	        var oldsx = node.scaleX, oldsy = node.scaleY;
+	        if (node instanceof Laya.UIComponent) {
+	            if (isNaN(node.anchorX)) {
+	                node.anchorX = 0.5;
+	                node.x += node.width * 0.5 * oldsx;
+	            }
+	            if (isNaN(node.anchorY)) {
+	                node.anchorY = 0.5;
+	                node.y += node.height * 0.5 * oldsy;
+	            }
+	        }
+	        else {
+	            if (node instanceof Laya.Sprite) {
+	                if (node.pivotX == 0) {
+	                    node.pivotX = node.width * 0.5 * oldsx;
+	                    node.x += node.width * 0.5 * oldsx;
+	                }
+	                if (node.pivotY == 0) {
+	                    node.pivotY = node.height * 0.5 * oldsy;
+	                    node.y += node.height * 0.5 * oldsy;
+	                }
+	            }
+	        }
+	        var isTouch = false;
+	        var nextx = oldsx + (oldsx > 0 ? 1 : -1) * 0.05;
+	        var nexty = oldsy + (oldsy > 0 ? 1 : -1) * 0.05;
+	        var tOnce = Tween.once;
+	        var onDown = function (e) {
+	            isTouch = true;
+	            e.stopPropagation();
+	            tOnce(node).to({ scaleX: nextx, scaleY: nexty }, 200);
+	        };
+	        var onOut = function (e) {
+	            if (isTouch) {
+	                isTouch = false;
+	                e.stopPropagation();
+	                tOnce(node).to({ scaleX: oldsx, scaleY: oldsy }, 200);
+	            }
+	        };
+	        node.on(Laya.Event.MOUSE_DOWN, thisObj, onDown);
+	        node.on(Laya.Event.MOUSE_UP, thisObj, onOut);
+	        node.on(Laya.Event.MOUSE_OUT, thisObj, onOut);
+	    }
+	    static adapterTop(topBox) {
+	        let menu = platform.getMenuButtonBoundingClientRect();
+	        if (menu) {
+	            let temp = Laya.Point.TEMP;
+	            let info = platform.getSystemInfoSync();
+	            temp.y = menu.top * Laya.stage.height / info.screenHeight;
+	            if (Utils.checkPhoneIsBangs() && temp.y < 44) {
+	                temp.y = 44;
+	            }
+	            if (!isNaN(topBox.top)) {
+	                topBox.top = temp.y;
+	            }
+	            else {
+	                topBox.parent.globalToLocal(temp);
+	                topBox.y = temp.y;
+	            }
+	        }
+	        if (platform.isOppo) {
+	            topBox.top = 50;
+	        }
+	    }
+	    static drawTexture(camera, sp) {
+	        let renderTarget = camera.renderTarget;
+	        let rederTex = new Laya.Texture(renderTarget, Laya.Texture.DEF_UV);
+	        sp.graphics.drawTexture(rederTex);
+	    }
+	    static getRightTop(node) {
+	        let p = new Laya.Point(node.width, 0);
+	        return p;
+	    }
+	    static addClick2(target, call, thisObj) {
+	        target.on(Laya.Event.CLICK, thisObj, call);
 	    }
 	}
 
-	class CfgDataMgr {
+	class UIBaseView extends Laya.View {
 	    constructor() {
+	        super();
+	        this.$events = {};
+	        this.$calls = [];
+	        this.$btnMisTouch = null;
+	        this._misTouchBtnPos = new Laya.Vector2();
 	    }
-	    initConfigs() {
-	        var configs = Laya.loader.getRes(EJson.Configs);
-	        function loadFunc(name) {
-	            return configs[name];
+	    static init() {
+	        Laya.UIBaseView = UIBaseView;
+	    }
+	    onEnable() {
+	        this.showMisTouchBtn();
+	    }
+	    onDestroy() {
+	        super.onDestroy();
+	        var self = this, eventMgr = EventMgr, events = self.$events;
+	        for (let name in events) {
+	            eventMgr.off(name, self, events[name]);
 	        }
-	        this.globalCfg = loadFunc(ECfg.GlobalCfg);
-	        this.playerCfg = loadFunc(ECfg.Player);
-	        this.levelCfg = loadFunc(ECfg.LevelCfg);
-	        this.shopCfg = loadFunc(ECfg.ShopCfg);
-	        this.initData();
+	        self.$events = null;
+	        var calls = self.$calls, param = self.closeParam;
+	        for (let i in calls) {
+	            let data = calls[i];
+	            data[0].call(data[1], param);
+	        }
+	        self.timer.clearAll(this);
+	        self.offAll();
+	        self.$calls = self.closeParam = null;
 	    }
-	    initData() {
+	    regEvent(eventName, func) {
+	        var self = this;
+	        self.$events[eventName] = func;
+	        EventMgr.on(eventName, self, func);
 	    }
-	    getGlobalCfg(key, defValue = 0) {
-	        let cfg = CfgDataMgr.instance.globalCfg[key];
-	        return cfg ? cfg.value : defValue;
+	    regClick(node, func, once, data, time) {
+	        UIUtils.addClick(node, func, this, once, data, time);
+	    }
+	    onShow() {
+	    }
+	    onHide() {
+	    }
+	    setCloseCall(call, thisObj) {
+	        this.$calls.push([call, thisObj]);
+	    }
+	    clearCloseCall() {
+	        if (this.$calls) {
+	            this.$calls.length = 0;
+	        }
+	    }
+	    eventCount() {
+	        if (this.$uiConfig) {
+	            window.ydhw_wx && ydhw.StatisticEvent('ui', this.$uiConfig.name);
+	        }
+	    }
+	    showMisTouchBtn() {
+	        let misTouchInfo = YLSDK.getBtnMisData();
+	        let moveTime = misTouchInfo.btnTime;
+	        let time = moveTime || 0;
+	        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
+	        if (misTouchInfo.switch && buttonName && time && this[buttonName]) {
+	            let misTouchBtn = this[buttonName];
+	            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
+	            misTouchBtn.bottom = 60;
+	            Laya.timer.once(time, this, () => {
+	                misTouchBtn.bottom = NaN;
+	                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
+	                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
+	                misTouchBtn.pos(x, y);
+	            });
+	        }
 	    }
 	}
-	CfgDataMgr.instance = new CfgDataMgr();
+
+	class SideView extends Laya.View {
+	    constructor() {
+	        super(...arguments);
+	        this.$btnMisTouch = null;
+	        this._misTouchBtnPos = new Laya.Vector2();
+	    }
+	    static init() {
+	        Laya.SideView = SideView;
+	    }
+	    onEnable() {
+	        var self = this;
+	        self.showView(false);
+	        self.callLater(self.initSide);
+	    }
+	    initSide() {
+	        var self = this;
+	        SideNewMgr.ins.getBoxDatasSync((datas) => {
+	            if (self.parent) {
+	                if (datas && datas.length > 0) {
+	                    self.once(Laya.Event.UNDISPLAY, self, self.onClear);
+	                    SideMsg.register(ESMessage.S2S_REMOVE, self.onRemoved, self);
+	                    self.showView(true);
+	                    self.showMisTouchBtn();
+	                    self.initView(datas);
+	                }
+	                else {
+	                    self.onClose();
+	                }
+	            }
+	        });
+	    }
+	    showView(bool) {
+	        for (let i = 0, len = this.numChildren; i < len; i++) {
+	            let sp = this.getChildAt(i);
+	            if (sp) {
+	                sp.visible = bool;
+	            }
+	        }
+	    }
+	    initView(datas) {
+	    }
+	    onClear() {
+	        var self = this;
+	        SideMsg.remove(ESMessage.S2S_REMOVE, self.onRemoved, self);
+	    }
+	    onClose() {
+	        this.removeSelf();
+	    }
+	    bind(img, data, datas) {
+	        var self = this, type = Laya.Event.CLICK;
+	        var old = img.dataSource;
+	        img.skin = data.icon;
+	        img.dataSource = data;
+	        if (datas && old) {
+	            datas.push(old);
+	        }
+	        img.off(type, self, self.onClick);
+	        img.on(type, self, self.onClick, [data]);
+	    }
+	    onClick(side) {
+	        var self = this;
+	        SideMsg.notice(ESMessage.S2C_CLICK_BTN);
+	        if (side) {
+	            let appId = side.toAppid;
+	            if (appId) {
+	                let event = self.$event;
+	                let event1 = self.$event1;
+	                let reqC2SClick = function (enable) {
+	                    event && SideMsg.notice(ESMessage.S2C_DOT_SERVER, event, side, enable);
+	                };
+	                window.ydhw_wx && window.ydhw.NavigateToMiniProgram(side._id, side.toAppid, side.toUrl, "", this, (success) => {
+	                    if (success) {
+	                        self.onSuccess(side);
+	                        reqC2SClick(true);
+	                    }
+	                    else {
+	                        self.onCancel(side);
+	                        reqC2SClick(false);
+	                    }
+	                });
+	                if (event) {
+	                    let param = { iconId: side._id };
+	                    SideMsg.notice(ESMessage.S2C_DOT_ALD, event, param);
+	                }
+	                if (event1) {
+	                    SideMsg.notice(ESMessage.S2C_DOT_EVENT, event1, self.paramId);
+	                }
+	            }
+	        }
+	    }
+	    onSuccess(data) {
+	        SideMsg.notice(ESMessage.S2C_REMOVE, data);
+	    }
+	    onCancel(data) {
+	    }
+	    onRemoved(data) {
+	    }
+	    setAldEvent(event, event1) {
+	        this.$event = event;
+	        this.$event1 = event1;
+	    }
+	    showMisTouchBtn() {
+	        let misTouchInfo = YLSDK.getBtnMisData();
+	        let moveTime = misTouchInfo.btnTime;
+	        let time = moveTime || 0;
+	        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
+	        if (misTouchInfo.switch && buttonName && time && this[buttonName]) {
+	            let misTouchBtn = this[buttonName];
+	            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
+	            misTouchBtn.bottom = 60;
+	            Laya.timer.once(time, this, () => {
+	                misTouchBtn.bottom = NaN;
+	                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
+	                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
+	                misTouchBtn.pos(x, y);
+	            });
+	        }
+	    }
+	}
+
+	UIBaseView.init();
+	SideView.init();
+	var REG = Laya.ClassUtils.regClass;
+	var ui;
+	(function (ui) {
+	    var view;
+	    (function (view) {
+	        class DebugViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/DebugView");
+	            }
+	        }
+	        view.DebugViewUI = DebugViewUI;
+	        REG("ui.view.DebugViewUI", DebugViewUI);
+	        class FailViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/FailView");
+	            }
+	        }
+	        view.FailViewUI = FailViewUI;
+	        REG("ui.view.FailViewUI", FailViewUI);
+	        class HomeSellViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/HomeSellView");
+	            }
+	        }
+	        view.HomeSellViewUI = HomeSellViewUI;
+	        REG("ui.view.HomeSellViewUI", HomeSellViewUI);
+	        class HomeViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/HomeView");
+	            }
+	        }
+	        view.HomeViewUI = HomeViewUI;
+	        REG("ui.view.HomeViewUI", HomeViewUI);
+	        class LoadingViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/LoadingView");
+	            }
+	        }
+	        view.LoadingViewUI = LoadingViewUI;
+	        REG("ui.view.LoadingViewUI", LoadingViewUI);
+	        class RankingViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/RankingView");
+	            }
+	        }
+	        view.RankingViewUI = RankingViewUI;
+	        REG("ui.view.RankingViewUI", RankingViewUI);
+	        class ResultViewUI extends Laya.UIBaseView {
+	            constructor() { super(); }
+	            createChildren() {
+	                super.createChildren();
+	                this.loadScene("view/ResultView");
+	            }
+	        }
+	        view.ResultViewUI = ResultViewUI;
+	        REG("ui.view.ResultViewUI", ResultViewUI);
+	    })(view = ui.view || (ui.view = {}));
+	})(ui || (ui = {}));
+	(function (ui) {
+	    var view;
+	    (function (view) {
+	        var item;
+	        (function (item) {
+	            class BigBoxItem0UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/BigBoxItem0");
+	                }
+	            }
+	            item.BigBoxItem0UI = BigBoxItem0UI;
+	            REG("ui.view.item.BigBoxItem0UI", BigBoxItem0UI);
+	            class BigBoxItem1UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/BigBoxItem1");
+	                }
+	            }
+	            item.BigBoxItem1UI = BigBoxItem1UI;
+	            REG("ui.view.item.BigBoxItem1UI", BigBoxItem1UI);
+	            class MoreGameItem1UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/MoreGameItem1");
+	                }
+	            }
+	            item.MoreGameItem1UI = MoreGameItem1UI;
+	            REG("ui.view.item.MoreGameItem1UI", MoreGameItem1UI);
+	            class OverGameItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/OverGameItem");
+	                }
+	            }
+	            item.OverGameItemUI = OverGameItemUI;
+	            REG("ui.view.item.OverGameItemUI", OverGameItemUI);
+	            class SideBotItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideBotItem");
+	                }
+	            }
+	            item.SideBotItemUI = SideBotItemUI;
+	            REG("ui.view.item.SideBotItemUI", SideBotItemUI);
+	            class SideBoxItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideBoxItem");
+	                }
+	            }
+	            item.SideBoxItemUI = SideBoxItemUI;
+	            REG("ui.view.item.SideBoxItemUI", SideBoxItemUI);
+	            class SideBoxItem0UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideBoxItem0");
+	                }
+	            }
+	            item.SideBoxItem0UI = SideBoxItem0UI;
+	            REG("ui.view.item.SideBoxItem0UI", SideBoxItem0UI);
+	            class SideBoxItem1UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideBoxItem1");
+	                }
+	            }
+	            item.SideBoxItem1UI = SideBoxItem1UI;
+	            REG("ui.view.item.SideBoxItem1UI", SideBoxItem1UI);
+	            class SideGridItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideGridItem");
+	                }
+	            }
+	            item.SideGridItemUI = SideGridItemUI;
+	            REG("ui.view.item.SideGridItemUI", SideGridItemUI);
+	            class SideListItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideListItem");
+	                }
+	            }
+	            item.SideListItemUI = SideListItemUI;
+	            REG("ui.view.item.SideListItemUI", SideListItemUI);
+	            class SideListItem4UI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideListItem4");
+	                }
+	            }
+	            item.SideListItem4UI = SideListItem4UI;
+	            REG("ui.view.item.SideListItem4UI", SideListItem4UI);
+	            class SideNewItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/SideNewItem");
+	                }
+	            }
+	            item.SideNewItemUI = SideNewItemUI;
+	            REG("ui.view.item.SideNewItemUI", SideNewItemUI);
+	            class WXModelItemUI extends Laya.View {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/item/WXModelItem");
+	                }
+	            }
+	            item.WXModelItemUI = WXModelItemUI;
+	            REG("ui.view.item.WXModelItemUI", WXModelItemUI);
+	        })(item = view.item || (view.item = {}));
+	    })(view = ui.view || (ui.view = {}));
+	})(ui || (ui = {}));
+	(function (ui) {
+	    var view;
+	    (function (view) {
+	        var side;
+	        (function (side) {
+	            class BigBoxViewUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/BigBoxView");
+	                }
+	            }
+	            side.BigBoxViewUI = BigBoxViewUI;
+	            REG("ui.view.side.BigBoxViewUI", BigBoxViewUI);
+	            class GoldenEggViewUI extends Laya.UIBaseView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/GoldenEggView");
+	                }
+	            }
+	            side.GoldenEggViewUI = GoldenEggViewUI;
+	            REG("ui.view.side.GoldenEggViewUI", GoldenEggViewUI);
+	            class MorePeopleViewUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/MorePeopleView");
+	                }
+	            }
+	            side.MorePeopleViewUI = MorePeopleViewUI;
+	            REG("ui.view.side.MorePeopleViewUI", MorePeopleViewUI);
+	            class SideBotListUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideBotList");
+	                }
+	            }
+	            side.SideBotListUI = SideBotListUI;
+	            REG("ui.view.side.SideBotListUI", SideBotListUI);
+	            class SideBoxViewUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideBoxView");
+	                }
+	            }
+	            side.SideBoxViewUI = SideBoxViewUI;
+	            REG("ui.view.side.SideBoxViewUI", SideBoxViewUI);
+	            class SideDoubleListUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideDoubleList");
+	                }
+	            }
+	            side.SideDoubleListUI = SideDoubleListUI;
+	            REG("ui.view.side.SideDoubleListUI", SideDoubleListUI);
+	            class SideGridUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideGrid");
+	                }
+	            }
+	            side.SideGridUI = SideGridUI;
+	            REG("ui.view.side.SideGridUI", SideGridUI);
+	            class SideIconRTUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideIconRT");
+	                }
+	            }
+	            side.SideIconRTUI = SideIconRTUI;
+	            REG("ui.view.side.SideIconRTUI", SideIconRTUI);
+	            class SideLeftListUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideLeftList");
+	                }
+	            }
+	            side.SideLeftListUI = SideLeftListUI;
+	            REG("ui.view.side.SideLeftListUI", SideLeftListUI);
+	            class SideMoreGameViewUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideMoreGameView");
+	                }
+	            }
+	            side.SideMoreGameViewUI = SideMoreGameViewUI;
+	            REG("ui.view.side.SideMoreGameViewUI", SideMoreGameViewUI);
+	            class SideOverListUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/SideOverList");
+	                }
+	            }
+	            side.SideOverListUI = SideOverListUI;
+	            REG("ui.view.side.SideOverListUI", SideOverListUI);
+	            class WXModelViewUI extends Laya.SideView {
+	                constructor() { super(); }
+	                createChildren() {
+	                    super.createChildren();
+	                    this.loadScene("view/side/WXModelView");
+	                }
+	            }
+	            side.WXModelViewUI = WXModelViewUI;
+	            REG("ui.view.side.WXModelViewUI", WXModelViewUI);
+	        })(side = view.side || (view.side = {}));
+	    })(view = ui.view || (ui.view = {}));
+	})(ui || (ui = {}));
 
 	const SvModule = {};
 	const scoreCache = '积分策略模块列表';
@@ -2527,6 +3247,155 @@
 	    }
 	}
 
+	class CfgDataMgr {
+	    constructor() {
+	    }
+	    initConfigs() {
+	        var configs = Laya.loader.getRes(EJson.Configs);
+	        function loadFunc(name) {
+	            return configs[name];
+	        }
+	        this.globalCfg = loadFunc(ECfg.GlobalCfg);
+	        this.playerCfg = loadFunc(ECfg.Player);
+	        this.levelCfg = loadFunc(ECfg.LevelCfg);
+	        this.shopCfg = loadFunc(ECfg.ShopCfg);
+	        this.initData();
+	    }
+	    initData() {
+	    }
+	    getGlobalCfg(key, defValue = 0) {
+	        let cfg = CfgDataMgr.instance.globalCfg[key];
+	        return cfg ? cfg.value : defValue;
+	    }
+	}
+	CfgDataMgr.instance = new CfgDataMgr();
+
+	class TrySkinMgr {
+	    static init(cache) {
+	        var obj;
+	        try {
+	            obj = JSON.parse(cache);
+	        }
+	        catch (e) {
+	            obj = {};
+	        }
+	        TrySkinMgr.$cache = obj;
+	    }
+	    static getSkins() {
+	        var skins = TrySkinMgr.$skins;
+	        if (!skins) {
+	            let configs = CfgDataMgr.instance.shopCfg, hasShop = ShopMgr.hasShop;
+	            skins = TrySkinMgr.$skins = [];
+	            for (let i in configs) {
+	                let config = configs[i];
+	                if (config.IsExperience > 0 && !hasShop(config.id))
+	                    skins.push(config);
+	            }
+	        }
+	        return skins;
+	    }
+	    static inSkins(skinId) {
+	        var skins = TrySkinMgr.getSkins();
+	        for (let i = 0, len = skins.length; i < len; i++)
+	            if (skins[i].id === skinId)
+	                return true;
+	        return false;
+	    }
+	    static remove(skinId) {
+	        var skins = TrySkinMgr.getSkins();
+	        for (let i = 0, len = skins.length; i < len; i++)
+	            if (skins[i].id == skinId) {
+	                skins.splice(i, 1);
+	                break;
+	            }
+	    }
+	    static canTry() {
+	        var uInc = UserData.instance;
+	        return GameConst.ShareSwitch && uInc.level >= 3;
+	    }
+	    static getRandomSkinId() {
+	        var skinId = 0;
+	        var skins = TrySkinMgr.getSkins();
+	        var length = skins.length;
+	        if (length > 0)
+	            skinId = Utils.randomInArray(skins).id;
+	        return skinId;
+	    }
+	    static getRemain(skinId) {
+	        var count = TrySkinMgr.$cache[skinId] || 0;
+	        var config = CfgDataMgr.instance.shopCfg[skinId];
+	        return config ? config.ExperienceNumber - count : 0;
+	    }
+	    static addTryCount(skinId) {
+	        var cache = TrySkinMgr.$cache;
+	        var config = CfgDataMgr.instance.shopCfg[skinId];
+	        var count = cache[skinId] = (cache[skinId] || 0) + 1;
+	        var bool = count === config.ExperienceNumber;
+	        if (bool) {
+	            delete cache[skinId];
+	            ShopMgr.unlockShop(skinId);
+	        }
+	        return bool;
+	    }
+	}
+	TrySkinMgr.closeWin = 0;
+
+	class ShopMgr {
+	    static init(cache) {
+	        var obj;
+	        try {
+	            obj = JSON.parse(cache);
+	        }
+	        catch (e) {
+	            obj = {};
+	        }
+	        if (isNaN(obj.curSkinId))
+	            obj.curSkinId = 1000;
+	        var unlocks = obj.unlocks;
+	        if (!unlocks || !(unlocks instanceof Array) || unlocks.length == 0)
+	            obj.unlocks = [1000];
+	        ShopMgr.$cache = obj;
+	        ShopMgr.$unlocks = obj.unlocks;
+	    }
+	    static hasShop(shopId) {
+	        return ShopMgr.$unlocks.indexOf(shopId) > -1;
+	    }
+	    static getShop(shopId) {
+	        return CfgDataMgr.instance.shopCfg[shopId];
+	    }
+	    static unlockShop(shopId) {
+	        var unlocks = ShopMgr.$unlocks, bool;
+	        if (bool = unlocks.indexOf(shopId) == -1 && !!ShopMgr.getShop(shopId)) {
+	            unlocks.push(shopId);
+	            ShopMgr.saveCache();
+	            TrySkinMgr.remove(shopId);
+	        }
+	        return bool;
+	    }
+	    static get curSkinId() {
+	        return ShopMgr.$cache.curSkinId;
+	    }
+	    static set curSkinId(skinId) {
+	        var cache = ShopMgr.$cache;
+	        if (ShopMgr.hasShop(skinId) && cache.curSkinId != skinId) {
+	            cache.curSkinId = skinId;
+	            ShopMgr.saveCache();
+	            EventMgr.event(EventType.RefreshSkin);
+	        }
+	    }
+	    static isSpacial(shopId) {
+	        return shopId == 1105 || shopId == 1101;
+	    }
+	    static saveCache() {
+	        if (!ShopMgr.$timeout) {
+	            ShopMgr.$timeout = TimeUtils.setTimeout(function () {
+	                ShopMgr.$timeout = null;
+	                UserData.instance.setShopCache(JSON.stringify(ShopMgr.$cache));
+	            }, null, 40);
+	        }
+	    }
+	}
+
 	class UserData {
 	    constructor() {
 	        this.isNewPlayer = false;
@@ -2745,129 +3614,370 @@
 	}
 	UserData.instance = new UserData();
 
-	class TrySkinMgr {
-	    static init(cache) {
-	        var obj;
-	        try {
-	            obj = JSON.parse(cache);
-	        }
-	        catch (e) {
-	            obj = {};
-	        }
-	        TrySkinMgr.$cache = obj;
+	var FSMState;
+	(function (FSMState) {
+	    FSMState[FSMState["None"] = 0] = "None";
+	    FSMState[FSMState["GrabBallState"] = 1] = "GrabBallState";
+	    FSMState[FSMState["AttackState"] = 2] = "AttackState";
+	    FSMState[FSMState["AttackHoldBallState"] = 3] = "AttackHoldBallState";
+	    FSMState[FSMState["DefenseState"] = 4] = "DefenseState";
+	})(FSMState || (FSMState = {}));
+	class ActionFSM {
+	    constructor(player) {
+	        this._stateMap = null;
+	        this._aiInterval = 1;
+	        this._nextCheckFrame = 0;
+	        this._curFrame = 0;
+	        this._stateMap = {};
+	        this._player = player;
+	        this._isRunning = false;
 	    }
-	    static getSkins() {
-	        var skins = TrySkinMgr.$skins;
-	        if (!skins) {
-	            let configs = CfgDataMgr.instance.shopCfg, hasShop = ShopMgr.hasShop;
-	            skins = TrySkinMgr.$skins = [];
-	            for (let i in configs) {
-	                let config = configs[i];
-	                if (config.IsExperience > 0 && !hasShop(config.id))
-	                    skins.push(config);
+	    ;
+	    changeState(type) {
+	        let state = this._stateMap[type];
+	        if (state == null) {
+	            switch (type) {
+	                default:
+	                    break;
 	            }
+	            this._stateMap[type] = state;
 	        }
-	        return skins;
+	        if (this._curState)
+	            this._curState.onExit(this._player);
+	        state.onEnter(this._player);
+	        this._curState = state;
 	    }
-	    static inSkins(skinId) {
-	        var skins = TrySkinMgr.getSkins();
-	        for (let i = 0, len = skins.length; i < len; i++)
-	            if (skins[i].id === skinId)
-	                return true;
-	        return false;
+	    setRunning(value) {
+	        this._isRunning = value;
 	    }
-	    static remove(skinId) {
-	        var skins = TrySkinMgr.getSkins();
-	        for (let i = 0, len = skins.length; i < len; i++)
-	            if (skins[i].id == skinId) {
-	                skins.splice(i, 1);
-	                break;
-	            }
+	    isRunning() {
+	        return this._isRunning;
 	    }
-	    static canTry() {
-	        var uInc = UserData.instance;
-	        return GameConst.ShareSwitch && uInc.level >= 3;
+	    setAIInterval(val) {
+	        this._aiInterval = val;
 	    }
-	    static getRandomSkinId() {
-	        var skinId = 0;
-	        var skins = TrySkinMgr.getSkins();
-	        var length = skins.length;
-	        if (length > 0)
-	            skinId = Utils.randomInArray(skins).id;
-	        return skinId;
-	    }
-	    static getRemain(skinId) {
-	        var count = TrySkinMgr.$cache[skinId] || 0;
-	        var config = CfgDataMgr.instance.shopCfg[skinId];
-	        return config ? config.ExperienceNumber - count : 0;
-	    }
-	    static addTryCount(skinId) {
-	        var cache = TrySkinMgr.$cache;
-	        var config = CfgDataMgr.instance.shopCfg[skinId];
-	        var count = cache[skinId] = (cache[skinId] || 0) + 1;
-	        var bool = count === config.ExperienceNumber;
-	        if (bool) {
-	            delete cache[skinId];
-	            ShopMgr.unlockShop(skinId);
-	        }
-	        return bool;
+	    updateLogic() {
+	        if (!this._isRunning || !this._curState)
+	            return;
+	        this._curFrame++;
+	        if (this._curFrame < this._nextCheckFrame)
+	            return;
+	        if (this._player.isDead)
+	            return;
+	        this._curState.onRuning(this._player);
+	        this._nextCheckFrame = this._curFrame + this._aiInterval;
 	    }
 	}
-	TrySkinMgr.closeWin = 0;
 
-	class ShopMgr {
-	    static init(cache) {
-	        var obj;
-	        try {
-	            obj = JSON.parse(cache);
+	var Vector3$1 = Laya.Vector3;
+	class Vector3Ex {
+	}
+	Vector3Ex.ZERO = new Vector3$1(0, 0, 0);
+	Vector3Ex.One = new Vector3$1(1, 1, 1);
+	Vector3Ex.Up = new Vector3$1(0, 1, 0);
+	Vector3Ex.ForwardLH = new Vector3$1(0, 0, 1);
+	Vector3Ex.ForwardRH = new Vector3$1(0, 0, -1);
+	Vector3Ex.UnitX = new Vector3$1(1, 0, 0);
+	Vector3Ex.UnitY = new Vector3$1(0, 1, 0);
+	Vector3Ex.UnitZ = new Vector3$1(0, 0, 1);
+
+	class SceneConst {
+	}
+	SceneConst.Realtime_Shadow = false;
+	SceneConst.Enable_Fog = false;
+	SceneConst.Enable_Skybox = false;
+
+	var Sprite3D = Laya.Sprite3D;
+	var Texture2D = Laya.Texture2D;
+	var MeshSprite3D = Laya.MeshSprite3D;
+	var SkinnedMeshSprite3D = Laya.SkinnedMeshSprite3D;
+	var Handler = Laya.Handler;
+	var BaseMaterial = Laya.BaseMaterial;
+	var Vector3$2 = Laya.Vector3;
+	class ExUtils {
+	    constructor() {
+	    }
+	    static setPathSkin(model, skinUrl) {
+	        if (!skinUrl)
+	            return;
+	        Laya.loader.create(skinUrl, Laya.Handler.create(this, (texture) => {
+	            ExUtils.setModelSkin(model, texture, null, "materials");
+	            model.active = true;
+	        }), null, Laya.Loader.TEXTURE2D, [256, 256, 0, false]);
+	    }
+	    static setModelSkinByUrl(model, skinUrl) {
+	        if (!skinUrl)
+	            return;
+	        Texture2D.load(skinUrl, Handler.create(this, function (texture) {
+	            ExUtils.setModelSkin(model, texture, null, "materials");
+	            model.active = true;
+	        }));
+	    }
+	    static setModelSkin(model, texture, color = null, matName = "sharedMaterials") {
+	        if (model == null || texture == null)
+	            return;
+	        if (model instanceof MeshSprite3D) {
+	            var meshSprite3D = model;
+	            for (var i = 0; i < meshSprite3D.meshRenderer[matName].length; i++) {
+	                var material = meshSprite3D.meshRenderer[matName][i];
+	                material.albedoTexture = texture;
+	                if (color)
+	                    material.albedoColor = color;
+	            }
+	            meshSprite3D.meshRenderer.castShadow = SceneConst.Realtime_Shadow;
 	        }
-	        catch (e) {
-	            obj = {};
+	        if (model instanceof SkinnedMeshSprite3D) {
+	            var skinnedMeshSprite3D = model;
+	            for (var i = 0; i < skinnedMeshSprite3D.skinnedMeshRenderer[matName].length; i++) {
+	                var material = skinnedMeshSprite3D.skinnedMeshRenderer[matName][i];
+	                material.albedoTexture = texture;
+	                if (color)
+	                    material.albedoColor = color;
+	            }
+	            skinnedMeshSprite3D.skinnedMeshRenderer.castShadow = SceneConst.Realtime_Shadow;
 	        }
-	        if (isNaN(obj.curSkinId))
-	            obj.curSkinId = 1000;
-	        var unlocks = obj.unlocks;
-	        if (!unlocks || !(unlocks instanceof Array) || unlocks.length == 0)
-	            obj.unlocks = [1000];
-	        ShopMgr.$cache = obj;
-	        ShopMgr.$unlocks = obj.unlocks;
-	    }
-	    static hasShop(shopId) {
-	        return ShopMgr.$unlocks.indexOf(shopId) > -1;
-	    }
-	    static getShop(shopId) {
-	        return CfgDataMgr.instance.shopCfg[shopId];
-	    }
-	    static unlockShop(shopId) {
-	        var unlocks = ShopMgr.$unlocks, bool;
-	        if (bool = unlocks.indexOf(shopId) == -1 && !!ShopMgr.getShop(shopId)) {
-	            unlocks.push(shopId);
-	            ShopMgr.saveCache();
-	            TrySkinMgr.remove(shopId);
-	        }
-	        return bool;
-	    }
-	    static get curSkinId() {
-	        return ShopMgr.$cache.curSkinId;
-	    }
-	    static set curSkinId(skinId) {
-	        var cache = ShopMgr.$cache;
-	        if (ShopMgr.hasShop(skinId) && cache.curSkinId != skinId) {
-	            cache.curSkinId = skinId;
-	            ShopMgr.saveCache();
-	            EventMgr.event(EventType.RefreshSkin);
+	        for (var i = 0, n = model.numChildren; i < n; i++) {
+	            this.setModelSkin(model.getChildAt(i), texture, color, matName);
 	        }
 	    }
-	    static isSpacial(shopId) {
-	        return shopId == 1105 || shopId == 1101;
+	    static setMatetial(node, path, handler = null) {
+	        BaseMaterial.load(path, Handler.create(this, function (mat) {
+	            let mesh = this.getMesh(node);
+	            if (mesh) {
+	                mesh.meshRenderer.material = mat;
+	                mesh.meshRenderer.castShadow = SceneConst.Realtime_Shadow;
+	                mesh.meshRenderer.receiveShadow = SceneConst.Realtime_Shadow;
+	                if (handler)
+	                    handler.run();
+	            }
+	        }));
 	    }
-	    static saveCache() {
-	        if (!ShopMgr.$timeout) {
-	            ShopMgr.$timeout = TimeUtils.setTimeout(function () {
-	                ShopMgr.$timeout = null;
-	                UserData.instance.setShopCache(JSON.stringify(ShopMgr.$cache));
-	            }, null, 40);
+	    static setSkinMeshMaterail(node, mat) {
+	        let mesh = this.getSkinMesh(node);
+	        if (mesh) {
+	            mesh.skinnedMeshRenderer.material = mat;
 	        }
+	    }
+	    static getMaterial(node) {
+	        if (node == null)
+	            return null;
+	        let mesh = this.getMesh(node);
+	        if (mesh) {
+	            var material = mesh.meshRenderer.sharedMaterials[0];
+	            return material;
+	        }
+	        let mat;
+	        for (let i = 0; i < node.numChildren; i++) {
+	            mat = this.getMaterial(node.getChildAt(i));
+	            if (mat) {
+	                return mat;
+	            }
+	        }
+	        return null;
+	    }
+	    static setRecieveShadow(model, val) {
+	        if (model instanceof MeshSprite3D) {
+	            var meshSprite3D = model;
+	            meshSprite3D.meshRenderer.receiveShadow = val;
+	        }
+	        if (model instanceof SkinnedMeshSprite3D) {
+	            var skinnedMeshSprite3D = model;
+	            skinnedMeshSprite3D.skinnedMeshRenderer.receiveShadow = val;
+	        }
+	        for (var i = 0; i < model.numChildren; i++) {
+	            this.setRecieveShadow(model.getChildAt(i), val);
+	        }
+	    }
+	    static setCastShadow(model, val) {
+	        if (model instanceof MeshSprite3D) {
+	            var meshSprite3D = model;
+	            meshSprite3D.meshRenderer.castShadow = val;
+	        }
+	        if (model instanceof SkinnedMeshSprite3D) {
+	            var skinnedMeshSprite3D = model;
+	            skinnedMeshSprite3D.skinnedMeshRenderer.castShadow = val;
+	        }
+	        for (var i = 0; i < model.numChildren; i++) {
+	            this.setCastShadow(model.getChildAt(i), val);
+	        }
+	    }
+	    static getMesh(obj) {
+	        if (obj == null)
+	            return null;
+	        let mesh;
+	        if (obj instanceof MeshSprite3D) {
+	            return obj;
+	        }
+	        for (let i = 0; i < obj.numChildren; i++) {
+	            mesh = this.getMesh(obj.getChildAt(i));
+	            if (mesh) {
+	                return mesh;
+	            }
+	        }
+	        return null;
+	    }
+	    static getSkinMesh(obj) {
+	        if (obj == null)
+	            return null;
+	        let mesh;
+	        if (obj instanceof SkinnedMeshSprite3D) {
+	            return obj;
+	        }
+	        for (let i = 0; i < obj.numChildren; i++) {
+	            mesh = this.getSkinMesh(obj.getChildAt(i));
+	            if (mesh) {
+	                return mesh;
+	            }
+	        }
+	        return null;
+	    }
+	    static instanceSprite3D(path, parent, handler = null) {
+	        let callback = Handler.create(this, function (obj) {
+	            if (obj == null || obj == null) {
+	                console.error("instanceSprite3D null", path);
+	                return;
+	            }
+	            let instance = Sprite3D.instantiate(obj, parent, false);
+	            if (handler)
+	                handler.runWith(instance);
+	        });
+	        let obj = Laya.loader.getRes(path);
+	        if (obj) {
+	            callback.runWith(obj);
+	            return;
+	        }
+	        Sprite3D.load(path, callback);
+	    }
+	    static getComponentInChild(obj, cls) {
+	        let component = obj.getComponent(cls);
+	        if (component instanceof cls) {
+	            return component;
+	        }
+	        for (let i = 0; i < obj.numChildren; i++) {
+	            component = this.getComponentInChild(obj.getChildAt(i), cls);
+	            if (component instanceof cls) {
+	                return component;
+	            }
+	        }
+	        return null;
+	    }
+	    static addSingleComponent(obj, cls) {
+	        if (obj == null) {
+	            console.trace("addSingleComponent obj null", cls);
+	            return null;
+	        }
+	        let component = obj.getComponent(cls);
+	        if (component == null) {
+	            component = obj.addComponent(cls);
+	        }
+	        return component;
+	    }
+	    static getChild(obj, path) {
+	        let nodeNames = path.split("/");
+	        for (let i = 0, size = nodeNames.length; i < size; i++) {
+	            obj = obj.getChildByName(nodeNames[i]);
+	        }
+	        return obj;
+	    }
+	    static findChild(obj, name) {
+	        if (obj.name == name) {
+	            return obj;
+	        }
+	        let result = null;
+	        for (let i = 0, size = obj.numChildren; i < size; i++) {
+	            result = this.findChild(obj.getChildAt(i), name);
+	            if (result) {
+	                return result;
+	            }
+	        }
+	        return null;
+	    }
+	    static LayaLookAt(tf, targetPos, ignoreY = false) {
+	        Vector3$2.subtract(tf.position, targetPos, this._vec);
+	        Vector3$2.add(tf.position, this._vec, this._vec);
+	        if (ignoreY) {
+	            this._vec.y = tf.position.y;
+	        }
+	        tf.lookAt(this._vec, Vector3Ex.Up, false);
+	    }
+	    static clearTrailPositions(trailSp) {
+	        let trail = trailSp['trailFilter'];
+	        if (!trail)
+	            return;
+	        trail['_lastPosition'].setValue(0, 0, 0);
+	        trail['_curtime'] = 0;
+	        trail['_totalLength'] = 0;
+	        let geometry = trail['_trialGeometry'];
+	        if (!geometry)
+	            return;
+	        geometry['_activeIndex'] = 0;
+	        geometry['_endIndex'] = 0;
+	        geometry['_disappearBoundsMode'] = false;
+	        let subBirth = geometry['_subBirthTime'];
+	        subBirth && subBirth.fill(0);
+	        let subDistance = geometry['_subDistance'];
+	        subDistance && subDistance.fill(0);
+	        geometry['_segementCount'] = 0;
+	        geometry['_isTempEndVertex'] = false;
+	        geometry['_needAddFirstVertex'] = false;
+	        geometry['_lastFixedVertexPosition'].setValue(0, 0, 0);
+	    }
+	}
+	ExUtils._vec = new Vector3$2();
+
+	var EntityType;
+	(function (EntityType) {
+	    EntityType[EntityType["Player"] = 0] = "Player";
+	    EntityType[EntityType["Obstacle"] = 1] = "Obstacle";
+	    EntityType[EntityType["SpeedupBuff"] = 2] = "SpeedupBuff";
+	    EntityType[EntityType["Glod"] = 3] = "Glod";
+	    EntityType[EntityType["Box"] = 4] = "Box";
+	})(EntityType || (EntityType = {}));
+	class BaseEntity extends Laya.Script {
+	    constructor() {
+	        super();
+	        this._animatorSpeed = 0;
+	        this._animatorName = "";
+	    }
+	    onAwake() {
+	        this.gameObject = this.owner;
+	        this.transform = this.gameObject.transform;
+	        if (this.entityType == EntityType.Player) {
+	            this.animator = ExUtils.getComponentInChild(this.gameObject, Laya.Animator);
+	        }
+	    }
+	    updateLogic(now) {
+	    }
+	    getModelId() {
+	        return this.modelId;
+	    }
+	    crossFade(name, time) {
+	        if (!this.animator)
+	            return;
+	        this.animator.crossFade(name, time);
+	    }
+	    playAnimation(_animatorName, _isPlay = true) {
+	        if (this.animator) {
+	            if (_isPlay) {
+	                if (this._animatorSpeed > 0) {
+	                    this.animator.speed = this._animatorSpeed;
+	                }
+	                this._animatorSpeed = 0;
+	                if (_animatorName.length > 0 && (_animatorName != this._animatorName)) {
+	                    this._animatorName = _animatorName;
+	                    this.crossFade(_animatorName, 0.1);
+	                }
+	            }
+	            else {
+	                if (this.animator.speed > 0) {
+	                    this._animatorSpeed = this.animator.speed;
+	                }
+	                this.animator.speed = 0;
+	            }
+	        }
+	    }
+	    setData(data) {
+	        this.cfgData = data;
 	    }
 	}
 
@@ -2968,365 +4078,6 @@
 	        super.updateLogic(now);
 	    }
 	}
-
-	class TipView extends Laya.View {
-	    constructor() {
-	        super();
-	        var width = 800, height = 80;
-	        var img = new Laya.Image("common/blank.png");
-	        img.width = width;
-	        img.height = height;
-	        var txt = new Laya.Text();
-	        this._txt = txt;
-	        txt.fontSize = 36;
-	        txt.wordWrap = true;
-	        txt.color = "#FFFFFF";
-	        txt.width = width;
-	        txt.height = height;
-	        txt.align = "center";
-	        txt.valign = "middle";
-	        this.addChild(img);
-	        this.addChild(txt);
-	        this.width = width;
-	        this.height = height;
-	    }
-	    set text(text) {
-	        this._txt.text = text;
-	    }
-	    play(call, thisObj) {
-	        var self = this;
-	        self.scale(.8, .8);
-	        self.alpha = 1;
-	        Tween.get(self).
-	            to({
-	            scaleX: 1, scaleY: 1
-	        }, 200, Tween.turnEase(Laya.Ease.backOut)).
-	            wait(400).
-	            to({ alpha: 0 }, 400).
-	            call(call, thisObj);
-	    }
-	}
-	const randomBanner = function () {
-	    var banners = platform.banners;
-	    return banners && banners[Math.random() * banners.length | 0];
-	};
-	class UIMgr {
-	    static checkView(ui) {
-	        if (ui.setCloseCall === void 0) {
-	            ui.setCloseCall = function (call, obj) {
-	                let ond = ui.onDisable;
-	                ui.onDisable = function () {
-	                    ond.call(ui);
-	                    ui.onDisable = ond;
-	                    call && call.call(obj);
-	                };
-	            };
-	        }
-	        if (ui.onShow === void 0) {
-	            ui.onShow = function () { };
-	        }
-	        if (ui.onHide === void 0) {
-	            ui.onHide = function () { };
-	        }
-	    }
-	    static checkBanner(ui, bool) {
-	        let uiConfig = ui.$uiConfig;
-	        if (bool && uiConfig.banner) {
-	            let misTouchInfo = YLSDK.ins.getBtnMisData();
-	            let isMisTouchView = misTouchInfo.switch && uiConfig.misTouch;
-	            let moveTime = misTouchInfo.bannerTime;
-	            let time = moveTime || 0;
-	            window.ydhw_wx && (ydhw.CreateBannerAd(false, false, this, () => {
-	                if (time > 0 && isMisTouchView) {
-	                    Laya.timer.once(time, this, () => {
-	                        if (ui == UIMgr.topUI()) {
-	                            ydhw.ShowBannerAd();
-	                            ui.$showBanner = true;
-	                        }
-	                    });
-	                }
-	                else {
-	                    ydhw.ShowBannerAd();
-	                    ui.$showBanner = true;
-	                }
-	            }));
-	            return;
-	        }
-	        ui.$showBanner = false;
-	        window.ydhw_wx && (ydhw.HideBannerAd());
-	    }
-	    static checkMask(ui) {
-	        var config = ui.$uiConfig;
-	        config && config.mask ? UIMgr.showMaskBg(ui) : UIMgr.hideMaskBg();
-	    }
-	    static checkTop(topUI) {
-	        var curTop = UIMgr.topUI();
-	        if (topUI == curTop && curTop) {
-	            UIMgr.checkBanner(topUI, true);
-	            UIMgr.checkMask(topUI);
-	            curTop.onShow();
-	        }
-	    }
-	    static showSideList(ui) {
-	    }
-	    static hideSideList() {
-	    }
-	    static onUIClose(ui) {
-	        var config = ui.$uiConfig;
-	        var tween = config && config.tween;
-	        if (tween) {
-	            UIMgr.hideTween(ui);
-	        }
-	        else {
-	            UIMgr.destroyUI(ui);
-	        }
-	    }
-	    static destroyUI(ui) {
-	        var list = ui._aniList;
-	        UIMgr.checkBanner(ui, false);
-	        if (list) {
-	            for (let i = 0, len = list.length; i < len; i++) {
-	                let ani = list[i];
-	                if (ani instanceof Laya.AnimationBase)
-	                    ani.clear();
-	            }
-	            ui._aniList = null;
-	        }
-	        Laya.timer.clearAll(ui);
-	        Laya.stage.removeChild(ui);
-	        Tween.clearAll(ui);
-	        ui.close();
-	        ui.destroy(true);
-	    }
-	    static showTween(ui) {
-	        Utils.uiEnableCall(ui, UIMgr.onShowTween, UIMgr, ui);
-	    }
-	    static onShowTween(ui) {
-	        var stage = Laya.stage;
-	        if (isNaN(ui.anchorX)) {
-	            ui.anchorX = .5;
-	            ui.x += ui.width / 2;
-	        }
-	        if (isNaN(ui.anchorY)) {
-	            ui.anchorY = .5;
-	            ui.y += ui.height / 2;
-	        }
-	        ui.scale(0, 0);
-	        stage.mouseEnabled = false;
-	        Tween.get(ui).to({ scaleX: 1, scaleY: 1 }, 300, Tween.turnEase(Laya.Ease.backOut)).call(function () {
-	            stage.mouseEnabled = true;
-	        });
-	    }
-	    static hideTween(ui) {
-	        var stage = Laya.stage;
-	        UIMgr.showMaskBg(ui);
-	        stage.mouseEnabled = false;
-	        Tween.get(ui).to({ scaleX: 0, scaleY: 0 }, 300, Tween.turnEase(Laya.Ease.backIn)).call(function () {
-	            UIMgr.hideMaskBg();
-	            stage.mouseEnabled = true;
-	            UIMgr.destroyUI(ui);
-	        });
-	    }
-	    static showMaskBg(ui) {
-	        var mask = UIMgr._maskBg;
-	        var stage = Laya.stage;
-	        if (!mask) {
-	            mask = UIMgr._maskBg = new Laya.Image("common/blank_2.png");
-	            mask.sizeGrid = "2,2,2,2";
-	            mask.size(stage.width + 20, stage.height + 20);
-	            mask.pos(-10, -10);
-	            mask.alpha = .7;
-	            mask.on(Laya.Event.MOUSE_DOWN, UIMgr, UIMgr.onStMask);
-	        }
-	        stage.addChild(mask);
-	        mask.zOrder = ui.zOrder;
-	        stage.setChildIndex(mask, stage.getChildIndex(ui));
-	    }
-	    static hideMaskBg() {
-	        var mask = UIMgr._maskBg;
-	        mask && mask.removeSelf();
-	    }
-	    static onStMask(e) {
-	        e.stopPropagation();
-	    }
-	    static openUI(uiConfig, data, visible, isKeep = false) {
-	        if (uiConfig) {
-	            let old = UIMgr.findUI(uiConfig);
-	            if (old) {
-	                console.error('so quick');
-	                return;
-	            }
-	            let clzz = Laya.ClassUtils.getRegClass(uiConfig.class);
-	            if (clzz && clzz.prototype instanceof Laya.Sprite) {
-	                let ui = new clzz;
-	                let top = UIMgr.topUI();
-	                if (data != null) {
-	                    ui.dataSource = data;
-	                }
-	                if (isKeep) {
-	                    ui.zOrder = UIMgr._keepZOrder;
-	                }
-	                else {
-	                    ui.zOrder = UIMgr._zOrder++;
-	                }
-	                ui.visible = visible !== false;
-	                ui.$uiConfig = uiConfig;
-	                Laya.stage.addChild(ui);
-	                UIMgr._uiArray.push(ui);
-	                UIMgr.checkBanner(ui, true);
-	                UIMgr.checkMask(ui);
-	                UIMgr.checkView(ui);
-	                top && top.onHide();
-	                uiConfig.tween && UIMgr.showTween(ui);
-	                ui.eventCount && ui.eventCount();
-	                EventMgr.event(EventType.CloseUI, uiConfig);
-	                return ui;
-	            }
-	            else
-	                console.error("openUI error", uiConfig);
-	        }
-	    }
-	    static openUIs(views, call) {
-	        for (let i = views.length - 1; i >= 0; i--) {
-	            let view = views[i];
-	            let old = call;
-	            call = function () {
-	                UIMgr.openUI(view[0], view[1]).setCloseCall(old);
-	            };
-	        }
-	        call && call();
-	    }
-	    static closeUI(uiConfig) {
-	        var isTop = false;
-	        if (uiConfig) {
-	            let _uiArray = UIMgr._uiArray;
-	            for (let endi = _uiArray.length - 1, i = endi; i >= 0; i--) {
-	                let ui = _uiArray[i];
-	                if (ui.$uiConfig == uiConfig) {
-	                    _uiArray.splice(i, 1);
-	                    UIMgr.onUIClose(ui);
-	                    isTop = i == endi;
-	                    break;
-	                }
-	            }
-	        }
-	        if (isTop) {
-	            Laya.timer.frameOnce(2, UIMgr, UIMgr.checkTop, [UIMgr.topUI()]);
-	        }
-	        EventMgr.event(EventType.OpenUI, uiConfig);
-	    }
-	    static updateUI(uiConfig, data) {
-	        var view = UIMgr.findUI(uiConfig);
-	        if (view) {
-	            UIMgr.setTop(uiConfig);
-	        }
-	        else
-	            UIMgr.openUI(uiConfig, data);
-	    }
-	    static toUI(uiConfig, data) {
-	        var array = UIMgr._uiArray, oldUI;
-	        for (let i = array.length - 1; i >= 0; i--) {
-	            let ui = array[i];
-	            if (ui.$uiConfig != uiConfig) {
-	                if (ui.zOrder != UIMgr._keepZOrder) {
-	                    UIMgr.onUIClose(ui);
-	                    array.splice(i, 1);
-	                }
-	            }
-	            else {
-	                oldUI = ui;
-	                data !== void 0 && (ui.dataSource = data);
-	            }
-	        }
-	        if (oldUI) {
-	            UIMgr.checkTop(oldUI);
-	        }
-	        else {
-	            oldUI = UIMgr.openUI(uiConfig, data);
-	        }
-	        return oldUI;
-	    }
-	    static showBanner(uiConfig, bool) {
-	        var view = UIMgr.topUI();
-	        if (view && view.$uiConfig == uiConfig) {
-	            UIMgr.checkBanner(view, bool);
-	        }
-	    }
-	    static showTips(msg) {
-	        var tips = UIMgr._tipViews;
-	        if (tips == null) {
-	            let box = new Laya.Box();
-	            tips = UIMgr._tipViews = [];
-	            Laya.stage.addChild(box);
-	            box.zOrder = UIMgr._tZOrder;
-	            for (let i = 0; i < 3; i++) {
-	                let subBox = new TipView;
-	                subBox.alpha = 0;
-	                box.addChild(subBox);
-	                subBox.anchorX = subBox.anchorY = 0.5;
-	                subBox.x = 400;
-	                subBox.visible = false;
-	                tips.push(subBox);
-	            }
-	            box.width = 800;
-	            box.centerX = 0;
-	            box.centerY = -20;
-	        }
-	        if (tips.length == 0)
-	            return;
-	        var txt = tips.shift();
-	        txt.text = msg;
-	        txt.visible = true;
-	        txt.play(function () {
-	            tips.push(txt);
-	            txt.visible = false;
-	        });
-	    }
-	    static findUI(uiConfig) {
-	        if (uiConfig) {
-	            let _uiArray = UIMgr._uiArray;
-	            for (let i = _uiArray.length - 1; i >= 0; i--) {
-	                let ui = _uiArray[i];
-	                if (ui.$uiConfig == uiConfig)
-	                    return ui;
-	            }
-	        }
-	        return null;
-	    }
-	    static setTop(uiConfig) {
-	        var ui = UIMgr.findUI(uiConfig);
-	        if (ui) {
-	            let _uiArray = UIMgr._uiArray;
-	            let index = _uiArray.indexOf(ui);
-	            _uiArray.splice(index, 1);
-	            _uiArray.push(ui);
-	            ui.visible = true;
-	            ui.zOrder = UIMgr._zOrder++;
-	            UIMgr.checkTop(ui);
-	        }
-	    }
-	    static topUI() {
-	        var array = UIMgr._uiArray;
-	        var length = array.length;
-	        if (length > 0)
-	            return array[length - 1];
-	    }
-	    static setVisible(uiConfig, bool, isKeep) {
-	        var ui = UIMgr.findUI(uiConfig);
-	        if (bool && !ui) {
-	            ui = UIMgr.openUI(uiConfig, null, bool, isKeep);
-	        }
-	        ui && (ui.visible = bool);
-	        return ui;
-	    }
-	    static get topZOrder() {
-	        return UIMgr._tZOrder - 1;
-	    }
-	}
-	UIMgr._zOrder = 1000;
-	UIMgr._keepZOrder = 80000;
-	UIMgr._tZOrder = 100000;
-	UIMgr._uiArray = [];
 
 	let EUI = {
 	    BigBoxView: {
@@ -4108,756 +4859,6 @@
 	}
 	SceneMgr.instance = new SceneMgr();
 
-	var Animator = Laya.Animator;
-	class ViewModel extends Laya.Script3D {
-	    onAwake() {
-	        this.gameObject = this.owner;
-	        this.transform = this.gameObject.transform;
-	        EventMgr.on(EventType.ChangeRoleModel, this, this.changeModel);
-	    }
-	    onDestroy() {
-	        super.onDestroy();
-	        EventMgr.off(EventType.ChangeRoleModel, this, this.changeModel);
-	    }
-	    play(aniName) {
-	        this._aniName = aniName;
-	        if (this._animator && this._aniName) {
-	            this._animator.play(this._aniName);
-	        }
-	    }
-	    changeModel(url) {
-	        if (url == null || url == this._url)
-	            return;
-	        this._url = url;
-	        ExUtils.instanceSprite3D(url, null, Laya.Handler.create(this, (model) => {
-	            if (this.destroyed)
-	                return;
-	            let oldModel = this.gameObject.getChildAt(0);
-	            if (oldModel) {
-	                oldModel.destroy();
-	            }
-	            this.gameObject.addChild(model);
-	            this._animator = ExUtils.getComponentInChild(model, Animator);
-	            if (this._animator && this._aniName) {
-	                this._animator.play(this._aniName);
-	            }
-	        }));
-	    }
-	}
-
-	class UIUtils {
-	    static getCell(list, index) {
-	        return list.getCell(index);
-	    }
-	    static globalToLocal(sprite, x, y) {
-	        var temp = Laya.Point.TEMP;
-	        temp.setTo(x, y);
-	        sprite.globalToLocal(temp);
-	        return temp;
-	    }
-	    static centerChild(parent, num, dist = 0) {
-	        let len = parent.numChildren;
-	        if (len > 0) {
-	            let sum = 0, i, j = 0, arr = [];
-	            num === void 0 && (num = len);
-	            for (i = 0; i < len; i++) {
-	                let csi = parent.getChildAt(i);
-	                if (csi.visible) {
-	                    sum += csi.width;
-	                    arr.push(csi);
-	                    if (++j >= num) {
-	                        break;
-	                    }
-	                }
-	            }
-	            len = arr.length;
-	            sum = (parent.width - sum - (len - 1) * dist) / 2;
-	            for (i = 0; i < len; i++) {
-	                arr[i].x = sum;
-	                sum += arr[i].width + dist;
-	            }
-	        }
-	    }
-	    static initVSBtn(btn, module, childIdx, format) {
-	        var bool = false, config = 0;
-	        if (module) {
-	            bool = config > 0;
-	            if (bool && !(childIdx < 0)) {
-	                let child = (childIdx > -1 && btn.getChildAt(childIdx) || btn);
-	                let skin = Utils.formatString((format || 'main/icon_%s.png'), (config == 2 ? 'video' : 'share'));
-	                if (child instanceof Laya.Image)
-	                    child.skin = skin;
-	                else {
-	                    Utils.getRes(skin).then(function (res) {
-	                        child.texture = res;
-	                    });
-	                }
-	                child.visible = true;
-	            }
-	        }
-	        if (!bool) {
-	            let child = btn.getChildAt(childIdx);
-	            if (child) {
-	                child.visible = false;
-	                UIUtils.centerChild(btn, 1);
-	            }
-	        }
-	        return config;
-	    }
-	    static showMisTouch(view, time, offsetY = 0, later) {
-	        if (!GameConst.openMisTouch())
-	            return;
-	        if (later) {
-	            let arg = arguments;
-	            arg[arg.length - 1] = false;
-	            Laya.timer.frameOnce(2, UIUtils, UIUtils.showMisTouch, arg, false);
-	        }
-	        else {
-	            let height = view.height;
-	            let parent = view.parent;
-	            let oldY = view.y, anchorY = view.anchorY || 0;
-	            let point = UIUtils.globalToLocal(parent, 0, 1180 / 1334 * Laya.stage.height);
-	            view.y = point.y + ((parent.anchorY || 0) * parent.height) + (anchorY - 0.5) * height + offsetY;
-	            time = time || GameConst.BtnReSize;
-	            Laya.timer.once(time, null, function () {
-	                let offY = 0;
-	                view.y = oldY + ((view.anchorY || 0) - anchorY) * height - offY;
-	            });
-	        }
-	    }
-	    static addClick(node, func, thisObj, once, data, time = 300) {
-	        var fun = once ? "once" : "on", clickTime = 0, params = [], evtIdx;
-	        node.offAll();
-	        if (data !== void 0) {
-	            params.push(data);
-	            evtIdx = 1;
-	        }
-	        node[fun](Laya.Event.CLICK, thisObj, function (e) {
-	            var now = Date.now();
-	            e.stopPropagation();
-	            if (now - clickTime < time) {
-	                return;
-	            }
-	            params[evtIdx] = e;
-	            SoundMgr.playBtnClick();
-	            func.apply(thisObj, params);
-	            clickTime = now;
-	        });
-	        var oldsx = node.scaleX, oldsy = node.scaleY;
-	        if (node instanceof Laya.UIComponent) {
-	            if (isNaN(node.anchorX)) {
-	                node.anchorX = 0.5;
-	                node.x += node.width * 0.5 * oldsx;
-	            }
-	            if (isNaN(node.anchorY)) {
-	                node.anchorY = 0.5;
-	                node.y += node.height * 0.5 * oldsy;
-	            }
-	        }
-	        else {
-	            if (node instanceof Laya.Sprite) {
-	                if (node.pivotX == 0) {
-	                    node.pivotX = node.width * 0.5 * oldsx;
-	                    node.x += node.width * 0.5 * oldsx;
-	                }
-	                if (node.pivotY == 0) {
-	                    node.pivotY = node.height * 0.5 * oldsy;
-	                    node.y += node.height * 0.5 * oldsy;
-	                }
-	            }
-	        }
-	        var isTouch = false;
-	        var nextx = oldsx + (oldsx > 0 ? 1 : -1) * 0.05;
-	        var nexty = oldsy + (oldsy > 0 ? 1 : -1) * 0.05;
-	        var tOnce = Tween.once;
-	        var onDown = function (e) {
-	            isTouch = true;
-	            e.stopPropagation();
-	            tOnce(node).to({ scaleX: nextx, scaleY: nexty }, 200);
-	        };
-	        var onOut = function (e) {
-	            if (isTouch) {
-	                isTouch = false;
-	                e.stopPropagation();
-	                tOnce(node).to({ scaleX: oldsx, scaleY: oldsy }, 200);
-	            }
-	        };
-	        node.on(Laya.Event.MOUSE_DOWN, thisObj, onDown);
-	        node.on(Laya.Event.MOUSE_UP, thisObj, onOut);
-	        node.on(Laya.Event.MOUSE_OUT, thisObj, onOut);
-	    }
-	    static adapterTop(topBox) {
-	        let menu = platform.getMenuButtonBoundingClientRect();
-	        if (menu) {
-	            let temp = Laya.Point.TEMP;
-	            let info = platform.getSystemInfoSync();
-	            temp.y = menu.top * Laya.stage.height / info.screenHeight;
-	            if (Utils.checkPhoneIsBangs() && temp.y < 44) {
-	                temp.y = 44;
-	            }
-	            if (!isNaN(topBox.top)) {
-	                topBox.top = temp.y;
-	            }
-	            else {
-	                topBox.parent.globalToLocal(temp);
-	                topBox.y = temp.y;
-	            }
-	        }
-	        if (platform.isOppo) {
-	            topBox.top = 50;
-	        }
-	    }
-	    static showViewModel(view, cameraUrl, url = null, aniName = null, zOrder = -1) {
-	        let scene = new Laya.Scene3D();
-	        scene.input.multiTouchEnabled = true;
-	        if (zOrder != -1) {
-	            view.addChildAt(scene, zOrder);
-	        }
-	        else {
-	            view.addChild(scene);
-	        }
-	        scene.ambientColor = SceneMgr.instance.scene.ambientColor;
-	        let lightOrigin = SceneMgr.instance.light;
-	        let light = new Laya.DirectionLight();
-	        light.transform.rotation = lightOrigin.transform.rotation;
-	        var attrs = ['color', 'intensity', 'lightmapBakedType'];
-	        Utils.copyAttrs(attrs, light, lightOrigin);
-	        scene.addChild(light);
-	        let camera = Laya.Sprite3D.instantiate(Laya.loader.getRes(cameraUrl), null, false);
-	        scene.addChild(camera);
-	        camera.clearFlag = Laya.BaseCamera.CLEARFLAG_DEPTHONLY;
-	        camera.enableHDR = false;
-	        let modelParent = new Laya.Sprite3D();
-	        scene.addChild(modelParent);
-	        modelParent.transform.localRotationEulerY = 180;
-	        let model = modelParent.addComponent(ViewModel);
-	        model.changeModel(url);
-	        model.play(aniName);
-	        model.camera = camera;
-	        return model;
-	    }
-	    static drawTexture(camera, sp) {
-	        let renderTarget = camera.renderTarget;
-	        let rederTex = new Laya.Texture(renderTarget, Laya.Texture.DEF_UV);
-	        sp.graphics.drawTexture(rederTex);
-	    }
-	    static getRightTop(node) {
-	        let p = new Laya.Point(node.width, 0);
-	        return p;
-	    }
-	    static addClick2(target, call, thisObj) {
-	        target.on(Laya.Event.CLICK, thisObj, call);
-	    }
-	}
-
-	class UIBaseView extends Laya.View {
-	    constructor() {
-	        super();
-	        this.$events = {};
-	        this.$calls = [];
-	        this.$btnMisTouch = null;
-	        this._misTouchBtnPos = new Laya.Vector2();
-	    }
-	    static init() {
-	        Laya.UIBaseView = UIBaseView;
-	    }
-	    onEnable() {
-	        this.showMisTouchBtn();
-	    }
-	    onDestroy() {
-	        super.onDestroy();
-	        var self = this, eventMgr = EventMgr, events = self.$events;
-	        for (let name in events) {
-	            eventMgr.off(name, self, events[name]);
-	        }
-	        self.$events = null;
-	        var calls = self.$calls, param = self.closeParam;
-	        for (let i in calls) {
-	            let data = calls[i];
-	            data[0].call(data[1], param);
-	        }
-	        self.timer.clearAll(this);
-	        self.offAll();
-	        self.$calls = self.closeParam = null;
-	    }
-	    regEvent(eventName, func) {
-	        var self = this;
-	        self.$events[eventName] = func;
-	        EventMgr.on(eventName, self, func);
-	    }
-	    regClick(node, func, once, data, time) {
-	        UIUtils.addClick(node, func, this, once, data, time);
-	    }
-	    onShow() {
-	    }
-	    onHide() {
-	    }
-	    setCloseCall(call, thisObj) {
-	        this.$calls.push([call, thisObj]);
-	    }
-	    clearCloseCall() {
-	        if (this.$calls) {
-	            this.$calls.length = 0;
-	        }
-	    }
-	    eventCount() {
-	        if (this.$uiConfig) {
-	            window.ydhw_wx && ydhw.StatisticEvent('ui', this.$uiConfig.name);
-	        }
-	    }
-	    showMisTouchBtn() {
-	        let misTouchInfo = YLSDK.ins.getBtnMisData();
-	        let moveTime = misTouchInfo.btnTime;
-	        let time = moveTime || 0;
-	        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
-	        if (misTouchInfo.switch && buttonName && time && this[buttonName]) {
-	            let misTouchBtn = this[buttonName];
-	            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
-	            misTouchBtn.bottom = 60;
-	            Laya.timer.once(time, this, () => {
-	                misTouchBtn.bottom = NaN;
-	                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
-	                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
-	                misTouchBtn.pos(x, y);
-	            });
-	        }
-	    }
-	}
-
-	class SideView extends Laya.View {
-	    constructor() {
-	        super(...arguments);
-	        this.$btnMisTouch = null;
-	        this._misTouchBtnPos = new Laya.Vector2();
-	    }
-	    static init() {
-	        Laya.SideView = SideView;
-	    }
-	    onEnable() {
-	        var self = this;
-	        self.showView(false);
-	        self.callLater(self.initSide);
-	    }
-	    initSide() {
-	        var self = this;
-	        SideNewMgr.ins.getBoxDatasSync((datas) => {
-	            if (self.parent) {
-	                if (datas && datas.length > 0) {
-	                    self.once(Laya.Event.UNDISPLAY, self, self.onClear);
-	                    SideMsg.register(ESMessage.S2S_REMOVE, self.onRemoved, self);
-	                    self.showView(true);
-	                    self.showMisTouchBtn();
-	                    self.initView(datas);
-	                }
-	                else {
-	                    self.onClose();
-	                }
-	            }
-	        });
-	    }
-	    showView(bool) {
-	        for (let i = 0, len = this.numChildren; i < len; i++) {
-	            let sp = this.getChildAt(i);
-	            if (sp) {
-	                sp.visible = bool;
-	            }
-	        }
-	    }
-	    initView(datas) {
-	    }
-	    onClear() {
-	        var self = this;
-	        SideMsg.remove(ESMessage.S2S_REMOVE, self.onRemoved, self);
-	    }
-	    onClose() {
-	        this.removeSelf();
-	    }
-	    bind(img, data, datas) {
-	        var self = this, type = Laya.Event.CLICK;
-	        var old = img.dataSource;
-	        img.skin = data.icon;
-	        img.dataSource = data;
-	        if (datas && old) {
-	            datas.push(old);
-	        }
-	        img.off(type, self, self.onClick);
-	        img.on(type, self, self.onClick, [data]);
-	    }
-	    onClick(side) {
-	        var self = this;
-	        SideMsg.notice(ESMessage.S2C_CLICK_BTN);
-	        if (side) {
-	            let appId = side.toAppid;
-	            if (appId) {
-	                let event = self.$event;
-	                let event1 = self.$event1;
-	                let reqC2SClick = function (enable) {
-	                    event && SideMsg.notice(ESMessage.S2C_DOT_SERVER, event, side, enable);
-	                };
-	                window.ydhw_wx && window.ydhw.NavigateToMiniProgram(side._id, side.toAppid, side.toUrl, "", this, (success) => {
-	                    if (success) {
-	                        self.onSuccess(side);
-	                        reqC2SClick(true);
-	                    }
-	                    else {
-	                        self.onCancel(side);
-	                        reqC2SClick(false);
-	                    }
-	                });
-	                if (event) {
-	                    let param = { iconId: side._id };
-	                    SideMsg.notice(ESMessage.S2C_DOT_ALD, event, param);
-	                }
-	                if (event1) {
-	                    SideMsg.notice(ESMessage.S2C_DOT_EVENT, event1, self.paramId);
-	                }
-	            }
-	        }
-	    }
-	    onSuccess(data) {
-	        SideMsg.notice(ESMessage.S2C_REMOVE, data);
-	    }
-	    onCancel(data) {
-	    }
-	    onRemoved(data) {
-	    }
-	    setAldEvent(event, event1) {
-	        this.$event = event;
-	        this.$event1 = event1;
-	    }
-	    showMisTouchBtn() {
-	        let misTouchInfo = YLSDK.ins.getBtnMisData();
-	        let moveTime = misTouchInfo.btnTime;
-	        let time = moveTime || 0;
-	        let buttonName = this.$uiConfig ? this.$uiConfig.misTouch : '';
-	        if (misTouchInfo.switch && buttonName && time && this[buttonName]) {
-	            let misTouchBtn = this[buttonName];
-	            this._misTouchBtnPos.setValue(misTouchBtn.x, misTouchBtn.y);
-	            misTouchBtn.bottom = 60;
-	            Laya.timer.once(time, this, () => {
-	                misTouchBtn.bottom = NaN;
-	                let x = this._misTouchBtnPos.x + misTouchBtn.width * (misTouchBtn.anchorX || 0);
-	                let y = this._misTouchBtnPos.y + misTouchBtn.height * (misTouchBtn.anchorY || 0);
-	                misTouchBtn.pos(x, y);
-	            });
-	        }
-	    }
-	}
-
-	UIBaseView.init();
-	SideView.init();
-	var REG = Laya.ClassUtils.regClass;
-	var ui;
-	(function (ui) {
-	    var view;
-	    (function (view) {
-	        class DebugViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/DebugView");
-	            }
-	        }
-	        view.DebugViewUI = DebugViewUI;
-	        REG("ui.view.DebugViewUI", DebugViewUI);
-	        class FailViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/FailView");
-	            }
-	        }
-	        view.FailViewUI = FailViewUI;
-	        REG("ui.view.FailViewUI", FailViewUI);
-	        class HomeSellViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/HomeSellView");
-	            }
-	        }
-	        view.HomeSellViewUI = HomeSellViewUI;
-	        REG("ui.view.HomeSellViewUI", HomeSellViewUI);
-	        class HomeViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/HomeView");
-	            }
-	        }
-	        view.HomeViewUI = HomeViewUI;
-	        REG("ui.view.HomeViewUI", HomeViewUI);
-	        class LoadingViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/LoadingView");
-	            }
-	        }
-	        view.LoadingViewUI = LoadingViewUI;
-	        REG("ui.view.LoadingViewUI", LoadingViewUI);
-	        class RankingViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/RankingView");
-	            }
-	        }
-	        view.RankingViewUI = RankingViewUI;
-	        REG("ui.view.RankingViewUI", RankingViewUI);
-	        class ResultViewUI extends Laya.UIBaseView {
-	            constructor() { super(); }
-	            createChildren() {
-	                super.createChildren();
-	                this.loadScene("view/ResultView");
-	            }
-	        }
-	        view.ResultViewUI = ResultViewUI;
-	        REG("ui.view.ResultViewUI", ResultViewUI);
-	    })(view = ui.view || (ui.view = {}));
-	})(ui || (ui = {}));
-	(function (ui) {
-	    var view;
-	    (function (view) {
-	        var item;
-	        (function (item) {
-	            class BigBoxItem0UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/BigBoxItem0");
-	                }
-	            }
-	            item.BigBoxItem0UI = BigBoxItem0UI;
-	            REG("ui.view.item.BigBoxItem0UI", BigBoxItem0UI);
-	            class BigBoxItem1UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/BigBoxItem1");
-	                }
-	            }
-	            item.BigBoxItem1UI = BigBoxItem1UI;
-	            REG("ui.view.item.BigBoxItem1UI", BigBoxItem1UI);
-	            class MoreGameItem1UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/MoreGameItem1");
-	                }
-	            }
-	            item.MoreGameItem1UI = MoreGameItem1UI;
-	            REG("ui.view.item.MoreGameItem1UI", MoreGameItem1UI);
-	            class OverGameItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/OverGameItem");
-	                }
-	            }
-	            item.OverGameItemUI = OverGameItemUI;
-	            REG("ui.view.item.OverGameItemUI", OverGameItemUI);
-	            class SideBotItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideBotItem");
-	                }
-	            }
-	            item.SideBotItemUI = SideBotItemUI;
-	            REG("ui.view.item.SideBotItemUI", SideBotItemUI);
-	            class SideBoxItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideBoxItem");
-	                }
-	            }
-	            item.SideBoxItemUI = SideBoxItemUI;
-	            REG("ui.view.item.SideBoxItemUI", SideBoxItemUI);
-	            class SideBoxItem0UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideBoxItem0");
-	                }
-	            }
-	            item.SideBoxItem0UI = SideBoxItem0UI;
-	            REG("ui.view.item.SideBoxItem0UI", SideBoxItem0UI);
-	            class SideBoxItem1UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideBoxItem1");
-	                }
-	            }
-	            item.SideBoxItem1UI = SideBoxItem1UI;
-	            REG("ui.view.item.SideBoxItem1UI", SideBoxItem1UI);
-	            class SideGridItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideGridItem");
-	                }
-	            }
-	            item.SideGridItemUI = SideGridItemUI;
-	            REG("ui.view.item.SideGridItemUI", SideGridItemUI);
-	            class SideListItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideListItem");
-	                }
-	            }
-	            item.SideListItemUI = SideListItemUI;
-	            REG("ui.view.item.SideListItemUI", SideListItemUI);
-	            class SideListItem4UI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideListItem4");
-	                }
-	            }
-	            item.SideListItem4UI = SideListItem4UI;
-	            REG("ui.view.item.SideListItem4UI", SideListItem4UI);
-	            class SideNewItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/SideNewItem");
-	                }
-	            }
-	            item.SideNewItemUI = SideNewItemUI;
-	            REG("ui.view.item.SideNewItemUI", SideNewItemUI);
-	            class WXModelItemUI extends Laya.View {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/item/WXModelItem");
-	                }
-	            }
-	            item.WXModelItemUI = WXModelItemUI;
-	            REG("ui.view.item.WXModelItemUI", WXModelItemUI);
-	        })(item = view.item || (view.item = {}));
-	    })(view = ui.view || (ui.view = {}));
-	})(ui || (ui = {}));
-	(function (ui) {
-	    var view;
-	    (function (view) {
-	        var side;
-	        (function (side) {
-	            class BigBoxViewUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/BigBoxView");
-	                }
-	            }
-	            side.BigBoxViewUI = BigBoxViewUI;
-	            REG("ui.view.side.BigBoxViewUI", BigBoxViewUI);
-	            class GoldenEggViewUI extends Laya.UIBaseView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/GoldenEggView");
-	                }
-	            }
-	            side.GoldenEggViewUI = GoldenEggViewUI;
-	            REG("ui.view.side.GoldenEggViewUI", GoldenEggViewUI);
-	            class MorePeopleViewUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/MorePeopleView");
-	                }
-	            }
-	            side.MorePeopleViewUI = MorePeopleViewUI;
-	            REG("ui.view.side.MorePeopleViewUI", MorePeopleViewUI);
-	            class SideBotListUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideBotList");
-	                }
-	            }
-	            side.SideBotListUI = SideBotListUI;
-	            REG("ui.view.side.SideBotListUI", SideBotListUI);
-	            class SideBoxViewUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideBoxView");
-	                }
-	            }
-	            side.SideBoxViewUI = SideBoxViewUI;
-	            REG("ui.view.side.SideBoxViewUI", SideBoxViewUI);
-	            class SideDoubleListUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideDoubleList");
-	                }
-	            }
-	            side.SideDoubleListUI = SideDoubleListUI;
-	            REG("ui.view.side.SideDoubleListUI", SideDoubleListUI);
-	            class SideGridUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideGrid");
-	                }
-	            }
-	            side.SideGridUI = SideGridUI;
-	            REG("ui.view.side.SideGridUI", SideGridUI);
-	            class SideIconRTUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideIconRT");
-	                }
-	            }
-	            side.SideIconRTUI = SideIconRTUI;
-	            REG("ui.view.side.SideIconRTUI", SideIconRTUI);
-	            class SideLeftListUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideLeftList");
-	                }
-	            }
-	            side.SideLeftListUI = SideLeftListUI;
-	            REG("ui.view.side.SideLeftListUI", SideLeftListUI);
-	            class SideMoreGameViewUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideMoreGameView");
-	                }
-	            }
-	            side.SideMoreGameViewUI = SideMoreGameViewUI;
-	            REG("ui.view.side.SideMoreGameViewUI", SideMoreGameViewUI);
-	            class SideOverListUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/SideOverList");
-	                }
-	            }
-	            side.SideOverListUI = SideOverListUI;
-	            REG("ui.view.side.SideOverListUI", SideOverListUI);
-	            class WXModelViewUI extends Laya.SideView {
-	                constructor() { super(); }
-	                createChildren() {
-	                    super.createChildren();
-	                    this.loadScene("view/side/WXModelView");
-	                }
-	            }
-	            side.WXModelViewUI = WXModelViewUI;
-	            REG("ui.view.side.WXModelViewUI", WXModelViewUI);
-	        })(side = view.side || (view.side = {}));
-	    })(view = ui.view || (ui.view = {}));
-	})(ui || (ui = {}));
-
 	class DebugView extends ui.view.DebugViewUI {
 	    constructor() {
 	        super();
@@ -5038,7 +5039,7 @@
 	    }
 	    onAddDesktop() {
 	        let self = this;
-	        YLSDK.ins.shortcuttime = Date.now();
+	        YLSDK.shortcuttime = Date.now();
 	        platform.installShortcut((isAdded) => {
 	            Laya.timer.once(500, self, self.refreshAddDesktop);
 	        });
@@ -5057,10 +5058,10 @@
 	        });
 	    }
 	    onNativeIcon() {
-	        YLSDK.ins.clickNativeAd(0);
+	        YLSDK.clickNativeAd(0);
 	    }
 	    needShowNative() {
-	        if (!YLSDK.ins.getInsertScreenData().switch || !YLSDK.ins.isNativeAdShow)
+	        if (!YLSDK.getInsertScreenData().switch || !YLSDK.isNativeAdShow)
 	            return false;
 	        let arr = [
 	            EUI.SideBoxView,
@@ -5079,7 +5080,7 @@
 	        if (this.needShowNative() == false)
 	            return;
 	        this.nativeBg.visible = false;
-	        YLSDK.ins.createNative(0, (data) => {
+	        YLSDK.createNative(0, (data) => {
 	            this.nativeIcon.skin = data.iconUrlList[0];
 	            this.nativeBg.visible = true;
 	        });
@@ -6975,18 +6976,12 @@
 	        AldSDK.timeId = Date.now();
 	        AldSDK.aldSendEvent("开始游戏", false);
 	        this.setupPlatform();
-	        YLSDK.ins;
+	        YLSDK.init();
 	        SideReceiver.init();
 	        SoundMgr.init();
 	        DataStatistics.init();
 	        UserData.instance.init();
 	        UIMgr.openUI(EUI.LoadingView);
-	    }
-	    initSDK(success) {
-	        YLSDK.ins.insertBannerShowTime = Date.now();
-	        window.ydhw_wx && window.ydhw.ShareCard('jiesuan', this, (result) => { });
-	        {
-	        }
 	    }
 	    initCDNConfig() {
 	        var path = GameConst.CDN + platform.appId + "/cdn/";
@@ -6998,21 +6993,21 @@
 	            console.info("options:", options);
 	            Laya.timer.scale = 1;
 	            SoundMgr.playBGM();
-	            if (ydhw_wx) {
+	            if (window.ydhw_wx) {
 	                GameConst.Scene = options.scene;
 	                if (options.scene == 1089 || options.scene == 1104) {
 	                }
 	            }
-	            else if (ydhw_oppo) {
+	            else if (window.ydhw_oppo) {
 	                self.judgeTime();
 	            }
 	        });
 	        platform.onHide(() => {
-	            if (ydhw_wx) {
+	            if (window.ydhw_wx) {
 	                Laya.timer.scale = 0;
 	            }
-	            else if (ydhw_oppo) {
-	                YLSDK.ins.shortcut();
+	            else if (window.ydhw_oppo) {
+	                YLSDK.shortcut();
 	                self._hideTime = Date.now();
 	            }
 	        });

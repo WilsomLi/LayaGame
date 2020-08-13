@@ -80,7 +80,7 @@ class Main {
 		// this.initCDNConfig();
 
 		this.setupPlatform();
-		
+		YLSDK.init();
 		SideReceiver.init();
 		SoundMgr.init();
 		DataStatistics.init();
